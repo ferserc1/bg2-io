@@ -3,8 +3,8 @@
     "tasks": [
         {
             "type": "cppbuild",
-            "label": "C/C++: gcc build active file",
-            "command": "/usr/bin/gcc",
+            "label": "C/C++: gcc-9 build active file",
+            "command": "/usr/bin/gcc-9",
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
@@ -12,29 +12,7 @@
                 "-g",
                 "${workspaceFolder}/src/sample/*.c",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}",
-                "-I",
-                "${workspaceFolder}/src/bg2-io"
-            ],
-            "options": {
-                "cwd": "${workspaceFolder}"
-            },
-            "problemMatcher": [
-                "$gcc"
-            ],
-            "group": "build",
-            "detail": "compiler: /usr/bin/gcc"
-        },
-        {
-            "type": "cppbuild",
-            "label": "C/C++: gcc-9 build active file",
-            "command": "/usr/bin/gcc-9",
-            "args": [
-                "-fdiagnostics-color=always",
-                "-g",
-                "${file}",
-                "-o",
-                "${fileDirname}/${fileBasenameNoExtension}",
+                "${workspaceFolder}/bin/sample",
                 "-I",
                 "${workspaceFolder}/src/bg2-io"
             ],

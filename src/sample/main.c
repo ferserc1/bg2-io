@@ -1,6 +1,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <errno.h>
 
 #include "bg2-io.h"
@@ -17,6 +18,7 @@ void dumpBuffer(void *buffer, int bufferSize)
 	{
 		printf("%c", ((char *)buffer)[i]);
 	}
+	printf("\n");
 }
 
 Buffer * readBuffer(const char * path)
@@ -58,21 +60,34 @@ Buffer * readBuffer(const char * path)
 	return result;
 }
 
-int main()
-{
-	const char * path = "/home/fernando/desarrollo/bg2-io/resources/test.txt";
-	const char * path2 = "c:\\Users\\ferse\\Desktop\\resources\\test.txt";
-	Buffer * data = readBuffer(path2);
+void freeBuffer(Buffer *b) {
+	if (b != NULL)
+	{
+		if (b->buffer != NULL)
+		{
+			free(b->buffer);
+		}
+		free(b);
+	}
+}
 
+int main(int argc, const char ** argv)
+{
+	if (argc<2) {
+		printf("usage: sample file_path.bg2\n");
+		exit(1);
+	}
+
+	Buffer * data = readBuffer(argv[1]);
 	if (data == NULL)
 	{
-		printf("Error: could not read file at path \"%s\"\n", path);
+		printf("Error: could not read file at path \"%s\"\n", argv[1]);
 		return -1;
 	}
 	else
 	{
 		dumpBuffer(data->buffer, data->length);
-		free(data);
+		freeBuffer(data);
 	}
 	return 0;
 }
