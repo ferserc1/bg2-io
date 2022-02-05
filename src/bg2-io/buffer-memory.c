@@ -18,15 +18,15 @@ Bg2ioSize bg2io_createBuffer(Bg2ioBuffer *in, Bg2ioSize requiredSize)
 {
     if (in == NULL)
     {
-        return -1;
+        return BG2_IO_ERR_INVALID_PTR;
     }
-    else if (in->buffer != NULL || in->actualLength > 0 || in->length > in->actualLength) {
-        return -2;
+    else if (in->mem != NULL || in->actualLength > 0 || in->length > in->actualLength) {
+        return BG2_IO_ERR_UNINITIALIZED_BUFFER;
     }
 
     in->actualLength = bg2io_getActualBufferSize(requiredSize);
     in->length = requiredSize;
-    in->buffer = malloc(sizeof(Bg2ioByte) * in->actualLength);
+    in->mem = malloc(sizeof(Bg2ioByte) * in->actualLength);
     return in->actualLength;
 }
 
@@ -34,11 +34,11 @@ Bg2ioSize bg2io_reserveBuffer(Bg2ioBuffer *buffer, Bg2ioSize requiredSize)
 {
     if (buffer == NULL)
     {
-        return -1;
+        return BG2_IO_ERR_INVALID_PTR;
     }
     else if (requiredSize < buffer->length)
     {
-        return -2;
+        return BG2_IO_ERR_INVALID_REQUIRED_SIZE;
     }
     else if (requiredSize < buffer->actualLength)
     {
@@ -48,18 +48,18 @@ Bg2ioSize bg2io_reserveBuffer(Bg2ioBuffer *buffer, Bg2ioSize requiredSize)
     else
     {
         // Store the previous buffer pointer and size
-        Bg2ioBytePtr oldBuffer = buffer->buffer;
+        Bg2ioBytePtr oldBuffer = buffer->mem;
         Bg2ioSize oldLength = buffer->length;
 
         // Allocate the new buffer
         buffer->actualLength = bg2io_getActualBufferSize(requiredSize);
         buffer->length = requiredSize;
-        buffer->buffer = malloc(sizeof(Bg2ioBuffer) * buffer->actualLength);
+        buffer->mem = malloc(sizeof(Bg2ioBuffer) * buffer->actualLength);
         
         // Copy the old buffer to the new one
         for (Bg2ioSize i = 0; i < oldLength; ++i)
         {
-            buffer->buffer[i] = oldBuffer[i];
+            buffer->mem[i] = oldBuffer[i];
         }
 
         // Release the old buffer memory
@@ -70,10 +70,10 @@ Bg2ioSize bg2io_reserveBuffer(Bg2ioBuffer *buffer, Bg2ioSize requiredSize)
 
 void bg2io_freeBuffer(Bg2ioBuffer *buffer)
 {
-    if (buffer != NULL && buffer->buffer != NULL)
+    if (buffer != NULL && buffer->mem != NULL)
     {
-        free(buffer->buffer);
-        buffer->buffer = NULL;
+        free(buffer->mem);
+        buffer->mem = NULL;
         buffer->length = 0;
         buffer->actualLength = 0;
     }

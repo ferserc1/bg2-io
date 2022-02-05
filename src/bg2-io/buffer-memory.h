@@ -2,6 +2,7 @@
 #define BG2_IO_BUFFER_MEMORY
 
 #include "types.h"
+#include "errors.h"
 
 /**
  * @brief Returns the actual size closest to the required size for a buffer
@@ -19,8 +20,9 @@ Bg2ioSize bg2io_getActualBufferSize(Bg2ioSize requiredSize);
  * @param in a pointer to a clear Buffer structure
  * @param requiredSize the required minimum size
  * @return Bg2ioSize the actual size of the buffer, that 
- * can be higher than the require size, -1 if the buffer pointer
- * is NULL or -2 if the internal attributes are not initialized.
+ * can be higher than the require size or:
+ *  - BG2_IO_ERR_INVALID_PTR if the buffer pointer is NULL
+ *  - BG2_IO_ERR_UNINITIALIZED_BUFFER if the internal attributes are not initialized.
  * 
  */
 Bg2ioSize bg2io_createBuffer(Bg2ioBuffer *in, Bg2ioSize requiredSize);
@@ -32,8 +34,10 @@ Bg2ioSize bg2io_createBuffer(Bg2ioBuffer *in, Bg2ioSize requiredSize);
  * @param buffer the target buffer.
  * @param requiredSize the required size of the buffer.
  * @return Bg2ioSize returns the actual buffer size, after the
- * operation is executed, -1 if the input buffer is NULL or -2 if
- * the required size is lower than the buffer length (not the actual length).
+ * operation is executed or:
+ *  - BG2_IO_ERR_INVALID_PTR if the input buffer is NULL
+ *  - BG2_IO_ERR_INVALID_REQUIRED_SIZE if the required size is
+ *    lower than the buffer length (not the actual length).
  */
 Bg2ioSize bg2io_reserveBuffer(Bg2ioBuffer *buffer, Bg2ioSize requiredSize);
 

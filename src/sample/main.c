@@ -8,10 +8,12 @@
 
 void dumpBuffer(Bg2ioBuffer *buffer)
 {
-	Bg2ioSize i;
-	for (i = 0; i < buffer->length; ++i)
+	Bg2ioBufferIterator it = BG2IO_BUFFER_ITERATOR_INIT;
+	it.buffer = buffer;
+	unsigned char byte = '\0';
+	while (bg2io_readByte(&it, &byte) > 0)
 	{
-		printf("%c", ((char *)buffer->buffer)[i]);
+		printf("%c", byte);
 	}
 	printf("\n");
 }
@@ -35,7 +37,7 @@ int readBuffer(const char * path, Bg2ioBuffer *buffer)
 		}
 		else
 		{
-			fread(buffer->buffer, buffer->length, 1, file);
+			fread(buffer->mem, buffer->length, 1, file);
 		}
 
 		fclose(file);
@@ -69,5 +71,24 @@ int main(int argc, const char ** argv)
 		dumpBuffer(&buffer);
 		bg2io_freeBuffer(&buffer);
 	}
+
+	if (bg2io_isBigEndian())
+	{
+		printf("Big endian platform\n");
+	}
+	else
+	{
+		printf("Little endian platform\n");
+	}
+
+	if (bg2io_isLittleEndian())
+	{
+		printf("Little endian platform\n");
+	}
+	else
+	{
+		printf("Big endian platform\n");
+	}
+
 	return 0;
 }

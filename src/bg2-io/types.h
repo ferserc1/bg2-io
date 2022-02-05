@@ -10,13 +10,13 @@ typedef long long Bg2ioSize;
 /**
  * @brief Represents a data buffer
  * 
- * @param buffer the memory pointer to the buffer
+ * @param mem the memory pointer to the buffer
  * @param length is the size of the buffer that is filled with valid data.
  * @param actualLength is the actual size of the buffer in memory, which may be larger than length.
  * be larger than length
  */
 typedef struct Bg2ioBufferT {
-    Bg2ioBytePtr buffer;
+    Bg2ioBytePtr mem;
     Bg2ioSize length;
     Bg2ioSize actualLength;
 } Bg2ioBuffer;
@@ -34,7 +34,7 @@ typedef struct Bg2ioBufferT {
  * 
  */
 #define BG2IO_BUFFER_INIT { NULL, 0L, 0L }
-#define BG2IO_BUFFER_PTR_INIT(b) b->buffer = NULL; b->length = 0L; b->actualLength = 0L
+#define BG2IO_BUFFER_PTR_INIT(b) b->mem = NULL; b->length = 0L; b->actualLength = 0L
 
 /**
  * @brief Iterator of a buffer. Used to move through a buffer.
@@ -45,7 +45,7 @@ typedef struct Bg2ioBufferT {
  */
 typedef struct Bg2ioBufferIteratorT {
     Bg2ioBuffer * buffer;
-    Bg2ioBytePtr current;
+    Bg2ioSize current;
 } Bg2ioBufferIterator;
 
 /**
@@ -60,6 +60,6 @@ typedef struct Bg2ioBufferIteratorT {
  * BG2IO_BUFFER_ITERATOR_PTR_INIT(b);
  * 
  */
-#define BG2IO_BUFFER_ITERATOR_INIT { NULL, 0L, 0L }
+#define BG2IO_BUFFER_ITERATOR_INIT { NULL, 0L }
 
 #endif
