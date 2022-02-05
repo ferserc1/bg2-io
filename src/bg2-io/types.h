@@ -62,4 +62,6 @@ typedef struct Bg2ioBufferIteratorT {
  */
 #define BG2IO_BUFFER_ITERATOR_INIT { NULL, 0L }
 
+#define BG2IO_ITERATOR(b) { b, 0L }
+
 #endif

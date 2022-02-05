@@ -69,6 +69,27 @@ int main(int argc, const char ** argv)
 	else
 	{
 		dumpBuffer(&buffer);
+
+		Bg2ioBufferIterator it = BG2IO_ITERATOR(&buffer);
+		unsigned char endian = 0;
+		unsigned char major = 0;
+		unsigned char minor = 0;
+		unsigned char rev = 0;
+		bg2io_readByte(&it, &endian);
+		bg2io_readByte(&it, &major);
+		bg2io_readByte(&it, &minor);
+		bg2io_readByte(&it, &rev);
+
+		unsigned int header = 0;
+		bg2io_readInteger(&it, &header);
+
+		printf("Version: %d.%d.%d\n", major, minor, rev);
+
+		if (header == bg2io_Header)
+		{
+			printf("Header\n");
+		}
+
 		bg2io_freeBuffer(&buffer);
 	}
 
