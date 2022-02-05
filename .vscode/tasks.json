@@ -14,7 +14,8 @@
                 "-o",
                 "${workspaceFolder}/bin/sample",
                 "-I",
-                "${workspaceFolder}/src/bg2-io"
+                "${workspaceFolder}/src/bg2-io",
+                "-Wno-multichar"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"

@@ -1,6 +1,8 @@
 #ifndef BG2_IO
 #define BG2_IO
 
-int sum(int a, int b);
+#include "types.h"
+#include "buffer-memory.h"
+#include "buffer-io.h"
 
 #endif

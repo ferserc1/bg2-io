@@ -6,68 +6,48 @@
 
 #include "bg2-io.h"
 
-typedef struct Buffer {
-	char * buffer;
-	unsigned long long length;
-} Buffer;
-
-void dumpBuffer(void *buffer, int bufferSize)
+void dumpBuffer(Bg2ioBuffer *buffer)
 {
-	int i;
-	for (i = 0; i < bufferSize; ++i)
+	Bg2ioSize i;
+	for (i = 0; i < buffer->length; ++i)
 	{
-		printf("%c", ((char *)buffer)[i]);
+		printf("%c", ((char *)buffer->buffer)[i]);
 	}
 	printf("\n");
 }
 
-Buffer * readBuffer(const char * path)
+int readBuffer(const char * path, Bg2ioBuffer *buffer)
 {
 	FILE * file;
 	int errnum;
-	Buffer * result = NULL;
 
 	file = fopen(path, "rb");
 	if (file != NULL)
 	{
-		result = malloc(sizeof(Buffer));
 		fseek(file, 0, SEEK_END);
-		result->length = ftell(file);
+		Bg2ioSize fileLength = ftell(file);
 		fseek(file, 0, SEEK_SET);
 
-		result->buffer = (char *) malloc(result->length);
-
-		if (!result->buffer)
+		if (bg2io_createBuffer(buffer, fileLength) < 0)
 		{
 			printf("Error: could not allocate memory");
-			free(result);
-			result = NULL;
+			return -2;
 		}
 		else
 		{
-			fread(result->buffer, result->length, 1, file);
+			fread(buffer->buffer, buffer->length, 1, file);
 		}
 
 		fclose(file);
+
+		return 0;
 	}
 	else
 	{
 		errnum = errno;
 		printf("Value of errno: %d\n", errno);
 		printf("Error: %s\n", strerror(errno));
-	}
-	
-	return result;
-}
-
-void freeBuffer(Buffer *b) {
-	if (b != NULL)
-	{
-		if (b->buffer != NULL)
-		{
-			free(b->buffer);
-		}
-		free(b);
+		return -1;
 	}
 }
 
@@ -78,16 +58,16 @@ int main(int argc, const char ** argv)
 		exit(1);
 	}
 
-	Buffer * data = readBuffer(argv[1]);
-	if (data == NULL)
+	Bg2ioBuffer buffer = BG2IO_BUFFER_INIT;
+	if (readBuffer(argv[1], &buffer) != 0)
 	{
 		printf("Error: could not read file at path \"%s\"\n", argv[1]);
 		return -1;
 	}
 	else
 	{
-		dumpBuffer(data->buffer, data->length);
-		freeBuffer(data);
+		dumpBuffer(&buffer);
+		bg2io_freeBuffer(&buffer);
 	}
 	return 0;
 }

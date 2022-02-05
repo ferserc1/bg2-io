@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/bin/sample",
-            "args": ["${workspaceFolder}/resources/test.txt"],
+            "args": ["${workspaceFolder}/resources/plane.bg2"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
