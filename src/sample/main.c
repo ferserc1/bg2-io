@@ -11,7 +11,7 @@ void dumpBuffer(Bg2ioBuffer *buffer)
 	Bg2ioBufferIterator it = BG2IO_BUFFER_ITERATOR_INIT;
 	it.buffer = buffer;
 	unsigned char byte = '\0';
-	while (bg2io_readByte(&it, &byte) > 0)
+	while (bg2io_readByte(&it, &byte) >= 0)
 	{
 		printf("%c", byte);
 	}
@@ -62,6 +62,14 @@ void testWrite()
 
 	Bg2ioBufferIterator it = BG2IO_ITERATOR(&buffer);
 
+	union {
+		int integer;
+		char bytes[4];
+	} cosa;
+	cosa.integer = 'cosa';
+	float v1= -3.141592f;
+	float v2 = 55.0f;
+	float v3 = 2e6f;
 	bg2io_writeByte(&it, 'a');
 	bg2io_writeByte(&it, 'b');
 	bg2io_writeByte(&it, 'c');
@@ -69,10 +77,19 @@ void testWrite()
 	bg2io_writeInteger(&it, 0xFF00);
 	bg2io_writeInteger(&it, 0xFF0000);
 	bg2io_writeInteger(&it, 0x7F000000);
+	bg2io_writeInteger(&it, cosa.integer);
+	bg2io_writeFloat(&it, v1);
+	bg2io_writeFloat(&it, v2);
+	bg2io_writeFloat(&it, v3);
+
+	bg2io_writeString(&it, "bg2 engine input/output tools.");
 
 	it.current = 0;
 	char bytes[3];
 	int integers[4];
+	float floats[3];
+	char * str;
+	
 	bg2io_readByte(&it, &bytes[0]);
 	bg2io_readByte(&it, &bytes[1]);
 	bg2io_readByte(&it, &bytes[2]);
@@ -80,8 +97,18 @@ void testWrite()
 	bg2io_readInteger(&it, &integers[1]);
 	bg2io_readInteger(&it, &integers[2]);
 	bg2io_readInteger(&it, &integers[3]);
+	bg2io_readInteger(&it, &cosa.integer);
+	bg2io_readFloat(&it, &floats[0]);
+	bg2io_readFloat(&it, &floats[1]);
+	bg2io_readFloat(&it, &floats[2]);
+	bg2io_readString(&it, &str);
 
 	printf("%c, %c, %c, %#010x, %#010x, %#010x, %#010x\n", bytes[0], bytes[1], bytes[2], integers[0], integers[1], integers[2], integers[3]);
+	printf("%c%c%c%c\n", cosa.bytes[0], cosa.bytes[1], cosa.bytes[2], cosa.bytes[3]);
+	printf("%f\n%f\n%f\n", v1, v2, v3);
+	printf("%s\n", str);
+
+	dumpBuffer(it.buffer);
 }
 
 int testFiles(const char * path)
