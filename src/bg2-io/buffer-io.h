@@ -68,12 +68,12 @@ Bg2ioSize bg2io_readInteger(Bg2ioBufferIterator *it, int *out);
 Bg2ioSize bg2io_readFloat(Bg2ioBufferIterator *it, float *out);
 
 /**
- * @brief Reads a string value from buffer iterator. The fromato of the string is a text string
+ * @brief Reads a string value from buffer iterator. The fromat of the string is a text string
  * Pascal: i.e., the length of the string as a 32-bit integer, followed by the text string
  * 
  * @param it input buffer iterator 
  * @param out output string. This string must be freed with free() when it is no longer used.
- * @return Bg2ioSize Returns the remaining buffer size or:
+ * @return Bg2ioSize Returns the string size or:
  *  - BG2IO_ERR_INVALID_PTR if the buffer is invalid
  *  - BG2IO_ERR_ITERATOR_OUT_OF_BOUNDS if the buffer iterator current position
  *    is greater or equal than the buffer length
@@ -82,6 +82,40 @@ Bg2ioSize bg2io_readFloat(Bg2ioBufferIterator *it, float *out);
  * 
  */
 Bg2ioSize bg2io_readString(Bg2ioBufferIterator *it, char **out);
+
+/**
+ * @brief Reads a floating point 32 bit array from buffer iterator. The array format consists of
+ * a 32-bit integer value indicating the number of elements in the array, followed by as many 
+ * 32-bit floating point values as that number indicates.
+ * 
+ * @param it input buffer iterator 
+ * @param out output array. This array must be freed with free() when it is no longer used.
+ * @return Bg2ioSize Returns the array size or:
+ *  - BG2IO_ERR_INVALID_PTR if the buffer is invalid
+ *  - BG2IO_ERR_ITERATOR_OUT_OF_BOUNDS if the buffer iterator current position
+ *    is greater or equal than the buffer length
+ *  - BG2IO_ERR_INVALID_OUT_PARAM_PTR if the output parameter is NULL
+ *  - BG2IO_ERR_INSUFFICIENT_LENGTH if there are not enough bytes to read from the iterator
+ * 
+ */
+Bg2ioSize bg2io_readFloatArray(Bg2ioBufferIterator *it, float **out);
+
+/**
+ * @brief Reads an integer 32 bit array from buffer iterator. The array format consists of
+ * a 32-bit integer value indicating the number of elements in the array, followed by as many 
+ * 32-bit integer values as that number indicates.
+ * 
+ * @param it input buffer iterator 
+ * @param out output array. This array must be freed with free() when it is no longer used.
+ * @return Bg2ioSize Returns the array size or:
+ *  - BG2IO_ERR_INVALID_PTR if the buffer is invalid
+ *  - BG2IO_ERR_ITERATOR_OUT_OF_BOUNDS if the buffer iterator current position
+ *    is greater or equal than the buffer length
+ *  - BG2IO_ERR_INVALID_OUT_PARAM_PTR if the output parameter is NULL
+ *  - BG2IO_ERR_INSUFFICIENT_LENGTH if there are not enough bytes to read from the iterator
+ * 
+ */
+Bg2ioSize bg2io_readIntArray(Bg2ioBufferIterator *it, int **out);
 
 /**
  * @brief Write a byte to a buffer pointed by an iterator, and increment it one byte. If necessary, 
@@ -141,5 +175,34 @@ Bg2ioSize bg2io_writeFloat(Bg2ioBufferIterator *it, float in);
  * 
  */
 Bg2ioSize bg2io_writeString(Bg2ioBufferIterator *it, const char * in);
+
+
+/**
+ * @brief Write a floating point 32 bit array to the buffer. The size of the array, expressed in number
+ * of elements, is written, followed by the array values.
+ * 
+ * @param it input buffer iterator
+ * @param in input value
+ * @return Bg2ioSize Returns the written bytes or:
+ *  - BG2IO_ERR_INVALID_PTR if the buffer is invalid
+ *  - BG2IO_ERR_ITERATOR_OUT_OF_BOUNDS if the buffer iterator current position
+ *    is greater than the buffer length
+ * 
+ */
+Bg2ioSize bg2io_writeFloatArray(Bg2ioBufferIterator *it, const float * in);
+
+/**
+ * @brief Write an integer 32 bit array to the buffer. The size of the array, expressed in number
+ * of elements, is written, followed by the array values.
+ * 
+ * @param it input buffer iterator
+ * @param in input value
+ * @return Bg2ioSize Returns the written bytes or:
+ *  - BG2IO_ERR_INVALID_PTR if the buffer is invalid
+ *  - BG2IO_ERR_ITERATOR_OUT_OF_BOUNDS if the buffer iterator current position
+ *    is greater than the buffer length
+ * 
+ */
+Bg2ioSize bg2io_writeIntArray(Bg2ioBufferIterator *it, const int * in);
 
 #endif

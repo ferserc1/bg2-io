@@ -148,7 +148,45 @@ Bg2ioSize bg2io_readString(Bg2ioBufferIterator *it, char **out)
     }
     readedBytes[i] = '\0';
     *out = readedBytes;
-    return remaining;
+    return stringSize;
+}
+
+Bg2ioSize bg2io_readFloatArray(Bg2ioBufferIterator *it, float **out)
+{
+    int arraySize = 0;
+    Bg2ioSize remaining = bg2io_readInteger(it, &arraySize);
+    if (remaining < 0)
+    {
+        return remaining;
+    }
+
+    float * readedFloats = malloc(sizeof(float) * arraySize);
+    int i;
+    for (i = 0; i < arraySize; ++i)
+    {
+        remaining = bg2io_readFloat(it, &readedFloats[i]);
+    }
+    *out = readedFloats;
+    return arraySize;
+}
+
+Bg2ioSize bg2io_readIntArray(Bg2ioBufferIterator *it, int **out)
+{
+    int arraySize = 0;
+    Bg2ioSize remaining = bg2io_readInteger(it, &arraySize);
+    if (remaining < 0)
+    {
+        return remaining;
+    }
+
+    int * readedInts = malloc(sizeof(float) * arraySize);
+    int i;
+    for (i = 0; i < arraySize; ++i)
+    {
+        remaining = bg2io_readInteger(it, &readedInts[i]);
+    }
+    *out = readedInts;
+    return arraySize;
 }
 
 Bg2ioSize bg2io_writeByte(Bg2ioBufferIterator *it, const unsigned char in)
@@ -256,5 +294,17 @@ Bg2ioSize bg2io_writeString(Bg2ioBufferIterator *it, const char * in)
     }
 
     return written;
+}
+
+Bg2ioSize bg2io_writeFloatArray(Bg2ioBufferIterator *it, const float * in)
+{
+    // TODO: Implement this.
+    return 0;
+}
+
+Bg2ioSize bg2io_writeIntArray(Bg2ioBufferIterator *it, const int * in)
+{
+    // TODO: implement this.
+    return 0;
 }
 
