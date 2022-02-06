@@ -28,11 +28,11 @@ enum Bg2ioBufferType {
  * @param it input buffer iterator
  * @param out output byte
  * @return Bg2ioSize Returns the remaining buffer size or:
- *  - BG2_IO_ERR_INVALID_PTR if the buffer is invalid
- *  - BG2_IO_ERR_ITERATOR_OUT_OF_BOUNDS if the buffer iterator current position 
+ *  - BG2IO_ERR_INVALID_PTR if the buffer is invalid
+ *  - BG2IO_ERR_ITERATOR_OUT_OF_BOUNDS if the buffer iterator current position 
  *    is greater or equal than the buffer length
- *  - BG2_IO_ERR_INVALID_OUT_PARAM_PTR if the output parameter is NULL
- *  - BG2_IO_ERR_INSUFFICIENT_LENGTH if there are not enough bytes to read from the iterator
+ *  - BG2IO_ERR_INVALID_OUT_PARAM_PTR if the output parameter is NULL
+ *  - BG2IO_ERR_INSUFFICIENT_LENGTH if there are not enough bytes to read from the iterator
  */
 Bg2ioSize bg2io_readByte(Bg2ioBufferIterator *it, unsigned char *out);
 
@@ -43,12 +43,42 @@ Bg2ioSize bg2io_readByte(Bg2ioBufferIterator *it, unsigned char *out);
  * @param out output byte
  * @param swapBytes
  * @return Bg2ioSize Returns the remaining buffer size of:
- *  - BG2_IO_ERR_INVALID_PTR if the buffer is invalid
- *  - BG2_IO_ERR_ITERATOR_OUT_OF_BOUNDS if the buffer iterator current position
+ *  - BG2IO_ERR_INVALID_PTR if the buffer is invalid
+ *  - BG2IO_ERR_ITERATOR_OUT_OF_BOUNDS if the buffer iterator current position
  *    is greater or equal than the buffer length
- *  - BG2_IO_ERR_INVALID_OUT_PARAM_PTR if the output parameter is NULL
- *  - BG2_IO_ERR_INSUFFICIENT_LENGTH if there are not enough bytes to read from the iterator
+ *  - BG2IO_ERR_INVALID_OUT_PARAM_PTR if the output parameter is NULL
+ *  - BG2IO_ERR_INSUFFICIENT_LENGTH if there are not enough bytes to read from the iterator
  */
 Bg2ioSize bg2io_readInteger(Bg2ioBufferIterator *it, int *out);
+
+/**
+ * @brief Write a byte to a buffer pointed by an iterator, and increment it one byte. If necessary, 
+ * increase the buffer size to fit the added data. In this case, the length and actualLength 
+ * attributes of the buffer will be increased.
+ * 
+ * @param it input buffer iterator
+ * @param in input value
+ * @return Bg2ioSize Returns the written bytes or:
+ *  - BG2IO_ERR_INVALID_PTR if the buffer is invalid
+ *  - BG2IO_ERR_ITERATOR_OUT_OF_BOUNDS if the buffer iterator current position
+ *    is greater or equal than the buffer length
+ * 
+ */
+Bg2ioSize bg2io_writeByte(Bg2ioBufferIterator *it, const unsigned char in);
+
+/**
+ * @brief Write an integer value to a buffer pointed by an iterator, and increment it four bytes. 
+ * If necessary, increase the buffer size to fit the added data. In this case, the length and actualLength 
+ * attributes of the buffer will be increased.
+ * 
+ * @param it input buffer iterator
+ * @param in input value
+ * @return Bg2ioSize Returns the written bytes or:
+ *  - BG2IO_ERR_INVALID_PTR if the buffer is invalid
+ *  - BG2IO_ERR_ITERATOR_OUT_OF_BOUNDS if the buffer iterator current position
+ *    is greater or equal than the buffer length
+ * 
+ */
+Bg2ioSize bg2io_writeInteger(Bg2ioBufferIterator *it, int in);
 
 #endif

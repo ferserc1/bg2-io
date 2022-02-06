@@ -18,10 +18,10 @@ Bg2ioSize bg2io_createBuffer(Bg2ioBuffer *in, Bg2ioSize requiredSize)
 {
     if (in == NULL)
     {
-        return BG2_IO_ERR_INVALID_PTR;
+        return BG2IO_ERR_INVALID_PTR;
     }
     else if (in->mem != NULL || in->actualLength > 0 || in->length > in->actualLength) {
-        return BG2_IO_ERR_UNINITIALIZED_BUFFER;
+        return BG2IO_ERR_UNINITIALIZED_BUFFER;
     }
 
     in->actualLength = bg2io_getActualBufferSize(requiredSize);
@@ -34,11 +34,11 @@ Bg2ioSize bg2io_reserveBuffer(Bg2ioBuffer *buffer, Bg2ioSize requiredSize)
 {
     if (buffer == NULL)
     {
-        return BG2_IO_ERR_INVALID_PTR;
+        return BG2IO_ERR_INVALID_PTR;
     }
     else if (requiredSize < buffer->length)
     {
-        return BG2_IO_ERR_INVALID_REQUIRED_SIZE;
+        return BG2IO_ERR_INVALID_REQUIRED_SIZE;
     }
     else if (requiredSize < buffer->actualLength)
     {

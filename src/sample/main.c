@@ -53,17 +53,43 @@ int readBuffer(const char * path, Bg2ioBuffer *buffer)
 	}
 }
 
-int main(int argc, const char ** argv)
+void testWrite()
 {
-	if (argc<2) {
-		printf("usage: sample file_path.bg2\n");
-		exit(1);
-	}
-
 	Bg2ioBuffer buffer = BG2IO_BUFFER_INIT;
-	if (readBuffer(argv[1], &buffer) != 0)
+	Bg2ioSize size = sizeof(unsigned char) * 3 + sizeof(int) * 4;
+	bg2io_createBuffer(&buffer, size);
+
+
+	Bg2ioBufferIterator it = BG2IO_ITERATOR(&buffer);
+
+	bg2io_writeByte(&it, 'a');
+	bg2io_writeByte(&it, 'b');
+	bg2io_writeByte(&it, 'c');
+	bg2io_writeInteger(&it, 0xFF);
+	bg2io_writeInteger(&it, 0xFF00);
+	bg2io_writeInteger(&it, 0xFF0000);
+	bg2io_writeInteger(&it, 0x7F000000);
+
+	it.current = 0;
+	char bytes[3];
+	int integers[4];
+	bg2io_readByte(&it, &bytes[0]);
+	bg2io_readByte(&it, &bytes[1]);
+	bg2io_readByte(&it, &bytes[2]);
+	bg2io_readInteger(&it, &integers[0]);
+	bg2io_readInteger(&it, &integers[1]);
+	bg2io_readInteger(&it, &integers[2]);
+	bg2io_readInteger(&it, &integers[3]);
+
+	printf("%c, %c, %c, %#010x, %#010x, %#010x, %#010x\n", bytes[0], bytes[1], bytes[2], integers[0], integers[1], integers[2], integers[3]);
+}
+
+int testFiles(const char * path)
+{
+	Bg2ioBuffer buffer = BG2IO_BUFFER_INIT;
+	if (readBuffer(path, &buffer) != 0)
 	{
-		printf("Error: could not read file at path \"%s\"\n", argv[1]);
+		printf("Error: could not read file at path \"%s\"\n", path);
 		return -1;
 	}
 	else
@@ -91,8 +117,12 @@ int main(int argc, const char ** argv)
 		}
 
 		bg2io_freeBuffer(&buffer);
+		return 0;
 	}
+}
 
+void testEndianness()
+{
 	if (bg2io_isBigEndian())
 	{
 		printf("Big endian platform\n");
@@ -110,6 +140,18 @@ int main(int argc, const char ** argv)
 	{
 		printf("Big endian platform\n");
 	}
+}
+
+int main(int argc, const char ** argv)
+{
+	if (argc<2) {
+		printf("usage: sample file_path.bg2\n");
+		exit(1);
+	}
+
+	//testFiles(argv[1]);
+	testEndianness();
+	testWrite();
 
 	return 0;
 }
