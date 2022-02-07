@@ -353,5 +353,9 @@ int main(int argc, const char ** argv)
 	testEndianness();
 	testWrite();
 
+	Bg2ioPolyList plist = BG2IO_POLY_LIST_INIT;
+
+	Bg2ioPolyList * plistPtr = bg2io_createPolyList();
+
 	return 0;
 }

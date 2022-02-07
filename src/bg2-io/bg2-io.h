@@ -5,6 +5,6 @@
 #include "types.h"
 #include "buffer-memory.h"
 #include "buffer-io.h"
-
+#include "bg2-loader.h"
 
 #endif
