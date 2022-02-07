@@ -1,7 +1,8 @@
 
 #include "buffer-io.h"
 #include "errors.h"
-#include "bg2-io.h"
+#include "utils.h"
+#include "buffer-memory.h"
 
 #include <string.h>
 
