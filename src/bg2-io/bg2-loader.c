@@ -7,6 +7,8 @@ static int g_parseError;
 
 int parseHeader(Bg2ioBufferIterator *it, Bg2File *file);
 
+int parsePlist(Bg2ioBufferIterator *it, Bg2File *file);
+
 int bg2io_getParserError()
 {
     return g_parseError;
@@ -26,6 +28,12 @@ Bg2File * bg2io_parseFileBuffer(Bg2ioBuffer * buffer)
     Bg2ioBufferIterator it = BG2IO_ITERATOR(buffer);
 
     if (parseHeader(&it, file) != BG2IO_NO_ERROR)
+    {
+        bg2io_freeBg2File(file);
+        return NULL;
+    }
+
+    if (parsePlist(&it, file) != BG2IO_NO_ERROR)
     {
         bg2io_freeBg2File(file);
         return NULL;
@@ -118,6 +126,108 @@ int parseHeader(Bg2ioBufferIterator *it, Bg2File *file)
             return g_parseError;
         }
     }
+    else
+    {
+        g_parseError = BG2IO_ERR_JOINT_BLOCK_EXPECTED;
+        return g_parseError;
+    }
 
+    return BG2IO_NO_ERROR;
+}
+
+int parsePlist(Bg2ioBufferIterator *it, Bg2File *file)
+{
+    int block = bg2io_readBlock(it);
+    if (block == BG2IO_ERR_INVALID_BLOCK)
+    {
+        g_parseError = BG2IO_ERR_POLY_LIST_BLOCK_EXPECTED;
+        return g_parseError;
+    }
+
+    file->plists = bg2io_createPolyListArray(file->header.numberOfPolyList);
+    int done = 0;
+    int currentPlistIndex = 0;
+    Bg2ioPolyList * currentPlist = file->plists->data[currentPlistIndex];
+    while (done == 0)
+    {
+        block = bg2io_readBlock(it);
+
+        switch (block) {
+        case bg2io_PlistName:
+            bg2io_readString(it, &currentPlist->name);
+            break;
+        case bg2io_MatName:
+            bg2io_readString(it, &currentPlist->matName);
+            break;
+        case bg2io_VertexArray:
+            currentPlist->vertex.length = bg2io_readFloatArray(it, &currentPlist->vertex.data);
+            if (currentPlist->vertex.length < 0)
+            {
+                g_parseError = BG2IO_ERR_CORRUPTED_VERTEX_DATA;
+                return g_parseError;
+            }
+            break;
+        case bg2io_NormalArray:
+            currentPlist->normal.length = bg2io_readFloatArray(it, &currentPlist->normal.data);
+            if (currentPlist->normal.length <0 )
+            {
+                g_parseError = BG2IO_ERR_CORRUPTED_NORMAL_DATA;
+                return g_parseError;
+            }
+            break;
+        case bg2io_TexCoord0Array:
+            currentPlist->texCoord0.length = bg2io_readFloatArray(it, &currentPlist->texCoord0.data);
+            if (currentPlist->texCoord0.length < 0)
+            {
+                g_parseError = BG2IO_ERR_CORRUPTED_TEXCOORD0_DATA;
+                return g_parseError;
+            }
+            break;
+        case bg2io_TexCoord1Array:
+            currentPlist->texCoord1.length = bg2io_readFloatArray(it, &currentPlist->texCoord1.data);
+            if (currentPlist->texCoord1.length < 0)
+            {
+                g_parseError = BG2IO_ERR_CORRUPTED_TEXCOORD1_DATA;
+                return g_parseError;
+            }
+            break;
+        case bg2io_TexCoord2Array:
+            currentPlist->texCoord2.length = bg2io_readFloatArray(it, &currentPlist->texCoord2.data);
+            if (currentPlist->texCoord2.length < 0)
+            {
+                g_parseError = BG2IO_ERR_CORRUPTED_TEXCOORD2_DATA;
+                return g_parseError;
+            }
+            break;
+        case bg2io_IndexArray:
+            currentPlist->index.length = bg2io_readIntArray(it, &currentPlist->index.data);
+            if (currentPlist->index.length < 0)
+            {
+                g_parseError = BG2IO_ERR_CORRUPTED_INDEX_DATA;
+                return g_parseError;
+            }
+            break;
+        case bg2io_PolyList:
+        case bg2io_End:
+            if (block == bg2io_End)
+            {
+                // TODO: read component data
+
+                done = 1;
+            }
+            else 
+            {
+                done = 1;
+            }
+
+            ++currentPlistIndex;
+            currentPlist = file->plists->data[currentPlistIndex];
+            break;
+        default:
+            g_parseError = BG2IO_ERR_CORRUPTED_POLY_LIST_DATA;
+            return g_parseError;
+        }
+    }
+    
     return BG2IO_NO_ERROR;
 }
