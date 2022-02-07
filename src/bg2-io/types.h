@@ -137,15 +137,13 @@ typedef struct Bg2ioPolyListT {
     Bg2ioFloatArray texCoord1;
     Bg2ioFloatArray texCoord2;
     Bg2ioIntArray index;
-    char * componentData;
-    char * materialData;
 } Bg2ioPolyList;
 
 /**
  * @brief Initialize a poly list struct
  * 
  */
-#define BG2IO_POLY_LIST_INIT { NULL, NULL, NULL, 1, { NULL, 0 }, { NULL, 0 }, { NULL, 0 }, { NULL, 0 }, { NULL, 0 }, { NULL, 0 }, NULL, NULL }
+#define BG2IO_POLY_LIST_INIT { NULL, NULL, NULL, 1, { NULL, 0 }, { NULL, 0 }, { NULL, 0 }, { NULL, 0 }, { NULL, 0 }, { NULL, 0 } }
 
 /**
  * @brief Initialize a poly list ptr struct
@@ -157,8 +155,7 @@ typedef struct Bg2ioPolyListT {
                                         pl->texCoord0.data = NULL; pl->texCoord0.length = 0; \
                                         pl->texCoord1.data = NULL; pl->texCoord1.length = 0; \
                                         pl->texCoord2.data = NULL; pl->texCoord2.length = 0; \
-                                        pl->index.data = NULL; pl->index.length = 0; \
-                                        pl->componentData = NULL; pl->materialData = NULL
+                                        pl->index.data = NULL; pl->index.length = 0;
 
 /**
  * @brief create a poly list struct
@@ -210,5 +207,58 @@ Bg2ioPolyListArray * bg2io_createPolyListArray(int length);
  * @return int error code
  */
 int bg2io_freePolyListArray(Bg2ioPolyListArray * arr);
+
+/**
+ * @brief Store the header metadat of a bg2 file 
+ * 
+ */
+typedef struct Bg2FileHeaderT {
+    unsigned char endianess;
+    unsigned char majorVersion;
+    unsigned char minorVersion;
+    unsigned char revision;
+    int numberOfPolyList;
+} Bg2FileHeader;
+
+/**
+ * @brief Stores the information from a bg2 file
+ * 
+ */
+typedef struct Bg2FileT {
+    Bg2FileHeader header;
+    Bg2ioPolyListArray * plists;
+    char * name;
+    char * componentData;
+    char * materialData;
+    char * jointData;
+} Bg2File;
+
+/**
+ * @brief Initialize a Bg2File struct
+ * 
+ */
+#define BG2IO_BG2_FILE_INIT { { 0, { 0, 0, 0, 0 }}, NULL, NULL, NULL, NULL, NULL }
+
+/**
+ * @brief Initialize a Bg2File struct pointer
+ * 
+ */
+#define BG2IO_BG2_FILE_PTR_INIT(f) f->header.endianess = 0; f->header.majorVersion = 0; f->header.minorVersion = 0; f->header.revision = 0; f->header.numberOfPolyList = 0; \
+                                   f->plists = NULL; f->name = NULL; f->componentData = NULL; f->materialData = NULL; f->jointData = NULL
+
+/**
+ * @brief Create an empty Bg2File struct
+ * 
+ * @return Bg2File* 
+ */
+Bg2File * bg2io_createBg2File();
+
+/**
+ * @brief Release a bg2 file struct and all its contents
+ * 
+ * @return int BG2IO_NO_ERROR if success, BG2IO_ERR_INVALID_PTR if the pointer to the
+ * structure is NULL.
+ */
+int bg2io_freeBg2File(Bg2File * file);
 
 #endif

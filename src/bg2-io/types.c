@@ -105,18 +105,6 @@ int bg2io_freePolyList(Bg2ioPolyList * plist)
     bg2io_freeFloatArray(&plist->texCoord1);
     bg2io_freeFloatArray(&plist->texCoord2);
     bg2io_freeIntArray(&plist->index);
-    
-    if (plist->componentData != NULL)
-    {
-        free(plist->componentData);
-        plist->componentData = NULL;
-    }
-
-    if (plist->componentData != NULL)
-    {
-        free(plist->componentData);
-        plist->componentData = NULL;
-    }
 
     return error;
 }
@@ -155,6 +143,53 @@ int bg2io_freePolyListArray(Bg2ioPolyListArray * arr)
     free(arr->data);
     arr->data = NULL;
     arr->length = 0;
+
+    return BG2IO_NO_ERROR;
+}
+
+Bg2File * bg2io_createBg2File()
+{
+    Bg2File * result = malloc(sizeof(Bg2File));
+    BG2IO_BG2_FILE_PTR_INIT(result);
+    return result;
+}
+
+int bg2io_freeBg2File(Bg2File * file)
+{
+    if (file == NULL)
+    {
+        return BG2IO_ERR_INVALID_PTR;
+    }
+
+    if (file->plists)
+    {
+        bg2io_freePolyListArray(file->plists);
+        file->plists = NULL;
+    }
+
+    if (file->name)
+    {
+        free(file->name);
+        file->name = NULL;
+    }
+
+    if (file->componentData)
+    {
+        free(file->componentData);
+        file->componentData = NULL;
+    }
+
+    if (file->materialData != NULL)
+    {
+        free(file->materialData);
+        file->materialData = NULL;
+    }
+
+    if (file->jointData)
+    {
+        free(file->jointData);
+        file->jointData = NULL;
+    }
 
     return BG2IO_NO_ERROR;
 }

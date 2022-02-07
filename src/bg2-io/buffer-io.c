@@ -64,6 +64,39 @@ Bg2ioSize bg2io_readByte(Bg2ioBufferIterator *it, unsigned char *out)
     return it->buffer->length - it->current; 
 }
 
+unsigned int bg2io_readBlock(Bg2ioBufferIterator *it)
+{
+    int block = 0;
+    Bg2ioSize error = bg2io_readInteger(it, &block);
+    if (error < 0)
+    {
+        return error;
+    }
+
+    switch (block) {
+    case bg2io_Header:
+    case bg2io_PolyList:
+    case bg2io_VertexArray:
+    case bg2io_NormalArray:
+    case bg2io_TexCoord0Array:
+    case bg2io_TexCoord1Array:
+    case bg2io_TexCoord2Array:
+    case bg2io_TexCoord3Array:
+    case bg2io_TexCoord4Array:
+    case bg2io_IndexArray:
+    case bg2io_Materials:
+    case bg2io_PlistName:
+    case bg2io_MatName:
+    case bg2io_ShadowProjector:
+    case bg2io_Joint:
+    case bg2io_End:
+        return block;
+    default:
+        it->current -= sizeof(int);
+        return BG2IO_ERR_INVALID_BLOCK;
+    }
+}
+
 Bg2ioSize bg2io_readInteger(Bg2ioBufferIterator *it, int *out)
 {
     Bg2ioSize readed = checkIterator(it, sizeof(int));

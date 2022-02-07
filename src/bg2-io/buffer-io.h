@@ -3,7 +3,7 @@
 
 #include "types.h"
 
-enum Bg2ioBufferType {
+enum Bg2ioBlockType {
     bg2io_Header = 'hedr',
     bg2io_PolyList = 'plst',
     bg2io_VertexArray = 'varr',
@@ -35,6 +35,19 @@ enum Bg2ioBufferType {
  *  - BG2IO_ERR_INSUFFICIENT_LENGTH if there are not enough bytes to read from the iterator
  */
 Bg2ioSize bg2io_readByte(Bg2ioBufferIterator *it, unsigned char *out);
+
+/**
+ * @brief Read a block from the buffer iterator
+ * 
+ * @param it 
+ * @return unsigned int The reade block, thats it, one of the Bg2ioBlockType enum, or:
+ * - BG2IO_ERR_INVALID_BLOCK if the buffer does not contain a valid block at the iterator
+ *   position. In this case, the position of the iterator will be reset to the same position 
+ *   it was when this function was called.
+ * - Any other error code returned by the function bg2io_readInteger()
+ * 
+ */
+unsigned int bg2io_readBlock(Bg2ioBufferIterator *it);
 
 /**
  * @brief Reads an integer value from the buffer iterator, and increments it four bytes
