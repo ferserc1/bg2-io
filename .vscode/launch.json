@@ -62,7 +62,7 @@
             "args": [
                 "${workspaceFolder}/resources/plane.bg2"
             ],
-            "stopAtEntry": true,
+            "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": false,
@@ -78,7 +78,7 @@
             "args": [
                 "${workspaceFolder}/resources/plane.bg2"
             ],
-            "stopAtEntry": true,
+            "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": false,
