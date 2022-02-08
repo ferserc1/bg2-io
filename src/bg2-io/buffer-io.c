@@ -90,6 +90,7 @@ unsigned int bg2io_readBlock(Bg2ioBufferIterator *it)
     case bg2io_ShadowProjector:
     case bg2io_Joint:
     case bg2io_End:
+    case bg2io_Components:
         return block;
     default:
         it->current -= sizeof(int);

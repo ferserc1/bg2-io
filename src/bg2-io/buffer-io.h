@@ -19,7 +19,8 @@ enum Bg2ioBlockType {
     bg2io_MatName = 'mnam',
     bg2io_ShadowProjector = 'proj',
     bg2io_Joint = 'join',
-    bg2io_End = 'endf'
+    bg2io_End = 'endf',
+    bg2io_Components = 'cmps'
 };
 
 /**

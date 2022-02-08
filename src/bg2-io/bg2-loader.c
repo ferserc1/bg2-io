@@ -2,6 +2,7 @@
 #include "bg2-loader.h"
 #include "errors.h"
 #include "buffer-io.h"
+#include <stdio.h>
 
 static int g_parseError;
 
@@ -211,7 +212,15 @@ int parsePlist(Bg2ioBufferIterator *it, Bg2File *file)
         case bg2io_End:
             if (block == bg2io_End)
             {
-                // TODO: read component data
+                int cmpsBlock = bg2io_readBlock(it);
+                if (cmpsBlock == bg2io_Components)
+                {
+                    int errorCode = bg2io_readString(it, &file->componentData);
+                    if  (errorCode < 0)
+                    {
+                        printf("Warning: error reading component data. Error code: %d", errorCode);
+                    }
+                }
 
                 done = 1;
             }
