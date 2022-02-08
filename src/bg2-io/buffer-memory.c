@@ -26,7 +26,7 @@ Bg2ioSize bg2io_createBuffer(Bg2ioBuffer *in, Bg2ioSize requiredSize)
 
     in->actualLength = bg2io_getActualBufferSize(requiredSize);
     in->length = requiredSize;
-    in->mem = malloc(sizeof(Bg2ioByte) * in->actualLength);
+    in->mem = (Bg2ioBytePtr) malloc(sizeof(Bg2ioByte) * in->actualLength);
     return in->actualLength;
 }
 
@@ -54,7 +54,7 @@ Bg2ioSize bg2io_reserveBuffer(Bg2ioBuffer *buffer, Bg2ioSize requiredSize)
         // Allocate the new buffer
         buffer->actualLength = bg2io_getActualBufferSize(requiredSize);
         buffer->length = requiredSize;
-        buffer->mem = malloc(sizeof(Bg2ioBuffer) * buffer->actualLength);
+        buffer->mem = (Bg2ioBytePtr) malloc(sizeof(Bg2ioBuffer) * buffer->actualLength);
         
         // Copy the old buffer to the new one
         for (Bg2ioSize i = 0; i < oldLength; ++i)

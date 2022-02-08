@@ -85,7 +85,7 @@ void testWrite()
 	bg2io_writeString(&it, "bg2 engine input/output tools.");
 
 	it.current = 0;
-	char bytes[3];
+	unsigned char bytes[3];
 	int integers[4];
 	float floats[3];
 	char * str;
@@ -136,7 +136,7 @@ int testFiles(const char * path)
 		bg2io_readByte(&it, &rev);
 
 		unsigned int header = 0;
-		bg2io_readInteger(&it, &header);
+		bg2io_readInteger(&it, (int*) &header);
 
 		printf("Version: %d.%d.%d\n", major, minor, rev);
 
@@ -150,7 +150,7 @@ int testFiles(const char * path)
 		printf("Number of polyList: %d\n", numberOfPlist);
 
 		unsigned int token = 0;
-		bg2io_readInteger(&it, &token);
+		bg2io_readInteger(&it, (int*) &token);
 
 		if (token == bg2io_Materials)
 		{

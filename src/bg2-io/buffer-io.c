@@ -174,14 +174,14 @@ Bg2ioSize bg2io_readString(Bg2ioBufferIterator *it, char **out)
         return remaining;
     }
 
-    char * readedBytes = malloc(sizeof(char) * (stringSize + 1));
+    unsigned char * readedBytes = (unsigned char*) malloc(sizeof(unsigned char) * (stringSize + 1));
     int i;
     for (i = 0; i < stringSize; ++i)
     {
         remaining = bg2io_readByte(it, &readedBytes[i]);
     }
     readedBytes[i] = '\0';
-    *out = readedBytes;
+    *out = (char*) readedBytes;
     return stringSize;
 }
 
@@ -194,7 +194,7 @@ Bg2ioSize bg2io_readFloatArray(Bg2ioBufferIterator *it, float **out)
         return remaining;
     }
 
-    float * readedFloats = malloc(sizeof(float) * arraySize);
+    float * readedFloats = (float*) malloc(sizeof(float) * arraySize);
     int i;
     for (i = 0; i < arraySize; ++i)
     {
@@ -213,7 +213,7 @@ Bg2ioSize bg2io_readIntArray(Bg2ioBufferIterator *it, int **out)
         return remaining;
     }
 
-    int * readedInts = malloc(sizeof(float) * arraySize);
+    int * readedInts = (int*) malloc(sizeof(float) * arraySize);
     int i;
     for (i = 0; i < arraySize; ++i)
     {

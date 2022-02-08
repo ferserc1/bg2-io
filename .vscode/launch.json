@@ -52,6 +52,38 @@
             "includePath": [
                 "${workspaceFolder}/src/bg2-io"
             ]
+        },
+
+        {
+            "name": "Mac build sample",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/sample",
+            "args": [
+                "${workspaceFolder}/resources/plane.bg2"
+            ],
+            "stopAtEntry": true,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "lldb",
+            "preLaunchTask": "Mac build sample"
+        },
+
+        {
+            "name": "Mac build bg2json",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/bg2json",
+            "args": [
+                "${workspaceFolder}/resources/plane.bg2"
+            ],
+            "stopAtEntry": true,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "lldb",
+            "preLaunchTask": "Mac build bg2json"
         }
     ]
 }

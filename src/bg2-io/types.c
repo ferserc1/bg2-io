@@ -12,7 +12,7 @@ int bg2io_allocateFloatArray(Bg2ioFloatArray * array, int length)
         return BG2IO_ERR_INVALID_LENGTH;
     }
 
-    array->data = malloc(sizeof(float) * length);
+    array->data = (float*) malloc(sizeof(float) * length);
     array->length = length;
 
     return BG2IO_NO_ERROR;
@@ -44,7 +44,7 @@ int bg2io_allocateIntArray(Bg2ioIntArray * array, int length)
         return BG2IO_ERR_INVALID_LENGTH;
     }
 
-    array->data = malloc(sizeof(int) * length);
+    array->data = (int*) malloc(sizeof(int) * length);
     array->length = length;
 
     return BG2IO_NO_ERROR;
@@ -68,7 +68,7 @@ int bg2io_freeIntArray(Bg2ioIntArray * array)
 
 Bg2ioPolyList * bg2io_createPolyList()
 {
-    Bg2ioPolyList * result = malloc(sizeof(Bg2ioPolyList));
+    Bg2ioPolyList * result = (Bg2ioPolyList*) malloc(sizeof(Bg2ioPolyList));
     BG2IO_POLY_LIST_PTR_INIT(result);
     return result;
 }
@@ -115,10 +115,10 @@ Bg2ioPolyListArray * bg2io_createPolyListArray(int length)
 
     if (length > 0)
     {
-        result = malloc(sizeof(Bg2ioPolyListArray));
+        result = (Bg2ioPolyListArray*) malloc(sizeof(Bg2ioPolyListArray));
         BG2IO_POLY_LIST_ARRAY_PTR_INIT(result);
 
-        result->data = malloc(sizeof(Bg2ioPolyList) * length);
+        result->data = (Bg2ioPolyList**) malloc(sizeof(Bg2ioPolyList) * length);
         for (int i = 0; i < length; ++i)
         {
             result->data[i] = bg2io_createPolyList();
@@ -149,7 +149,7 @@ int bg2io_freePolyListArray(Bg2ioPolyListArray * arr)
 
 Bg2File * bg2io_createBg2File()
 {
-    Bg2File * result = malloc(sizeof(Bg2File));
+    Bg2File * result = (Bg2File*) malloc(sizeof(Bg2File));
     BG2IO_BG2_FILE_PTR_INIT(result);
     return result;
 }
