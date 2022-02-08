@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "gcc-9 Build sample",
+            "name": "sample (Linux)",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/bin/sample",
@@ -22,7 +22,7 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "C/C++: gcc-9 Build sample",
+            "preLaunchTask": "Linux build sample",
             "miDebuggerPath": "/usr/bin/gdb",
             "includePath": [
                 "${workspaceFolder}/src/bg2-io"
@@ -30,7 +30,7 @@
         },
 
         {
-            "name": "gcc-9 Build bg2json",
+            "name": "bg2json (Linux)",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/bin/bg2json",
@@ -47,7 +47,7 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "C/C++: gcc-9 Build bg2json",
+            "preLaunchTask": "Linux build bg2json",
             "miDebuggerPath": "/usr/bin/gdb",
             "includePath": [
                 "${workspaceFolder}/src/bg2-io"
@@ -55,7 +55,7 @@
         },
 
         {
-            "name": "Mac build sample",
+            "name": "sample (Mac)",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/bin/sample",
@@ -71,7 +71,7 @@
         },
 
         {
-            "name": "Mac build bg2json",
+            "name": "bg2json (Mac)",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/bin/bg2json",

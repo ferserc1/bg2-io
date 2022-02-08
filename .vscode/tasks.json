@@ -3,7 +3,7 @@
     "tasks": [
         {
             "type": "cppbuild",
-            "label": "C/C++: gcc-9 Build sample",
+            "label": "Linux build sample",
             "command": "/usr/bin/gcc-9",
             "args": [
                 "-fdiagnostics-color=always",
@@ -32,7 +32,7 @@
 
         {
             "type": "cppbuild",
-            "label": "C/C++: gcc-9 Build bg2json",
+            "label": "Linux build bg2json",
             "command": "/usr/bin/gcc-9",
             "args": [
                 "-fdiagnostics-color=always",
