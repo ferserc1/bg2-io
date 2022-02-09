@@ -56,7 +56,7 @@
 
         {
             "name": "sample (Mac)",
-            "type": "cppdbg",
+            "type": "lldb",
             "request": "launch",
             "program": "${workspaceFolder}/bin/sample",
             "args": [
@@ -72,7 +72,7 @@
 
         {
             "name": "bg2json (Mac)",
-            "type": "cppdbg",
+            "type": "lldb",
             "request": "launch",
             "program": "${workspaceFolder}/bin/bg2json",
             "args": [
