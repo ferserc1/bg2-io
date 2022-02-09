@@ -398,3 +398,6 @@ FodyWeavers.xsd
 *.sln.iml
 
 src/sample/main
+
+# wasm distribution files
+src/wasm/dist/*
