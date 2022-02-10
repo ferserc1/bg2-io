@@ -224,10 +224,6 @@ int parsePlist(Bg2ioBufferIterator *it, Bg2File *file)
 
                 done = 1;
             }
-            else 
-            {
-                done = 1;
-            }
 
             ++currentPlistIndex;
             currentPlist = file->plists->data[currentPlistIndex];
