@@ -103,7 +103,7 @@ void writeJoints(FILE *fd, Bg2File *fileData)
 {
     if (fileData->jointData != NULL)
     {
-        fprintf(fd, "  \"joints\": {},\n");
+        fprintf(fd, "  \"joints\": %s,\n", fileData->jointData);
     }
 }
 

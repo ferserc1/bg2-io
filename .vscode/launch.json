@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/bin/sample",
-            "args": ["${workspaceFolder}/resources/plane.bg2"],
+            "args": ["${workspaceFolder}/resources/cubes.bg2"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
@@ -34,7 +34,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/bin/bg2json",
-            "args": ["${workspaceFolder}/resources/plane.bg2"],
+            "args": ["${workspaceFolder}/resources/cubes.bg2"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
@@ -60,7 +60,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/bin/sample",
             "args": [
-                "${workspaceFolder}/resources/plane.bg2"
+                "${workspaceFolder}/resources/cubes.bg2"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
@@ -76,7 +76,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/bin/bg2json",
             "args": [
-                "${workspaceFolder}/resources/plane.bg2"
+                "${workspaceFolder}/resources/cubes.bg2"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
