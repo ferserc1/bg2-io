@@ -99,6 +99,21 @@ String * getComponentStringRef(Bg2File * file, int debug)
 }
 
 EMSCRIPTEN_KEEPALIVE
+String * getJointStringRef(Bg2File * file, int debug)
+{
+    if (file->jointData != NULL)
+    {
+        String * result = createString(file->jointData, 0, debug);
+        return result;
+    }
+    else
+    {
+        debugLog("No joint data found in file", debug);
+        return NULL;
+    }
+}
+
+EMSCRIPTEN_KEEPALIVE
 void freeBg2File(Bg2File * file, int debug)
 {
     debugLog("Releasing bg2 file...", debug);

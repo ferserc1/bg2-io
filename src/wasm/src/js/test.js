@@ -4,7 +4,7 @@ import Bg2ioWrapper from "./bg2io-wrapper";
 const wrapper = new Bg2ioWrapper({ debug: true });
 const instance = await wrapper.init();
 
-const modelFile = "sphere.bg2";
+const modelFile = "cubes.bg2";
 const response = await fetch(`../../resources/${modelFile}`);
 if (response.ok) {
     const data = await response.arrayBuffer();
@@ -18,6 +18,8 @@ if (response.ok) {
     const material = wrapper.getMaterialsData(bg2File);
     console.log(material);
 
+    const joints = wrapper.getJointData(bg2File);
+    console.log(joints);
 
     wrapper.freeBg2File(bg2File);
 }

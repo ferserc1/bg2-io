@@ -80,6 +80,17 @@ export default class Bg2ioWrapper {
         }
     }
 
+    getJointData(file) {
+        const jointStringPtr = this._instance._getJointStringRef(file, this._debug ? 1 : 0);
+        if (jointStringPtr) {
+            const jointStringRef = this.getStringRef(jointStringPtr);
+            return JSON.parse(jointStringRef);
+        }
+        else {
+            return {}
+        }
+    }
+
     freeBg2File(file) {
         this._instance._freeBg2File(file, this._debug ? 1 : 0);
     }
