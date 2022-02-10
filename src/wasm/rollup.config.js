@@ -2,7 +2,7 @@ import copy from 'rollup-plugin-copy';
 
 export default [
     {
-        input: 'src/js/wrapper.js',
+        input: 'src/js/bg2io-wrapper.js',
 
         watch: {
             include: "./**"
@@ -21,5 +21,19 @@ export default [
                 ]
             })
         ]
+    },
+
+    {
+        input: 'src/js/test.js',
+
+        watch: {
+            include: "./**"
+        },
+
+        output: {
+            file: '../../bin/wasm/test.js',
+            format: 'es',
+            sourcemap: 'inline'
+        }
     }
 ]
