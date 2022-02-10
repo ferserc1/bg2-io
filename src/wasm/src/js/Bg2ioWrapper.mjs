@@ -1,34 +1,8 @@
 
-let g_bg2ioModuleLoadingPromise = null;
-const loadBg2ioModule = () => {
-    if (!g_bg2ioModuleLoadingPromise) {
-        g_bg2ioModuleLoadingPromise = new Promise((resolve) => {
-            const script = document.createElement('script');
-            script.type = 'text/javascript';
-            script.src = 'bg2io.js';
-            let loaded = false;
-            script.onload = script.onreadystatechange = () => {
-                if (!loaded) {
-                    loaded = true;
-                    resolve();
-                }
-            }
-            document.head.appendChild(script);
-        });
-    }
-    return g_bg2ioModuleLoadingPromise;
-}
-
 export default class Bg2ioWrapper {
-    constructor({ debug = false } = {}) {
-        this._instance = null;
+    constructor({ instance, debug = false } = {}) {
+        this._instance = instance;
         this._debug = debug;
-    }
-
-    async init() {
-        await loadBg2ioModule();
-        this._instance = await Bg2ioModule();
-        return this._instance;
     }
 
     get instance() {

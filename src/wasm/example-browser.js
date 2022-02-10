@@ -1,8 +1,7 @@
 
-import Bg2ioWrapper from "./bg2io-wrapper";
+import loadBg2ioWrapper from '../../bin/wasm/bg2io/Bg2ioBrowser';
 
-const wrapper = new Bg2ioWrapper({ debug: true });
-const instance = await wrapper.init();
+const wrapper = await loadBg2ioWrapper({ debug: true, wasmPath: "bg2io" });
 
 const modelFile = "cubes.bg2";
 const response = await fetch(`../../resources/${modelFile}`);
@@ -27,4 +26,6 @@ if (response.ok) {
     }
 
     wrapper.freeBg2File(bg2File);
+
+    console.log("Done");
 }

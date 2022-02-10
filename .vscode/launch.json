@@ -5,6 +5,19 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "WASM: node example",
+            "program": "${workspaceFolder}/src/wasm/bg2io-example.js",
+            "args": [
+                "${workspaceFolder}/resources/cubes.bg2"
+            ],
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
+        },
+
+        {
             "name": "sample (Linux)",
             "type": "cppdbg",
             "request": "launch",
