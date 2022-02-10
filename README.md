@@ -59,4 +59,75 @@ cd src/wasm
 node example-node.js
 ```
 
+The files required to use Bg2io in a Node application are the following: 
 
+- `Bg2ioModule.cjs`
+- `Bg2ioModule.wasm`
+- `Bg2ioWrapper.mjs`
+
+The `wasm` file will probably contain the same code as the browser version, but this may not be the case, as optimization flags may be modified differently for each environment.
+
+Unlike in the browser version, in the case of the Node.js application it is necessary to import the WebAssembly module and the wrapper separately. However, once the wrapper is created, the rest of the code will be identical. Obviously, there are other aspects of the code that will be different between the browser and a Node.js application: for example, in the browser we load the file with a `fetch` call, while for the Node.js application we use a `readFileSync` call. In both cases, the result is a buffer that can be used identically with the wrapper.
+
+Below you can compare the two ways to get the bg2io wrapper from a browser or from Node.js:
+
+**Browser:**
+
+```js
+import Bg2ioWrapper from 'bg2io/Bg2ioBrowser.js' // you probably need to customize this path
+
+const wrapper = await Bg2ioWrapper();
+...
+```
+
+**Node.js:**
+
+```js
+import Bg2ioWrapper from '../../bin/wasm/bg2io/Bg2ioWrapper.mjs';
+import Bg2ioModule from '../../bin/wasm/bg2io/Bg2ioModule.cjs';
+
+// Create the WebAssembly module instance
+const moduleInstance = await Bg2ioModule();
+// Create the wrapper
+const wrapper = new Bg2ioWrapper({ instance: moduleInstance });
+...
+```
+
+As you can see, once you get the bg2io wrapper, the differences in the code only have to do with the way to get the resources in the browser or in Node.js:
+
+
+**Browser:**
+
+```js
+...
+const response = await fetch(modelPath);
+if (!response.ok) {
+    throw new Error("Could not load model");
+}
+const buffer = await response.arrayBuffer();
+
+// From here it is the same in both environments.
+const bg2File = wrapper.loadBg2File(buffer);
+const header = bg2File.getBg2FileHeader(bg2File);
+for (let i = 0; i<header.numberOfPlist; ++i) {
+    const plist = wrapper.getPolyList(bg2File, i);
+    console.log(plist);
+}
+wrapper.freeBg2File(bg2File);
+```
+
+**Node.js:**
+
+```js
+...
+const buffer = fs.readFileSync(modelPath);
+
+// From here it is the same in both environments.
+const bg2File = wrapper.loadBg2File(buffer);
+const header = bg2File.getBg2FileHeader(bg2File);
+for (let i = 0; i<header.numberOfPlist; ++i) {
+    const plist = wrapper.getPolyList(bg2File, i);
+    console.log(plist);
+}
+wrapper.freeBg2File(bg2File);
+```
