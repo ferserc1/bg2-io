@@ -1,7 +1,10 @@
 {
     "files.associations": {
         "string_view": "c",
-        "typeinfo": "c"
+        "typeinfo": "c",
+        "__locale": "c",
+        "__string": "c",
+        "string": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled",
     "liveServer.settings.port": 5501

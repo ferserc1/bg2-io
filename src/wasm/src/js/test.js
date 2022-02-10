@@ -11,4 +11,13 @@ if (response.ok) {
     const bg2File = wrapper.loadBg2File(data);
     const header = wrapper.getBg2FileHeader(bg2File);
     console.log(header);
+
+    const components = wrapper.getComponentData(bg2File);
+    console.log(components);
+    
+    const material = wrapper.getMaterialsData(bg2File);
+    console.log(material);
+
+
+    wrapper.freeBg2File(bg2File);
 }

@@ -58,26 +58,47 @@ export default class Bg2ioWrapper {
         }
     }
 
+    getMaterialsData(file) {
+        const materialStringPtr = this._instance._getMaterialStringRef(file, this._debug ? 1 : 0);
+        if (materialStringPtr) {
+            const materialString = this.getStringRef(materialStringPtr);
+            return JSON.parse(materialString);
+        }
+        else {
+            return {}
+        }
+    }
+
+    getComponentData(file) {
+        const componentStringPtr = this._instance._getComponentStringRef(file, this._debug ? 1 : 0);
+        if (componentStringPtr) {
+            const componentStringRef = this.getStringRef(componentStringPtr);
+            return JSON.parse(componentStringRef);
+        }
+        else {
+            return {}
+        }
+    }
+
     freeBg2File(file) {
         this._instance._freeBg2File(file, this._debug ? 1 : 0);
     }
-
-    // async bg2json(arrayBuffer) {
-    //     const buffer = new Uint8Array(arrayBuffer);
-    //     const cPtr = this.instance._malloc(buffer.length * buffer.BYTES_PER_ELEMENT);
-    //     this.instance.HEAPU8.set(buffer, cPtr);
-    //     const jsonStringPtr = this.instance._loadBg2Buffer(cPtr, buffer.length, this._debug ? 1 : 0);
-    //     const jsonString = this.getString(jsonStringPtr);
-    //     this.instance._free(cPtr);
-    //     return JSON.parse(jsonString);
-    // }
-
+    
     getString(structPtr) {
         const strSize = new Int32Array(this.instance.HEAPU8.buffer, structPtr, 1)[0];
         const strPtr = new Int32Array(this.instance.HEAPU8.buffer, structPtr + 4)[0];
         const strData = new Uint8Array(this.instance.HEAPU8.buffer, strPtr, strSize);
         const str = new TextDecoder().decode(strData);
         this.instance._freeString(structPtr, this._debug ? 1 : 0);
+        return str;
+    }
+
+    getStringRef(structPtr) {
+        const strSize = new Int32Array(this.instance.HEAPU8.buffer, structPtr, 1)[0];
+        const strPtr = new Int32Array(this.instance.HEAPU8.buffer, structPtr + 4)[0];
+        const strData = new Uint8Array(this.instance.HEAPU8.buffer, strPtr, strSize);
+        const str = new TextDecoder().decode(strData);
+        this.instance._freeStringRef(structPtr, this._debug ? 1 : 0);
         return str;
     }
 }

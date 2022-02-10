@@ -19,8 +19,13 @@ void debugLogParam(char * text, char * param, int maxLength, int debug)
 {
     if (debug != 0)
     {
+        char a = '\0', b, c, d;
         if (maxLength>0 && strlen(param)>maxLength)
         {
+            a = param[maxLength - 3];
+            b = param[maxLength - 2];
+            c = param[maxLength - 1];
+            d = param[maxLength];
             param[maxLength - 3] = '.';
             param[maxLength - 2] = '.';
             param[maxLength - 1] = '.';
@@ -28,6 +33,15 @@ void debugLogParam(char * text, char * param, int maxLength, int debug)
         }
 
         printf("WASM debug log: %s - %s\n", text, param);
+
+        // Restore string
+        if (maxLength>0 && a != '\0')
+        {
+            param[maxLength - 3] = a;
+            param[maxLength - 2] = b;
+            param[maxLength - 1] = c;
+            param[maxLength] = d;
+        }
     }
 }
 
@@ -51,8 +65,13 @@ void errorLog(char * text)
 
 void errorLogParam(char * text, char * param, int maxLength)
 {
+    char a, b, c, d;
     if (maxLength>0 && strlen(param)>maxLength)
     {
+        a = param[maxLength - 3];
+        b = param[maxLength - 2];
+        c = param[maxLength - 1];
+        d = param[maxLength];
         param[maxLength - 3] = '.';
         param[maxLength - 2] = '.';
         param[maxLength - 1] = '.';
@@ -60,6 +79,15 @@ void errorLogParam(char * text, char * param, int maxLength)
     }
 
     printf("WASM ERROR: %s - %s\n", text, param);
+
+    // Restore string
+    if (maxLength>0 && a != '\0')
+    {
+        param[maxLength - 3] = a;
+        param[maxLength - 2] = b;
+        param[maxLength - 1] = c;
+        param[maxLength] = d;
+    }
 }
 
 void errorLogFormat(char * text, ...)
