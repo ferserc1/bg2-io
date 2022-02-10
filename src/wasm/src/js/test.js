@@ -21,5 +21,10 @@ if (response.ok) {
     const joints = wrapper.getJointData(bg2File);
     console.log(joints);
 
+    for (let i = 0; i<header.numberOfPlist; ++i) {
+        const plist = wrapper.getPolyList(bg2File, i);
+        console.log(plist);
+    }
+
     wrapper.freeBg2File(bg2File);
 }

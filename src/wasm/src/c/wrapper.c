@@ -28,6 +28,12 @@ String * createString(char * c_str, int copy, int debug)
 }
 
 EMSCRIPTEN_KEEPALIVE
+String * getStringStructRefFromCStr(char * strPtr, int debug)
+{
+    return createString(strPtr, 0, debug);
+}
+
+EMSCRIPTEN_KEEPALIVE
 void freeStringRef(String * s, int debug)
 {
     debugLogParam("Releasing string reference", s->data, 20, debug);
@@ -109,6 +115,20 @@ String * getJointStringRef(Bg2File * file, int debug)
     else
     {
         debugLog("No joint data found in file", debug);
+        return NULL;
+    }
+}
+
+EMSCRIPTEN_KEEPALIVE
+Bg2ioPolyList * getPolyList(Bg2File * file, int index, int debug)
+{
+    if (index < file->plists->length)
+    {
+        return file->plists->data[index];
+    }
+    else
+    {
+        errorLogFormat("Error getting polyList: index out of bounds. Poly list count: %d, requested index: %d", file->plists->length, index);
         return NULL;
     }
 }

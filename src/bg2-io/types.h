@@ -73,8 +73,8 @@ typedef struct Bg2ioBufferIteratorT {
  * 
  */
 typedef struct Bg2ioFloatArrayT {
-    float * data;
     int length;
+    float * data;
 } Bg2ioFloatArray;
 
 /**
@@ -82,15 +82,15 @@ typedef struct Bg2ioFloatArrayT {
  * 
  */
 typedef struct Bg2ioIntArrayT {
-    int * data;
     int length;
+    int * data;
 } Bg2ioIntArray;
 
 /**
  * @brief Initialize a float or integer array.
  * 
  */
-#define BG2IO_ARRAY_INIT { NULL, 0L }
+#define BG2IO_ARRAY_INIT { 0L, NULL }
 
 /**
  * @brief Reserves space to accommodate an array of 32-bit floating point elements.
@@ -176,15 +176,15 @@ int bg2io_freePolyList(Bg2ioPolyList * plist);
  * 
  */
 typedef struct Bg2ioPolyListArrayT {
-    Bg2ioPolyList ** data;
     int length;
+    Bg2ioPolyList ** data;
 } Bg2ioPolyListArray;
 
 /**
  * @brief Initialzie a poly list array
  * 
  */
-#define BG2IO_POLY_LIST_ARRAY_INIT { NULL, 0 }
+#define BG2IO_POLY_LIST_ARRAY_INIT { 0, NULL }
 
 /**
  * @brief Initialize a poly list array pointer
