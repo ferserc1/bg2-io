@@ -17,6 +17,20 @@ export default class Bg2ioWrapper {
         return bg2File;
     }
 
+    loadBg2FileAsJson(arrayBuffer) {
+        const bg2File = this.loadBg2File(arrayBuffer);
+        const header = this.getBg2FileHeader(bg2File);
+        const components = this.getComponentData(bg2File);
+        const materials = this.getMaterialsData(bg2File);
+        const joints = this.getJointData(bg2File);
+        const polyList = []
+        for (let i = 0; i < header.numberOfPlist; ++i) {
+            polyList.push(this.getPolyList(bg2File, i));
+        }
+        this.freeBg2File(bg2File);
+        return { header, components, materials, joints, polyList }
+    }
+
     getBg2FileHeader(file) {
         const headerPtr = this._instance._getBg2FileHeader(file, this._debug ? 1 : 0);
         const charData = new Uint8Array(this.instance.HEAPU8.buffer, headerPtr, 4);
@@ -181,4 +195,5 @@ export default class Bg2ioWrapper {
         this.instance._freeStringRef(structPtr, this._debug ? 1 : 0);
         return str;
     }
+
 }

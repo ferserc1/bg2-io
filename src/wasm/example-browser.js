@@ -9,24 +9,5 @@ if (!response.ok) {
     throw new Error("Could not load bg2 model file");
 }
 const data = await response.arrayBuffer();
-const bg2File = wrapper.loadBg2File(data);
-const header = wrapper.getBg2FileHeader(bg2File);
-console.log(header);
-
-const components = wrapper.getComponentData(bg2File);
-console.log(components);
-
-const material = wrapper.getMaterialsData(bg2File);
-console.log(material);
-
-const joints = wrapper.getJointData(bg2File);
-console.log(joints);
-
-for (let i = 0; i<header.numberOfPlist; ++i) {
-    const plist = wrapper.getPolyList(bg2File, i);
-    console.log(plist);
-}
-
-wrapper.freeBg2File(bg2File);
-
-console.log("Done");
+const jsonData = wrapper.loadBg2FileAsJson(data);
+console.log(jsonData);
