@@ -33,9 +33,10 @@ Bg2ioBuffer *openFile(const char * file)
 
         if (bg2io_createBuffer(result, fileLength) < 0)
         {
-            printf("Error: could not lallocate memory");
+            printf("Error: could not allocate memory");
         }
-        else{
+        else
+        {
             fread(result->mem, result->length, 1, fd);
 
             fclose(fd);

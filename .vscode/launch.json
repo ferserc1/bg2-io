@@ -68,6 +68,31 @@
         },
 
         {
+            "name": "test-copy (Linux)",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/test-copy",
+            "args": ["${workspaceFolder}/resources/cubes.bg2"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "Linux build test-copy",
+            "miDebuggerPath": "/usr/bin/gdb",
+            "includePath": [
+                "${workspaceFolder}/src/bg2-io"
+            ]
+        },
+
+        {
             "name": "sample (Mac)",
             "type": "lldb",
             "request": "launch",
@@ -97,6 +122,22 @@
             "externalConsole": false,
             "MIMode": "lldb",
             "preLaunchTask": "Mac build bg2json"
+        },
+
+        {
+            "name": "test-copy (Mac)",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/test-copy",
+            "args": [
+                "${workspaceFolder}/resources/cubes.bg2"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "lldb",
+            "preLaunchTask": "Mac build test-copy"
         }
     ]
 }

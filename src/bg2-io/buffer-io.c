@@ -321,7 +321,8 @@ Bg2ioSize bg2io_writeString(Bg2ioBufferIterator *it, const char * in)
     {
         return BG2IO_ERR_INVALID_PTR;
     }
-    else if (it->current > it->buffer->length) {
+    else if (it->current > it->buffer->length)
+    {
         return BG2IO_ERR_ITERATOR_OUT_OF_BOUNDS;
     }
 
@@ -337,15 +338,45 @@ Bg2ioSize bg2io_writeString(Bg2ioBufferIterator *it, const char * in)
     return written;
 }
 
-Bg2ioSize bg2io_writeFloatArray(Bg2ioBufferIterator *it, const float * in)
+Bg2ioSize bg2io_writeFloatArray(Bg2ioBufferIterator *it, const float * in, Bg2ioSize length)
 {
-    // TODO: Implement this.
-    return 0;
+    if (it == NULL || it->buffer == NULL)
+    {
+        return BG2IO_ERR_INVALID_PTR;
+    }
+    else if (it->current > it->buffer->length)
+    {
+        return BG2IO_ERR_ITERATOR_OUT_OF_BOUNDS;
+    }
+
+    Bg2ioSize written = bg2io_writeInteger(it, length);
+
+    for (int i = 0; i < length; ++i)
+    {
+        written += bg2io_writeFloat(it, in[i]);
+    }
+
+    return written;
 }
 
-Bg2ioSize bg2io_writeIntArray(Bg2ioBufferIterator *it, const int * in)
+Bg2ioSize bg2io_writeIntArray(Bg2ioBufferIterator *it, const int * in, Bg2ioSize length)
 {
-    // TODO: implement this.
-    return 0;
+    if (it == NULL || it->buffer == NULL)
+    {
+        return BG2IO_ERR_INVALID_PTR;
+    }
+    else if (it->current > it->buffer->length)
+    {
+        return BG2IO_ERR_ITERATOR_OUT_OF_BOUNDS;
+    }
+
+    Bg2ioSize written = bg2io_writeInteger(it, length);
+
+    for (int i = 0; i < length; ++i)
+    {
+        written += bg2io_writeInteger(it, in[i]);
+    }
+
+    return written;
 }
 

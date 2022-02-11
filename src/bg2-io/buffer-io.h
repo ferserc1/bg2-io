@@ -197,13 +197,14 @@ Bg2ioSize bg2io_writeString(Bg2ioBufferIterator *it, const char * in);
  * 
  * @param it input buffer iterator
  * @param in input value
+ * @param length array length
  * @return Bg2ioSize Returns the written bytes or:
  *  - BG2IO_ERR_INVALID_PTR if the buffer is invalid
  *  - BG2IO_ERR_ITERATOR_OUT_OF_BOUNDS if the buffer iterator current position
  *    is greater than the buffer length
  * 
  */
-Bg2ioSize bg2io_writeFloatArray(Bg2ioBufferIterator *it, const float * in);
+Bg2ioSize bg2io_writeFloatArray(Bg2ioBufferIterator *it, const float * in, Bg2ioSize length);
 
 /**
  * @brief Write an integer 32 bit array to the buffer. The size of the array, expressed in number
@@ -211,12 +212,13 @@ Bg2ioSize bg2io_writeFloatArray(Bg2ioBufferIterator *it, const float * in);
  * 
  * @param it input buffer iterator
  * @param in input value
+ * @param length array length
  * @return Bg2ioSize Returns the written bytes or:
  *  - BG2IO_ERR_INVALID_PTR if the buffer is invalid
  *  - BG2IO_ERR_ITERATOR_OUT_OF_BOUNDS if the buffer iterator current position
  *    is greater than the buffer length
  * 
  */
-Bg2ioSize bg2io_writeIntArray(Bg2ioBufferIterator *it, const int * in);
+Bg2ioSize bg2io_writeIntArray(Bg2ioBufferIterator *it, const int * in, Bg2ioSize length);
 
 #endif
