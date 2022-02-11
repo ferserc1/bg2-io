@@ -6,5 +6,6 @@
 #include "buffer-memory.h"
 #include "buffer-io.h"
 #include "bg2-loader.h"
+#include "bg2-writer.h"
 
 #endif

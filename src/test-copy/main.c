@@ -55,8 +55,19 @@ int main(int argc, char ** argv)
         exit(3);
     }
 
+    Bg2ioBuffer outBuffer = BG2IO_BUFFER_INIT;
+    int error = bg2io_writeFileToBuffer(fileData, &outBuffer);
+    if (error != BG2IO_NO_ERROR)
+    {
+        printf("Error writing file to buffer. Error code %d", error);
+    }
+
+
+    bg2io_freeBuffer(fileBuffer);
+    free(fileBuffer);
+    bg2io_freeBuffer(&outBuffer);
     bg2io_freeBg2File(fileData);
     free(fileData);
-    
+
     return 0;
 }

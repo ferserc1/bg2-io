@@ -76,6 +76,9 @@ int main(int argc, const char ** argv)
 
     writeJson(fileData, argv[1]);
     
+    bg2io_freeBuffer(fileBuffer);
+    free(fileBuffer);
+    
     bg2io_freeBg2File(fileData);
     free(fileBuffer);
     
