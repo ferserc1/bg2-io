@@ -33,11 +33,28 @@ Bg2ioBuffer * openFile(const char * file)
     return result;
 }
 
+int saveBufferToFile(const char * file, Bg2ioBuffer * buffer)
+{
+    FILE * fd = fopen(file, "wb");
+
+    if (fd)
+    {
+        fwrite(buffer->mem, 1, buffer->length, fd);
+        fclose(fd);
+        return 0;
+    }
+    else
+    {
+        printf("Could not open file for write: %s\n", file);
+        return -4;
+    }
+}
+
 int main(int argc, char ** argv)
 {
-    if (argc<2)
+    if (argc<3)
     {
-        printf("usage: test-copy input.bg2\n");
+        printf("usage: test-copy input.bg2 output.bg2\n");
         exit(1);
     }
 
@@ -62,6 +79,11 @@ int main(int argc, char ** argv)
         printf("Error writing file to buffer. Error code %d", error);
     }
 
+    if (saveBufferToFile(argv[2], &outBuffer) != 0)
+    {
+        printf("Error saving file. Check if the output directory exists and has write permissions.\n");
+        exit(4);
+    }
 
     bg2io_freeBuffer(fileBuffer);
     free(fileBuffer);

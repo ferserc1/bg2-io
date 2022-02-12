@@ -14,10 +14,13 @@
 #define ASSERT_ERR(e,writtenBytes)   if (e < 0) return e; else writtenBytes += e
 
 
-Bg2ioSize calculatePolyListSize(Bg2File * file);
-Bg2ioSize writeHeaderToBuffer(Bg2File * file, Bg2ioBufferIterator *it);
+Bg2ioSize calculatePolyListSize(Bg2File *file);
+Bg2ioSize writeHeaderToBuffer(Bg2File *file, Bg2ioBufferIterator *it);
+Bg2ioSize writePolyListsToBuffer(Bg2File *file, Bg2ioBufferIterator *it);
+Bg2ioSize writeBuffer(Bg2ioBufferIterator *it, Bg2ioFloatArray *arr,int blockType);
+Bg2ioSize writeIntdexBuffer(Bg2ioBufferIterator *it, Bg2ioIntArray *arr);
 
-Bg2ioSize bg2io_calculateBufferSize(Bg2File * file)
+Bg2ioSize bg2io_calculateBufferSize(Bg2File *file)
 {
     if (file == NULL)
     {
@@ -88,8 +91,21 @@ int bg2io_writeFileToBuffer(Bg2File * file, Bg2ioBuffer *dest)
 
     Bg2ioBufferIterator it = BG2IO_ITERATOR(dest);
 
-    writeHeaderToBuffer(file, &it);
+    Bg2ioSize writtenBytes = 0;
+    err = writeHeaderToBuffer(file, &it);
+    ASSERT_ERR(err,writtenBytes);
 
+    err = writePolyListsToBuffer(file, &it);
+    ASSERT_ERR(err,writtenBytes);
+
+    if (file->componentData != NULL)
+    {
+        err = bg2io_writeBlock(&it, bg2io_Components);
+        ASSERT_ERR(err,writtenBytes);
+
+        err = bg2io_writeString(&it, file->componentData);
+        ASSERT_ERR(err,writtenBytes);
+    }
 
     return BG2IO_NO_ERROR;
 }
@@ -212,3 +228,82 @@ Bg2ioSize writeHeaderToBuffer(Bg2File * file, Bg2ioBufferIterator * it)
     return writtenBytes;
 }
 
+Bg2ioSize writePolyListsToBuffer(Bg2File *file, Bg2ioBufferIterator *it)
+{
+    Bg2ioSize writtenBytes = 0;
+    Bg2ioSize err = BG2IO_NO_ERROR;
+    
+    for (int i = 0; i < file->plists->length; ++i)
+    {
+        Bg2ioPolyList * plist = file->plists->data[i];
+        err = bg2io_writeBlock(it,bg2io_PolyList);
+        ASSERT_ERR(err,writtenBytes);
+
+        err = bg2io_writeBlock(it,bg2io_PlistName);
+        ASSERT_ERR(err,writtenBytes);
+
+        err = bg2io_writeString(it,plist->name);
+        ASSERT_ERR(err,writtenBytes);
+
+        err = bg2io_writeBlock(it,bg2io_MatName);
+        ASSERT_ERR(err,writtenBytes);
+
+        err = bg2io_writeString(it,plist->matName);
+        ASSERT_ERR(err,writtenBytes);
+
+        err = writeBuffer(it, &plist->vertex,bg2io_VertexArray);
+        ASSERT_ERR(err,writtenBytes);
+
+        err = writeBuffer(it, &plist->normal,bg2io_NormalArray);
+        ASSERT_ERR(err,writtenBytes);
+
+        err = writeBuffer(it, &plist->texCoord0,bg2io_TexCoord0Array);
+        ASSERT_ERR(err,writtenBytes);
+
+        err = writeBuffer(it, &plist->texCoord1,bg2io_TexCoord1Array);
+        ASSERT_ERR(err,writtenBytes);
+
+        err = writeBuffer(it, &plist->texCoord2,bg2io_TexCoord2Array);
+        ASSERT_ERR(err,writtenBytes);
+
+        err = writeIntdexBuffer(it, &plist->index);
+        ASSERT_ERR(err,writtenBytes);
+    }
+
+    err = bg2io_writeBlock(it,bg2io_End);
+    ASSERT_ERR(err,writtenBytes);
+    
+    return writtenBytes;
+}
+
+Bg2ioSize writeBuffer(Bg2ioBufferIterator *it, Bg2ioFloatArray *arr, int blockType)
+{
+    Bg2ioSize err;
+    Bg2ioSize totalBytes = 0;
+
+    if (arr->length > 0)
+    {
+        err = bg2io_writeBlock(it, blockType);
+        ASSERT_ERR(err, totalBytes);
+
+        err = bg2io_writeFloatArray(it, arr->data, arr->length);
+        ASSERT_ERR(err,totalBytes);
+    }
+    return totalBytes;
+}
+
+Bg2ioSize writeIntdexBuffer(Bg2ioBufferIterator *it, Bg2ioIntArray *arr)
+{
+    Bg2ioSize err;
+    Bg2ioSize totalBytes = 0;
+
+    if (arr->length > 0)
+    {
+        err = bg2io_writeBlock(it, bg2io_IndexArray);
+        ASSERT_ERR(err, totalBytes);
+
+        err = bg2io_writeIntArray(it, arr->data, arr->length);
+        ASSERT_ERR(err,totalBytes);
+    }
+    return totalBytes;
+}

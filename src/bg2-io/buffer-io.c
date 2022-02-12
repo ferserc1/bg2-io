@@ -294,7 +294,7 @@ Bg2ioSize bg2io_writeInteger(Bg2ioBufferIterator *it, int in)
     
     if (bg2io_isBigEndian())
     {
-        memcpy((void*)&it->buffer[it->current], (void*) &in, increment);
+        memcpy((void*)&it->buffer->mem[it->current], (void*) &in, increment);
     }
     else
     {
@@ -323,17 +323,17 @@ Bg2ioSize bg2io_writeFloat(Bg2ioBufferIterator *it, float in)
         return BG2IO_ERR_ITERATOR_OUT_OF_BOUNDS;
     }
 
-    Bg2ioSize increment = sizeof(int);
+    Bg2ioSize increment = sizeof(float);
     checkAppendDataLength(it, increment);
     
     if (bg2io_isBigEndian())
     {
-        memcpy((void*)&it->buffer[it->current], (void*) &in, increment);
+        memcpy((void*)&it->buffer->mem[it->current], (void*) &in, increment);
     }
     else
     {
         union {
-            int number;
+            float number;
             unsigned char bytes[4];
         } r_value;
         r_value.number = in;
