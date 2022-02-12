@@ -6,7 +6,7 @@
     "configurations": [
         {
             "name": "WASM: node example",
-            "program": "${workspaceFolder}/src/wasm/bg2io-example.js",
+            "program": "${workspaceFolder}/src/wasm/example-node.js",
             "args": [
                 "${workspaceFolder}/resources/cubes.bg2"
             ],

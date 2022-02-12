@@ -16,3 +16,7 @@ const buffer = fs.readFileSync(modelPath);
 const jsonFile = wrapper.loadBg2FileAsJson(buffer);
 console.log(jsonFile);
 
+const fileBuffer = wrapper.getBg2BufferFromJson(jsonFile);
+if (fileBuffer) {
+    console.log("TODO: Write file");
+}

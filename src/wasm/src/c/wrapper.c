@@ -139,3 +139,13 @@ void freeBg2File(Bg2File * file, int debug)
     debugLog("Releasing bg2 file...", debug);
     bg2io_freeBg2File(file);
 }
+
+
+EMSCRIPTEN_KEEPALIVE
+Bg2File * createBg2File(int debug)
+{
+    debugLog("Creating empty Bg2File struct", debug);
+    Bg2File * file = (Bg2File*)malloc(sizeof(Bg2File));
+    return file;
+}
+

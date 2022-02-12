@@ -31,6 +31,16 @@ export default class Bg2ioWrapper {
         return { header, components, materials, joints, polyList }
     }
 
+    getBg2BufferFromJson(jsonData) {
+        const bg2File = this.instance._createBg2File(this._debug ? 1 : 0);
+
+
+        if (bg2File) {
+            this.instance._freeBg2File(bg2File, this._debug ? 1 : 0);
+        }
+        return null;
+    }
+
     getBg2FileHeader(file) {
         const headerPtr = this._instance._getBg2FileHeader(file, this._debug ? 1 : 0);
         const charData = new Uint8Array(this.instance.HEAPU8.buffer, headerPtr, 4);
