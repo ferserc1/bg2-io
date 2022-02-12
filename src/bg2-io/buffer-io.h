@@ -24,6 +24,14 @@ enum Bg2ioBlockType {
 };
 
 /**
+ * @brief Check if a block code is valid
+ * 
+ * @param b block code
+ * @return int 1 if the bloc is one of the Bg2ioBlockType enum, 0 in other case
+ */
+int bg2io_isValidBlock(int b);
+
+/**
  * @brief Reads a byte from the buffer iterator and increments it one byte
  * 
  * @param it input buffer iterator
@@ -145,6 +153,19 @@ Bg2ioSize bg2io_readIntArray(Bg2ioBufferIterator *it, int **out);
  * 
  */
 Bg2ioSize bg2io_writeByte(Bg2ioBufferIterator *it, const unsigned char in);
+
+/**
+ * @brief Write a block code into the buffer pointed by the buffer iterator
+ * 
+ * @param it Buffer iterator
+ * @param block Block code
+ * @return Bg2ioSize Returs the written bites or:
+ *  - BG2IO_ERR_INVALID_PTR if the buffer is invalid
+ *  - BG2IO_ERR_ITERATOR_OUT_OF_BOUNDS if the buffer iterator current position 
+ *    is greater than the buffer length
+ *  - BG2IO_ERR_INVALID_BLOCK if the specified block code is not valid (see Bg2ioBlockType enum)
+ */
+Bg2ioSize bg2io_writeBlock(Bg2ioBufferIterator *it, int block);
 
 /**
  * @brief Write an integer value to a buffer pointed by an iterator, and increment it four bytes. 

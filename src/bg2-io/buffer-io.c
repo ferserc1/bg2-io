@@ -46,6 +46,32 @@ void checkAppendDataLength(Bg2ioBufferIterator *it, Bg2ioSize requiredSize)
     }
 }
 
+int bg2io_isValidBlock(int block)
+{
+    switch (block) {
+    case bg2io_Header:
+    case bg2io_PolyList:
+    case bg2io_VertexArray:
+    case bg2io_NormalArray:
+    case bg2io_TexCoord0Array:
+    case bg2io_TexCoord1Array:
+    case bg2io_TexCoord2Array:
+    case bg2io_TexCoord3Array:
+    case bg2io_TexCoord4Array:
+    case bg2io_IndexArray:
+    case bg2io_Materials:
+    case bg2io_PlistName:
+    case bg2io_MatName:
+    case bg2io_ShadowProjector:
+    case bg2io_Joint:
+    case bg2io_End:
+    case bg2io_Components:
+        return 1;
+    default:
+        return 0;
+    }
+}
+
 Bg2ioSize bg2io_readByte(Bg2ioBufferIterator *it, unsigned char *out)
 {
     Bg2ioSize error = checkIterator(it, sizeof(Bg2ioByte));
@@ -73,26 +99,12 @@ unsigned int bg2io_readBlock(Bg2ioBufferIterator *it)
         return error;
     }
 
-    switch (block) {
-    case bg2io_Header:
-    case bg2io_PolyList:
-    case bg2io_VertexArray:
-    case bg2io_NormalArray:
-    case bg2io_TexCoord0Array:
-    case bg2io_TexCoord1Array:
-    case bg2io_TexCoord2Array:
-    case bg2io_TexCoord3Array:
-    case bg2io_TexCoord4Array:
-    case bg2io_IndexArray:
-    case bg2io_Materials:
-    case bg2io_PlistName:
-    case bg2io_MatName:
-    case bg2io_ShadowProjector:
-    case bg2io_Joint:
-    case bg2io_End:
-    case bg2io_Components:
+    if (bg2io_isValidBlock(block))
+    {
         return block;
-    default:
+    }
+    else
+    {
         it->current -= sizeof(int);
         return BG2IO_ERR_INVALID_BLOCK;
     }
@@ -236,7 +248,8 @@ Bg2ioSize bg2io_writeByte(Bg2ioBufferIterator *it, const unsigned char in)
     {
         return BG2IO_ERR_INVALID_PTR;
     }
-    else if (it->current > it->buffer->length) {
+    else if (it->current > it->buffer->length)
+    {
         return BG2IO_ERR_ITERATOR_OUT_OF_BOUNDS;
     }
 
@@ -245,6 +258,25 @@ Bg2ioSize bg2io_writeByte(Bg2ioBufferIterator *it, const unsigned char in)
     it->buffer->mem[it->current] = in;
     it->current += increment;
     return increment;
+}
+
+Bg2ioSize bg2io_writeBlock(Bg2ioBufferIterator *it, int block)
+{
+    if (it == NULL || it->buffer == NULL)
+    {
+        return BG2IO_ERR_INVALID_PTR;
+    }
+    else if (it->current > it->buffer->length)
+    {
+        return BG2IO_ERR_ITERATOR_OUT_OF_BOUNDS;
+    }
+    else if (bg2io_isValidBlock(block) == 0)
+    {
+        return BG2IO_ERR_INVALID_BLOCK;
+    }
+
+    Bg2ioSize size = bg2io_writeInteger(it, block);
+    return size;
 }
 
 Bg2ioSize bg2io_writeInteger(Bg2ioBufferIterator *it, int in)

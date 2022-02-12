@@ -1,12 +1,98 @@
 
 #include "bg2-writer.h"
 #include "errors.h"
+#include "buffer-memory.h"
+#include "buffer-io.h"
+
 #include <string.h>
 
 // String size in buffer: 4 bytes for the string size and 1 byte for each character
 #define STR_SIZE(s)  sizeof(char) * strlen(s) + sizeof(int)
 // Array size in buffer: 4 bytes for the buffer size and 4 bytes for each element
 #define ARR_SIZE(v,T)  v.length * sizeof(T) + sizeof(int)
+
+#define ASSERT_ERR(e,writtenBytes)   if (e < 0) return e; else writtenBytes += e
+
+
+Bg2ioSize calculatePolyListSize(Bg2File * file);
+Bg2ioSize writeHeaderToBuffer(Bg2File * file, Bg2ioBufferIterator *it);
+
+Bg2ioSize bg2io_calculateBufferSize(Bg2File * file)
+{
+    if (file == NULL)
+    {
+        return BG2IO_ERR_INVALID_FILE_PTR;
+    }
+    else if (file->materialData == NULL)
+    {
+        return BG2IO_ERR_INVALID_MATERIAL_DATA;
+    }
+
+    // Header: endianess, major version, minor version, revision: 4 bytes
+    // hedr block: 4 bytes
+    // Number of poly lists: 4 bytes
+    // mtrl block: 4 bytes
+    Bg2ioSize total = 16;
+
+    // Material string
+    total += STR_SIZE(file->materialData);
+
+    // Joint block: 4 bytes
+    // Joint string
+    if (file->jointData != NULL)
+    {
+        total += 4 + STR_SIZE(file->jointData);
+    }
+    else
+    {
+        // Joint data is optional in Bg2File struct, but mandatory on file buffer
+        total += 4 + STR_SIZE("{}");
+    }
+
+    Bg2ioSize plistSize = calculatePolyListSize(file);
+    if (plistSize < 0)
+    {
+        return plistSize;   // Error
+    }
+    total += plistSize;
+
+    // components (if present)
+    if (file->componentData != NULL)
+    {
+        // cmps block (4 bytes) + block string
+        total += 4 + STR_SIZE(file->componentData);
+    }
+
+    return total;
+}
+
+int bg2io_writeFileToBuffer(Bg2File * file, Bg2ioBuffer *dest)
+{
+    if (dest == NULL)
+    {
+        return BG2IO_ERR_INVALID_BUFFER_PTR;
+    }
+
+
+    Bg2ioSize requiredSize = bg2io_calculateBufferSize(file);
+    if (requiredSize<0)
+    {
+        return requiredSize;
+    }
+
+    Bg2ioSize err = bg2io_createBuffer(dest, requiredSize);
+    if (err < 0)
+    {
+        return err;
+    }
+
+    Bg2ioBufferIterator it = BG2IO_ITERATOR(dest);
+
+    writeHeaderToBuffer(file, &it);
+
+
+    return BG2IO_NO_ERROR;
+}
 
 Bg2ioSize calculatePolyListSize(Bg2File * file)
 {
@@ -73,67 +159,56 @@ Bg2ioSize calculatePolyListSize(Bg2File * file)
     return total;
 }
 
-Bg2ioSize bg2io_calculateBufferSize(Bg2File * file)
+Bg2ioSize writeHeaderToBuffer(Bg2File * file, Bg2ioBufferIterator * it)
 {
-    if (file == NULL)
-    {
-        return BG2IO_ERR_INVALID_FILE_PTR;
-    }
-    else if (file->materialData == NULL)
+    Bg2ioSize writtenBytes = 0;
+
+    // endianness | majorVersion | minorVersion | revision
+    Bg2ioSize err = bg2io_writeByte(it,file->header.endianess);
+    ASSERT_ERR(err,writtenBytes);
+    err = bg2io_writeByte(it,file->header.majorVersion);
+    ASSERT_ERR(err,writtenBytes);
+    err = bg2io_writeByte(it,file->header.minorVersion);
+    ASSERT_ERR(err,writtenBytes);
+    err = bg2io_writeByte(it,file->header.revision);
+    ASSERT_ERR(err,writtenBytes);
+
+    // hedr block
+    err = bg2io_writeBlock(it,bg2io_Header);
+    ASSERT_ERR(err,writtenBytes);
+
+    // Number of poly lists
+    err = bg2io_writeInteger(it,file->header.numberOfPolyList);
+    ASSERT_ERR(err,writtenBytes);
+
+    // mtrl block
+    err = bg2io_writeBlock(it,bg2io_Materials);
+    ASSERT_ERR(err,writtenBytes);
+
+    // material string
+    if (!file->materialData)
     {
         return BG2IO_ERR_INVALID_MATERIAL_DATA;
     }
+    err = bg2io_writeString(it,file->materialData);
+    ASSERT_ERR(err,writtenBytes);
 
-    // Header: endianess, major version, minor version, revision: 4 bytes
-    // hedr block: 4 bytes
-    // Number of poly lists: 4 bytes
-    // mtrl block: 4 bytes
-    Bg2ioSize total = 16;
+    // join block
+    err = bg2io_writeBlock(it,bg2io_Joint);
+    ASSERT_ERR(err,writtenBytes);
 
-    // Material string
-    total += STR_SIZE(file->materialData);
-
-    // Joint block: 4 bytes
-    // Joint string
-    if (file->jointData != NULL)
+    // joint string
+    if (file->jointData)
     {
-        total += 4 + STR_SIZE(file->jointData);
+        err = bg2io_writeString(it,file->jointData);
+        ASSERT_ERR(err,writtenBytes);
     }
     else
     {
-        // Joint data is optional in Bg2File struct, but mandatory on file buffer
-        total += 4 + STR_SIZE("{}");
+        err = bg2io_writeString(it,"{}");
+        ASSERT_ERR(err,writtenBytes);
     }
 
-    Bg2ioSize plistSize = calculatePolyListSize(file);
-    if (plistSize < 0)
-    {
-        return plistSize;   // Error
-    }
-    total += plistSize;
-
-    // components (if present)
-    if (file->componentData != NULL)
-    {
-        // cmps block (4 bytes) + block string
-        total += 4 + STR_SIZE(file->componentData);
-    }
-
-    return total;
+    return writtenBytes;
 }
 
-int bg2io_writeFileToBuffer(Bg2File * file, Bg2ioBuffer *dest)
-{
-    if (dest == NULL)
-    {
-        return BG2IO_ERR_INVALID_BUFFER_PTR;
-    }
-
-    Bg2ioSize requiredSize = bg2io_calculateBufferSize(file);
-    if (requiredSize<0)
-    {
-        return requiredSize;
-    }
-
-    return BG2IO_NO_ERROR;
-}
