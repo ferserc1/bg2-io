@@ -1,4 +1,14 @@
 
+
+export const BufferType = {
+    VERTEX      : 1,
+    NORMAL      : 2,
+    TEXCOORD0   : 3,
+    TEXCOORD1   : 4,
+    TEXCOORD2   : 5,
+    INDEX       : 10
+};
+
 export default class Bg2ioWrapper {
     constructor({ instance, debug = false } = {}) {
         this._instance = instance;
@@ -23,12 +33,12 @@ export default class Bg2ioWrapper {
         const components = this.getComponentData(bg2File);
         const materials = this.getMaterialsData(bg2File);
         const joints = this.getJointData(bg2File);
-        const polyList = []
+        const polyLists = []
         for (let i = 0; i < header.numberOfPlist; ++i) {
-            polyList.push(this.getPolyList(bg2File, i));
+            polyLists.push(this.getPolyList(bg2File, i));
         }
         this.freeBg2File(bg2File);
-        return { header, components, materials, joints, polyList }
+        return { header, components, materials, joints, polyLists }
     }
 
     getBg2BufferFromJson(jsonData) {
@@ -50,6 +60,22 @@ export default class Bg2ioWrapper {
             this.instance.ccall("setComponentData",null,["number","string","number"],[bg2File,JSON.stringify(components),this._debug ? 1 : 0]);
             this.instance.ccall("setJointData",null,["number","string","number"],[bg2File,JSON.stringify(joints),this._debug ? 1 : 0]);
             
+            polyLists.forEach(pl => {
+                const plist = this.instance.ccall("createPolyList","number",["string","string","number"],[pl.name,pl.matName,this._debug ? 1 : 0]);
+                this.instance._addPolyList(bg2File, plist, this._debug ? 1 : 0);
+                this.addFloatBuffer(plist, pl.vertex, BufferType.VERTEX);
+                this.addFloatBuffer(plist, pl.normal, BufferType.NORMAL);
+                this.addFloatBuffer(plist, pl.texCoord0, BufferType.TEXCOORD0);
+                this.addFloatBuffer(plist, pl.texCoord1, BufferType.TEXCOORD1);
+                this.addFloatBuffer(plist, pl.texCoord2, BufferType.TEXCOORD2);
+                this.addIndexBuffer(plist, pl.index, BufferType.INDEX);
+            });
+
+            // TODO: Write bg2File to Bg2ioBuffer
+
+            // TODO: Get Bg2ioBuffer contents
+            
+            // TODO: memory access out of bounds. The problem arises after adding poly lists to de file
             this.instance._freeBg2File(bg2File, this._debug ? 1 : 0);
         }
         return null;
@@ -218,5 +244,23 @@ export default class Bg2ioWrapper {
         const str = new TextDecoder().decode(strData);
         this.instance._freeStringRef(structPtr, this._debug ? 1 : 0);
         return str;
+    }
+
+    addFloatBuffer(plist,bufferArray,destBuffer) {
+        if (bufferArray && bufferArray.length > 0) {
+            const jsTypedArray = new Float32Array(bufferArray);
+            const jsToCPtr = this.instance._malloc(jsTypedArray.length * jsTypedArray.BYTES_PER_ELEMENT);
+            this.instance.HEAPF32.set(jsTypedArray, jsToCPtr / 4);
+            this.instance._addFloatBuffer(plist, jsToCPtr, bufferArray.length, destBuffer, this._debug ? 1 : 0);
+        }
+    }
+
+    addIndexBuffer(plist,indexArray) {
+        if (indexArray && indexArray.length>0) {
+            const jsTypedArray = new Int32Array(indexArray);
+            const jsToCPtr = this.instance._malloc(jsTypedArray.length * jsTypedArray.BYTES_PER_ELEMENT);
+            this.instance.HEAPF32.set(jsTypedArray, jsToCPtr / 4);
+            this.instance._addIndexBuffer(plist, jsToCPtr, indexArray.length, this._debug ? 1 : 0);
+        }
     }
 }

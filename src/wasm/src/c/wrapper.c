@@ -146,6 +146,7 @@ Bg2File * createBg2File(int debug)
 {
     debugLog("Creating empty Bg2File struct", debug);
     Bg2File * file = (Bg2File*)malloc(sizeof(Bg2File));
+    BG2IO_BG2_FILE_PTR_INIT(file);
     return file;
 }
 
@@ -194,4 +195,92 @@ void setJointData(Bg2File *file, const char * jointText, int debug)
     strcpy(joint, jointText);
     debugLogParam("Setting joint data:", joint, 30, debug);
     file->jointData = joint;
+}
+
+EMSCRIPTEN_KEEPALIVE
+Bg2ioPolyList * createPolyList(const char * name, const char * matName, int debug)
+{
+    char * n = (char*)malloc(strlen(name) + 1);
+    strcpy(n, name);
+    char * m = (char*)malloc(strlen(matName) + 1);
+    strcpy(m, matName);
+    debugLogFormat(debug, "Creating new polyList with name '%s', material name: '%s'", n, m, debug);
+
+    Bg2ioPolyList * plist = (Bg2ioPolyList*)malloc(sizeof(Bg2ioPolyList));
+    BG2IO_POLY_LIST_PTR_INIT(plist);
+    plist->name = n;
+    plist->matName = m;
+    return plist;
+}
+
+EMSCRIPTEN_KEEPALIVE 
+void addPolyList(Bg2File *file, Bg2ioPolyList * plist, int debug)
+{
+    debugLog("Adding poly list", debug);
+    if (file->plists == NULL)
+    {
+        debugLog("Creating polyList array struct", debug);
+        file->plists = (Bg2ioPolyListArray*)malloc(sizeof(Bg2ioPolyListArray));
+        BG2IO_POLY_LIST_ARRAY_PTR_INIT(file->plists);
+
+        debugLogFormat(debug, "Adding poly list with name '%s'", plist->name);
+        file->plists->data = (Bg2ioPolyList**)malloc(sizeof(Bg2ioPolyList));
+        file->plists->length = 1;
+    }
+    else
+    {
+        debugLog("Allocating memory for new poly list", debug);
+        Bg2ioPolyList ** prev  = file->plists->data;
+        file->plists->data = (Bg2ioPolyList**)malloc(sizeof(Bg2ioPolyList) * file->plists->length + 1);
+        for (int i = 0; i < file->plists->length; ++i)
+        {
+            file->plists->data[i] = prev[i];
+        }
+
+        debugLogFormat(debug,"Adding poly list with name '%s'", plist->name);
+        file->plists->data[file->plists->length] = plist;
+        file->plists->length++;
+    }
+}
+
+EMSCRIPTEN_KEEPALIVE
+void addFloatBuffer(Bg2ioPolyList *plist, float * buffer, int count, int destBuffer, int debug)
+{
+    switch (destBuffer) {
+    case bg2io_BufferVertex:
+        debugLogFormat(debug, "Adding vertex buffer to poly list '%s'",plist->name);
+        plist->vertex.data = buffer;
+        plist->vertex.length = count;
+        break;
+    case bg2io_BufferNormal:
+        debugLogFormat(debug, "Adding normal buffer to poly list '%s'",plist->name);
+        plist->normal.data = buffer;
+        plist->normal.length = count;
+        break;
+    case bg2io_BufferTexCoord0:
+        debugLogFormat(debug, "Adding texCoord0 buffer to poly list '%s'",plist->name);
+        plist->texCoord0.data = buffer;
+        plist->texCoord0.length = count;
+        break;
+    case bg2io_BufferTexCoord1:
+        debugLogFormat(debug, "Adding texCoord1 buffer to poly list '%s'",plist->name);
+        plist->texCoord1.data = buffer;
+        plist->texCoord1.length = count;
+        break;
+    case bg2io_BufferTexCoord2:
+        debugLogFormat(debug, "Adding texCoord2 buffer to poly list '%s'",plist->name);
+        plist->texCoord2.data = buffer;
+        plist->texCoord2.length = count;
+        break;
+    default:
+        errorLogFormat("Invalid buffer code specified: %d", destBuffer);    
+    }
+}
+
+EMSCRIPTEN_KEEPALIVE
+void addIndexBuffer(Bg2ioPolyList *plist, int * buffer, int count, int debug)
+{
+    debugLogFormat(debug, "Adding index buffer to poly list '%s'", plist->name);
+    plist->index.data = buffer;
+    plist->index.length = count;
 }

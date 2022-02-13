@@ -21,6 +21,15 @@ typedef struct Bg2ioBufferT {
     Bg2ioSize actualLength;
 } Bg2ioBuffer;
 
+enum Bg2ioBufferType {
+    bg2io_BufferVertex          =  1,
+    bg2io_BufferNormal          =  2,
+    bg2io_BufferTexCoord0       =  3,
+    bg2io_BufferTexCoord1       =  4,
+    bg2io_BufferTexCoord2       =  5,
+    bg2io_BufferIndex           = 10
+};
+
 /**
  * @brief It is important to initialize the Bg2ioBuffer structures before using 
  * them. To do this you can use the following macro, or do it manually.
