@@ -149,3 +149,49 @@ Bg2File * createBg2File(int debug)
     return file;
 }
 
+EMSCRIPTEN_KEEPALIVE
+void setFileHeader(
+    Bg2File *file, 
+    unsigned char endianess, 
+    unsigned char majorVersion, 
+    unsigned char minorVersion, 
+    unsigned char revision, 
+    int numberOfPlist,
+    int debug)
+{
+    debugLogFormat(debug, "Setting file header: %s, v:%d.%d.%d, %d polyLists",
+        endianess==0 ? "littleEndian" : "bigEndian", (int) majorVersion, (int) minorVersion, (int) revision, numberOfPlist);
+
+    file->header.endianess = endianess;
+    file->header.majorVersion = majorVersion;
+    file->header.minorVersion = minorVersion;
+    file->header.revision = revision;
+    file->header.numberOfPolyList = numberOfPlist;
+}
+
+EMSCRIPTEN_KEEPALIVE
+void setMaterialData(Bg2File *file, const char * matText, int debug)
+{
+    char * mat = (char*)malloc(strlen(matText) + 1);
+    strcpy(mat, matText);
+    debugLogParam("Setting material data:", mat, 30, debug);
+    file->materialData = mat;
+}
+
+EMSCRIPTEN_KEEPALIVE
+void setComponentData(Bg2File *file, const char * compText, int debug)
+{
+    char * comp = (char*)malloc(strlen(compText) + 1);
+    strcpy(comp, compText);
+    debugLogParam("Setting component data:", comp, 30, debug);
+    file->componentData = comp;
+}
+
+EMSCRIPTEN_KEEPALIVE
+void setJointData(Bg2File *file, const char * jointText, int debug)
+{
+    char * joint = (char*)malloc(strlen(jointText) + 1);
+    strcpy(joint, jointText);
+    debugLogParam("Setting joint data:", joint, 30, debug);
+    file->jointData = joint;
+}

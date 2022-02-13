@@ -32,10 +32,24 @@ export default class Bg2ioWrapper {
     }
 
     getBg2BufferFromJson(jsonData) {
+        const { header, materials, joints, polyLists, components  } = jsonData;
         const bg2File = this.instance._createBg2File(this._debug ? 1 : 0);
 
 
         if (bg2File) {
+            this.instance._setFileHeader(
+                bg2File,
+                header.endianess,
+                header.version.major,
+                header.version.minor,
+                header.version.revision,
+                header.numberOfPlist,
+                this._debug ? 1 : 0);
+            
+            this.instance.ccall("setMaterialData",null,["number","string","number"],[bg2File,JSON.stringify(materials),this._debug ? 1 : 0]);
+            this.instance.ccall("setComponentData",null,["number","string","number"],[bg2File,JSON.stringify(components),this._debug ? 1 : 0]);
+            this.instance.ccall("setJointData",null,["number","string","number"],[bg2File,JSON.stringify(joints),this._debug ? 1 : 0]);
+            
             this.instance._freeBg2File(bg2File, this._debug ? 1 : 0);
         }
         return null;
@@ -205,5 +219,4 @@ export default class Bg2ioWrapper {
         this.instance._freeStringRef(structPtr, this._debug ? 1 : 0);
         return str;
     }
-
 }
