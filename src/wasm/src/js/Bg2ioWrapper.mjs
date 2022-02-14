@@ -44,7 +44,7 @@ export default class Bg2ioWrapper {
     getBg2BufferFromJson(jsonData) {
         const { header, materials, joints, polyLists, components  } = jsonData;
         const bg2File = this.instance._createBg2File(this._debug ? 1 : 0);
-
+        let result = null;
 
         if (bg2File) {
             this.instance._setFileHeader(
@@ -72,14 +72,23 @@ export default class Bg2ioWrapper {
                 this.addIndexBuffer(plist, pl.index, BufferType.INDEX);
             });
 
-            // TODO: Write bg2File to Bg2ioBuffer
+            const buffer = this.instance._createBufferWithBg2File(bg2File, this._debug ? 1 : 0);
 
-            // TODO: Get Bg2ioBuffer contents
-            
-            // TODO: memory access out of bounds. The problem arises after adding poly lists to de file
+            if (buffer) {
+                // TODO: get Uint8Array buffer from wasm buffer
+                /* buffer =>
+                    typedef struct BufferWrapperT {
+                        int length;
+                        Bg2ioBytePtr buffer; // (unsigned char *)
+                    } BufferWrapper;
+                 */
+                result = buffer;
+                this.instance._freeBufferWrapper(buffer, this._debug ? 1 : 0);
+            }
+
             this.instance._freeBg2File(bg2File, this._debug ? 1 : 0);
         }
-        return null;
+        return result;
     }
 
     getBg2FileHeader(file) {

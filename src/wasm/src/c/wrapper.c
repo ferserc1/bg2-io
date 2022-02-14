@@ -272,3 +272,41 @@ void addIndexBuffer(Bg2ioPolyList *plist, int * buffer, int count, int debug)
     plist->index.data = buffer;
     plist->index.length = count;
 }
+
+typedef struct BufferWrapperT {
+    int length;
+    Bg2ioBytePtr mem;
+} BufferWrapper;
+
+EMSCRIPTEN_KEEPALIVE
+BufferWrapper * createBufferWithBg2File(Bg2File *file, int debug)
+{
+    debugLog("Saving file to buffer", debug);
+    Bg2ioBuffer buffer = BG2IO_BUFFER_INIT;
+    
+    int error = bg2io_writeFileToBuffer(file, &buffer);
+    if (error != BG2IO_NO_ERROR)
+    {
+        errorLogFormat("Error creating file buffer. Code: %d", error);
+        return NULL;
+    }
+    else
+    {
+        debugLog("Creating BufferWrapper structure", debug);
+        BufferWrapper * result = (BufferWrapper*)malloc(sizeof(BufferWrapper));
+        result->length = (int) buffer.length;
+        result->mem = buffer.mem;
+        return result;
+    }
+}
+
+EMSCRIPTEN_KEEPALIVE
+void freeBufferWrapper(BufferWrapper *buffer, int debug)
+{
+    debugLog("Releasing BufferWrapper content", debug);
+    free(buffer->mem);
+    debugLog("Releasing BufferWrapper structure", debug);
+    free(buffer);
+}
+
+
