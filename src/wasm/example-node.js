@@ -7,7 +7,7 @@ const instance = await Bg2ioModule();
 
 const wrapper = new Bg2ioWrapper({ instance, debug: true });
 if (process.argv.length<3) {
-    throw new Error("You must to specify a bg2 file to convert");
+    throw new Error("You must to specify a bg2 file to copy");
 }
 
 const modelPath = process.argv[2];
@@ -18,5 +18,5 @@ console.log(jsonFile);
 
 const fileBuffer = wrapper.getBg2BufferFromJson(jsonFile);
 if (fileBuffer) {
-    console.log("TODO: Write file");
+    fs.writeFileSync(modelPath + ".copy.bg2", fileBuffer);
 }

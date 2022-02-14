@@ -407,3 +407,5 @@ src/wasm/build/bg2io.js
 src/wasm/build/bg2io.wasm
 src/wasm/build/Bg2ioModule.cjs
 src/wasm/build/Bg2ioModule.wasm
+
+resources/*copy.*

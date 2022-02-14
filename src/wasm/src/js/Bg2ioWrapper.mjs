@@ -72,18 +72,19 @@ export default class Bg2ioWrapper {
                 this.addIndexBuffer(plist, pl.index, BufferType.INDEX);
             });
 
-            const buffer = this.instance._createBufferWithBg2File(bg2File, this._debug ? 1 : 0);
-
-            if (buffer) {
-                // TODO: get Uint8Array buffer from wasm buffer
-                /* buffer =>
-                    typedef struct BufferWrapperT {
-                        int length;
-                        Bg2ioBytePtr buffer; // (unsigned char *)
-                    } BufferWrapper;
-                 */
-                result = buffer;
-                this.instance._freeBufferWrapper(buffer, this._debug ? 1 : 0);
+            /* buffer =>
+                typedef struct BufferWrapperT {
+                    int length;
+                    Bg2ioBytePtr buffer; // (unsigned char *)
+                } BufferWrapper;
+             */
+            const bufferPtr = this.instance._createBufferWithBg2File(bg2File, this._debug ? 1 : 0);
+            if (bufferPtr) {
+                const length = new Int32Array(this.instance.HEAPU8.buffer, bufferPtr, 1)[0];
+                const dataPtr = new Uint32Array(this.instance.HEAPU8.buffer, bufferPtr + 4, 1)[0];
+                const resultView = new Uint8Array(this.instance.HEAPU8.buffer, dataPtr, length);
+                result = resultView.slice();
+                this.instance._freeBufferWrapper(bufferPtr, this._debug ? 1 : 0);
             }
 
             this.instance._freeBg2File(bg2File, this._debug ? 1 : 0);
@@ -207,7 +208,7 @@ export default class Bg2ioWrapper {
     getFloatArray(ptr,count) {
         if (ptr) {
             const data = new Float32Array(this.instance.HEAPU8.buffer, ptr, count);
-            return data;
+            return Array.from(data);
         }
         else {
             return [];
@@ -217,7 +218,7 @@ export default class Bg2ioWrapper {
     getIntArray(ptr,count) {
         if (ptr) {
             const data = new Int32Array(this.instance.HEAPU8.buffer, ptr, count);
-            return data;
+            return Array.from(data);
         }
         else {
             return []
@@ -269,7 +270,7 @@ export default class Bg2ioWrapper {
         if (indexArray && indexArray.length>0) {
             const jsTypedArray = new Int32Array(indexArray);
             const jsToCPtr = this.instance._malloc(jsTypedArray.length * jsTypedArray.BYTES_PER_ELEMENT);
-            this.instance.HEAPF32.set(jsTypedArray, jsToCPtr / 4);
+            this.instance.HEAP32.set(jsTypedArray, jsToCPtr / 4);
             this.instance._addIndexBuffer(plist, jsToCPtr, indexArray.length, this._debug ? 1 : 0);
         }
     }

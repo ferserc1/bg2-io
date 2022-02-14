@@ -182,7 +182,9 @@ void setMaterialData(Bg2File *file, const char * matText, int debug)
 EMSCRIPTEN_KEEPALIVE
 void setComponentData(Bg2File *file, const char * compText, int debug)
 {
-    char * comp = (char*)malloc(strlen(compText) + 1);
+    int length = strlen(compText);
+    debugLogFormat(debug,"Component text length: %d", length);
+    char * comp = (char*)malloc(length + 1);
     strcpy(comp, compText);
     debugLogParam("Setting component data:", comp, 30, debug);
     file->componentData = comp;
@@ -263,12 +265,20 @@ void addFloatBuffer(Bg2ioPolyList *plist, float * buffer, int count, int destBuf
     default:
         errorLogFormat("Invalid buffer code specified: %d", destBuffer);    
     }
+    if (count > 6)
+    {
+        debugLogFormat(debug, "[%f,%f,%f,%f,%f,%f...", buffer[0], buffer[1], buffer[2], buffer[3], buffer[4], buffer[5]);
+    }
 }
 
 EMSCRIPTEN_KEEPALIVE
 void addIndexBuffer(Bg2ioPolyList *plist, int * buffer, int count, int debug)
 {
     debugLogFormat(debug, "Adding index buffer to poly list '%s'", plist->name);
+    if (count > 3)
+    {
+        debugLogFormat(debug, "[%d,%d,%d...", buffer[0], buffer[1], buffer[2]);
+    }
     plist->index.data = buffer;
     plist->index.length = count;
 }
