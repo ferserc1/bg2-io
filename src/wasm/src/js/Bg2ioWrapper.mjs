@@ -60,9 +60,10 @@ export default class Bg2ioWrapper {
             this.instance.ccall("setComponentData",null,["number","string","number"],[bg2File,JSON.stringify(components),this._debug ? 1 : 0]);
             this.instance.ccall("setJointData",null,["number","string","number"],[bg2File,JSON.stringify(joints),this._debug ? 1 : 0]);
             
-            polyLists.forEach(pl => {
+            this.instance.ccall("createPolyListArray",null,["number","number","number"],[bg2File,polyLists.length,this._debug ? 1 : 0]);
+            polyLists.forEach((pl,index) => {
                 const plist = this.instance.ccall("createPolyList","number",["string","string","number"],[pl.name,pl.matName,this._debug ? 1 : 0]);
-                this.instance._addPolyList(bg2File, plist, this._debug ? 1 : 0);
+                this.instance._addPolyList(bg2File, plist, index, this._debug ? 1 : 0);
                 this.addFloatBuffer(plist, pl.vertex, BufferType.VERTEX);
                 this.addFloatBuffer(plist, pl.normal, BufferType.NORMAL);
                 this.addFloatBuffer(plist, pl.texCoord0, BufferType.TEXCOORD0);

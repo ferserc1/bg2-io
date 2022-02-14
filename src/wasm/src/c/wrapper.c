@@ -213,34 +213,22 @@ Bg2ioPolyList * createPolyList(const char * name, const char * matName, int debu
     return plist;
 }
 
-EMSCRIPTEN_KEEPALIVE 
-void addPolyList(Bg2File *file, Bg2ioPolyList * plist, int debug)
+EMSCRIPTEN_KEEPALIVE
+void createPolyListArray(Bg2File * file, int length, int debug)
 {
-    debugLog("Adding poly list", debug);
-    if (file->plists == NULL)
-    {
-        debugLog("Creating polyList array struct", debug);
-        file->plists = (Bg2ioPolyListArray*)malloc(sizeof(Bg2ioPolyListArray));
-        BG2IO_POLY_LIST_ARRAY_PTR_INIT(file->plists);
+    debugLogFormat(debug, "Creating poly list array structure to store %d poly lists", length);
+    file->plists = (Bg2ioPolyListArray*)malloc(sizeof(Bg2ioPolyListArray));
+    BG2IO_POLY_LIST_ARRAY_PTR_INIT(file->plists);
 
-        debugLogFormat(debug, "Adding poly list with name '%s'", plist->name);
-        file->plists->data = (Bg2ioPolyList**)malloc(sizeof(Bg2ioPolyList));
-        file->plists->length = 1;
-    }
-    else
-    {
-        debugLog("Allocating memory for new poly list", debug);
-        Bg2ioPolyList ** prev  = file->plists->data;
-        file->plists->data = (Bg2ioPolyList**)malloc(sizeof(Bg2ioPolyList) * file->plists->length + 1);
-        for (int i = 0; i < file->plists->length; ++i)
-        {
-            file->plists->data[i] = prev[i];
-        }
+    file->plists->data = (Bg2ioPolyList**)malloc(sizeof(Bg2ioPolyList) * length);
+    file->plists->length = length;
+}
 
-        debugLogFormat(debug,"Adding poly list with name '%s'", plist->name);
-        file->plists->data[file->plists->length] = plist;
-        file->plists->length++;
-    }
+EMSCRIPTEN_KEEPALIVE 
+void addPolyList(Bg2File *file, Bg2ioPolyList * plist, int index, int debug)
+{
+    debugLogFormat(debug, "Adding poly list with name '%s' at index %d", plist->name, index);
+    file->plists->data[index] = plist;
 }
 
 EMSCRIPTEN_KEEPALIVE

@@ -2,6 +2,7 @@
 #include "types.h"
 #include "errors.h"
 
+
 int bg2io_allocateFloatArray(Bg2ioFloatArray * array, int length)
 {
     if (array == NULL)
@@ -136,14 +137,17 @@ int bg2io_freePolyListArray(Bg2ioPolyListArray * arr)
         return BG2IO_ERR_INVALID_PTR;
     }
 
-    for (int i = 0; i < arr->length; ++i)
+    if (arr->data != NULL)
     {
-        bg2io_freePolyList(arr->data[i]);
+        for (int i = 0; i < arr->length; ++i)
+        {
+            bg2io_freePolyList(arr->data[i]);
+        }
+        free(arr->data);
+        arr->data = NULL;
+        arr->length = 0;
     }
-    free(arr->data);
-    arr->data = NULL;
-    arr->length = 0;
-
+    
     return BG2IO_NO_ERROR;
 }
 
