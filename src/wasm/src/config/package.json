@@ -1,0 +1,23 @@
+{
+    "name": "bg2io",
+    "version": "1.0.0",
+    "description": "WebAssembly module to load and write bg2 engine files",
+    "main": "Bg2ioWrapper.mjs",
+    "scripts": {
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ferserc1/bg2-io.git"
+    },
+    "keywords": [
+      "bg2",
+      "engine",
+      "3D",
+      "model",
+      "file",
+      "format"
+    ],
+    "author": "Fernando Serrano Carpena <ferserc1@gmail.com>",
+    "license": "MIT"
+}
+  
