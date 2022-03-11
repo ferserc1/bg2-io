@@ -30,6 +30,8 @@ int main(int argc, char ** argv)
         openFile(argv[1], buffer);
 
         std::cout << buffer << std::endl;
+
+        testScene();
     }
     catch (std::exception & e) {
         std::cerr << e.what() << std::endl;
