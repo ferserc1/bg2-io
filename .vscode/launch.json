@@ -18,6 +18,32 @@
         },
 
         {
+            "name": "bg2-scene (Linux)",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/bg2-scene",
+            "args": ["${workspaceFolder}/resources/test-scene/test-scene.vitscnj"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "Linux build bg2-scene",
+            "miDebufferPath": "/usr/bin/gdb",
+            "includePath": [
+                "${workspaceFolder}/src/bg2-io",
+                "${workspaceFolder}/src/bg2-scene",
+            ]
+        },
+
+        {
             "name": "sample (Linux)",
             "type": "cppdbg",
             "request": "launch",
