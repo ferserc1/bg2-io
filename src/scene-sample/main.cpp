@@ -6,6 +6,7 @@
 #include <streambuf>
 #include <stdexcept>
 
+// https://kishoreganesh.com/post/writing-a-json-parser-in-cplusplus/
 void openFile(const std::string & path, std::string & out) {
     std::ifstream fileStream(path);
     if (fileStream.is_open()) {

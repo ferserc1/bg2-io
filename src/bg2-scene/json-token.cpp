@@ -5,7 +5,30 @@ namespace bg2scene {
     namespace jsong {
 
         std::string JsonToken::toString() {
-            return "";
+            switch (type) {
+            case JsonTokenType::CurlyOpen:
+                return "Curly open";
+            case JsonTokenType::CurlyClose:
+                return "Curly close";
+            case JsonTokenType::Colon:
+                return "COLON";
+            case JsonTokenType::Number:
+                return "Number: " + value;
+            case JsonTokenType::String:
+                return "String: " + value;
+            case JsonTokenType::ListOpen:
+                return "Array open";
+            case JsonTokenType::ListClose:
+                return "Array close";
+            case JsonTokenType::Comma:
+                return "Comma";
+            case JsonTokenType::Boolean:
+                return "Boolean: " + value;;
+            case JsonTokenType::NullType:
+                return "Null";
+            default:
+                return "";
+            }
         }
 
         JsonTokenizer::JsonTokenizer(std::istream * s)
