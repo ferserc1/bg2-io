@@ -4,6 +4,7 @@
 #include <node.hpp>
 #include <component.hpp>
 #include <json.hpp>
+#include <json-token.hpp>
 
 
 void testScene();

@@ -1,0 +1,119 @@
+
+#include "json-token.hpp"
+
+namespace bg2scene {
+    namespace jsong {
+
+        std::string JsonToken::toString() {
+            return "";
+        }
+
+        JsonTokenizer::JsonTokenizer(std::istream * s)
+            :stream(s)
+        {
+
+        }
+
+        char JsonTokenizer::getWithoutWhiteSpace() {
+            char c = ' ';
+            while (c == ' ' || c == '\t' || c == '\n') {
+                stream->get(c);
+
+                if ((c == ' ' || c == '\n' || c == '\t') && !stream->good()) {
+                    throw std::logic_error("Ran out of tokens");
+                }
+                else if (!stream->good()) {
+                    return c;
+                }
+            }
+            return c;
+        }
+
+        JsonToken JsonTokenizer::getToken() {
+            char c;
+            if (stream->eof()) {
+                throw std::logic_error("Exhaused tokens");
+            }
+            prevPos = stream->tellg();
+            c = getWithoutWhiteSpace();
+
+            struct JsonToken token;
+            if (c == '"') {
+                token.type = JsonTokenType::String;
+                token.value = "";
+                stream->get(c);
+                while (c != '"') {
+                    token.value += c;
+                    stream->get(c);
+                }
+            }
+            else if (c == '{') {
+                token.type = JsonTokenType::CurlyOpen;
+            }
+            else if (c == '}') {
+                token.type = JsonTokenType::CurlyClose;
+            }
+            else if (c == '-' || (c>='0' && c <='9')) {
+                token.type = JsonTokenType::Number;
+                token.value = "";
+                token.value += 'c';
+                std::streampos prevCharPos = stream->tellg();
+                while ((c=='-') || (c>='0' && c<='9') || c == '.') {
+                    prevCharPos = stream->tellg();
+                    stream->get(c);
+
+                    if (stream->eof()) {
+                        break;
+                    }
+                    else {
+                        if (c=='-' || (c>='0' && c<='9') || c=='.') {
+                            token.value += c;
+                        }
+                        else {
+                            stream->seekg(prevCharPos);
+                        }
+                    }
+                }
+            }
+            else if (c == 'f') {
+                token.type = JsonTokenType::Boolean;
+                token.value = "false";
+                stream->seekg(4, std::ios_base::cur);
+            }
+            else if (c == 't') {
+                token.type = JsonTokenType::Boolean;
+                token.value = "true";
+                stream->seekg(3, std::ios_base::cur);
+            }
+            else if (c == 'n') {
+                token.type = JsonTokenType::NullType;
+                stream->seekg(3, std::ios_base::cur);
+            }
+            else if (c == '[') {
+                token.type = JsonTokenType::ListOpen;
+            }
+            else if (c == ']') {
+                token.type = JsonTokenType::ListClose;
+            }
+            else if (c == ':') {
+                token.type = JsonTokenType::Colon;
+            }
+            else if (c == ',') {
+                token.type = JsonTokenType::Comma;
+            }
+            return token;
+        }
+
+        bool JsonTokenizer::hasMoreTokens() {
+            return false;
+        }
+
+        void JsonTokenizer::rollBackToken() {
+            if (stream->eof()) {
+                stream->clear();
+            }
+            stream->seekg(prevPos);
+        }
+
+    }
+}
