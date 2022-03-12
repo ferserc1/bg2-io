@@ -3,6 +3,7 @@
 
 #include <node.hpp>
 #include <component.hpp>
+#include <json.hpp>
 
 
 void testScene();

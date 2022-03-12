@@ -62,8 +62,9 @@
         {
             "type": "cppbuild",
             "label": "Linux build bg2-scene",
-            "command": "/usr/bin/gcc-9",
+            "command": "/usr/bin/g++",
             "args": [
+                "-Wall",
                 "-fdiagnostics-color=always",
                 "-g",
                 "${workspaceFolder}/src/bg2-io/*.c",

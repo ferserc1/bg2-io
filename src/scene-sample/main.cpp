@@ -26,7 +26,7 @@ int main(int argc, char ** argv)
     std::cout << argv[1] << std::endl;
 
     try {
-        std::string buffer;
+        std::string buffer; 
         openFile(argv[1], buffer);
 
         std::cout << buffer << std::endl;
