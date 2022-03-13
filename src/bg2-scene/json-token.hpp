@@ -5,7 +5,7 @@
 #include <iostream>
 
 namespace bg2scene {
-    namespace jsong {
+    namespace json {
 
         enum class JsonTokenType {
             CurlyOpen,

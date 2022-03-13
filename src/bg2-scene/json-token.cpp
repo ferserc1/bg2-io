@@ -2,7 +2,7 @@
 #include "json-token.hpp"
 
 namespace bg2scene {
-    namespace jsong {
+    namespace json {
 
         std::string JsonToken::toString() {
             switch (type) {
