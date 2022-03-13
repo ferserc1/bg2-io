@@ -26,7 +26,7 @@ namespace bg2scene {
                 Bool,
                 Null
             };
-            
+
             union Value {
                 JsonObject * objectValue;
                 JsonList * listValue;
@@ -38,7 +38,6 @@ namespace bg2scene {
             Type type;
 
         public:
-
             JsonNode();
             JsonNode(Type t);
             virtual ~JsonNode();
@@ -89,17 +88,17 @@ namespace bg2scene {
                 type = Type::List;
             }
 
-            void setString(std::string * str) {
+            void setValue(std::string * str) {
                 this->value.stringValue = str;
                 type = Type::String;
             }
 
-            void setNumber(float n) {
+            void setValue(float n) {
                 this->value.numberValue = n;
                 type = Type::Number;
             }
 
-            void setBool(bool b) {
+            void setValue(bool b) {
                 this->value.boolValue = b;
                 type = Type::Bool;
             }
@@ -132,6 +131,9 @@ namespace bg2scene {
                 return type == Type::Null;
             }
 
+            void printNode(int indentationLevel);
+
+            std::string toString(int indentationLevel);
         };
     }
 
