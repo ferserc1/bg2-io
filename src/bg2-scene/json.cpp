@@ -31,7 +31,7 @@ namespace bg2scene {
 
             switch (type) {
             case Type::String:
-                outputString += *value.stringValue;
+                outputString += "\"" + *value.stringValue + "\"";
                 break;
             case Type::Number:
                 outputString += std::to_string(value.numberValue);
@@ -71,7 +71,7 @@ namespace bg2scene {
                         outputString += "\n";
                     }
                     emptyObject = false;
-                    outputString += innerIndentation + i->first + ": ";
+                    outputString += innerIndentation + "\"" + i->first + "\" : ";
                     outputString += i->second->toString(indentationLevel + 1);
                     JsonObject::iterator next = i;
                     next++;

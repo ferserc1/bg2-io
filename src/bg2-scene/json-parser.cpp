@@ -10,7 +10,6 @@ namespace bg2scene {
                     JsonToken token;
                     try {
                         token = tokenizer.getToken();
-                        std::cout << token.toString() << std::endl;
                         switch (token.type) {
                         case JsonTokenType::CurlyOpen: {
                             std::shared_ptr<JsonNode> parsedObject = parseObject();
@@ -47,11 +46,11 @@ namespace bg2scene {
                             break;
                         }
                         default:
-                            std::cout << "" << std::endl;
+                            break;
                         }
                     }
                     catch(std::logic_error &e) {
-                        std::cout << e.what() << std::endl;
+                        std::cout << "Warning:" << e.what() << std::endl;
                         break;
                     }
                 }
@@ -59,7 +58,6 @@ namespace bg2scene {
             }
 
             std::shared_ptr<JsonNode> JsonParser::parseObject() {
-                std::cout << "Parsing object " << std::endl;
                 std::shared_ptr<JsonNode> node = std::make_shared<JsonNode>();
                 JsonObject * keyObjectMap = new JsonObject();
                 bool hasCompleted = false;
@@ -72,7 +70,6 @@ namespace bg2scene {
                         }
                         else {
                             std::string key = nextToken.value;
-                            std::cout << key << std::endl;
                             tokenizer.getToken();
                             nextToken = tokenizer.getToken();
                             std::shared_ptr<JsonNode> node;
@@ -99,7 +96,7 @@ namespace bg2scene {
                                 (*keyObjectMap)[key] = parseNull();
                                 break;
                             default:
-                                std::cout << "skip token " << nextToken.toString() << std::endl;
+                                break;
                             }
 
                             nextToken = tokenizer.getToken();
@@ -121,7 +118,6 @@ namespace bg2scene {
             }
             
             std::shared_ptr<JsonNode> JsonParser::parseString() {
-                std::cout << "Parsing string" << std::endl;
                 std::shared_ptr<JsonNode> node = std::make_shared<JsonNode>();
                 JsonToken token = tokenizer.getToken();
                 std::string *sValue = new std::string(token.value);
@@ -130,18 +126,15 @@ namespace bg2scene {
             }
             
             std::shared_ptr<JsonNode> JsonParser::parseNumber() {
-                std::cout << "Parsing number" << std::endl;
                 std::shared_ptr<JsonNode> node = std::make_shared<JsonNode>();
                 JsonToken nextToken = tokenizer.getToken();
                 std::string value = nextToken.value;
-                std::cout << value << std::endl;
                 float fValue = std::stof(value);
                 node->setValue(fValue);
                 return node;
             }
             
             std::shared_ptr<JsonNode> JsonParser::parseList() {
-                std::cout << "Parsing list" << std::endl;
                 std::shared_ptr<JsonNode> node = std::make_shared<JsonNode>();
                 JsonList * list = new JsonList();
                 bool hasCompleted = false;
@@ -189,7 +182,7 @@ namespace bg2scene {
                             hasCompleted = true;
                             break;
                         default:
-                            std::cout << "skip token " << nextToken.toString() << std::endl;
+                            break;
                         }
                     }
                 }
@@ -198,7 +191,6 @@ namespace bg2scene {
             }
             
             std::shared_ptr<JsonNode> JsonParser::parseBoolean() {
-                std::cout << "Parsing boolean" << std::endl;
                 std::shared_ptr<JsonNode> node = std::make_shared<JsonNode>();
                 JsonToken nextToken = tokenizer.getToken();
                 node->setValue(nextToken.value == "true" ? true : false);
@@ -206,7 +198,6 @@ namespace bg2scene {
             }
             
             std::shared_ptr<JsonNode> JsonParser::parseNull() {
-                std::cout << "Parsing null" << std::endl;
                 std::shared_ptr<JsonNode> node = std::make_shared<JsonNode>();
                 node->setNull();
                 return node;
