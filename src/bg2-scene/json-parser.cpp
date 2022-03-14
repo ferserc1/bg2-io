@@ -14,7 +14,6 @@ namespace bg2scene {
                         switch (token.type) {
                         case JsonTokenType::CurlyOpen: {
                             std::shared_ptr<JsonNode> parsedObject = parseObject();
-                            parsedObject->printNode(0);
                             if (!root) {
                                 root = parsedObject;
                             }
@@ -52,6 +51,7 @@ namespace bg2scene {
                         }
                     }
                     catch(std::logic_error &e) {
+                        std::cout << e.what() << std::endl;
                         break;
                     }
                 }
@@ -139,42 +139,51 @@ namespace bg2scene {
                 std::shared_ptr<JsonNode> node = std::make_shared<JsonNode>();
                 JsonList * list = new JsonList();
                 bool hasCompleted = false;
+                std::shared_ptr<JsonNode> childNode;
                 while (!hasCompleted) {
                     if (!tokenizer.hasMoreTokens()) {
-                        throw std::logic_error("No more tokens");
+                        hasCompleted = true;
                     }
                     else {
                         JsonToken nextToken = tokenizer.getToken();
-                        std::shared_ptr<JsonNode> node;
                         switch (nextToken.type) {
                         case JsonTokenType::ListOpen:
-                            node = parseList();
+                            childNode = parseList();
                             break;
                         case JsonTokenType::CurlyOpen:
-                            node = parseObject();
+                            childNode = parseObject();
                             break;
                         case JsonTokenType::String:
                             tokenizer.rollBackToken();
-                            node = parseString();
+                            childNode = parseString();
                             break;
                         case JsonTokenType::Number:
                             tokenizer.rollBackToken();
-                            node = parseNumber();
+                            childNode = parseNumber();
                             break;
                         case JsonTokenType::Boolean:
                             tokenizer.rollBackToken();
-                            node = parseBoolean();
+                            childNode = parseBoolean();
                             break;
                         case JsonTokenType::NullType:
-                            node = parseNull();
+                            childNode = parseNull();
+                            break;
+                        case JsonTokenType::Comma:
+                            if (childNode != nullptr) {
+                                list->push_back(childNode);
+                            }
+                            else {
+                                throw std::logic_error("Unexpected null node found in list");
+                            }
+                            break;
+                        case JsonTokenType::ListClose:
+                            if (childNode != nullptr) {
+                                list->push_back(childNode);
+                            }
+                            hasCompleted = true;
                             break;
                         default:
                             std::cout << "skip token " << nextToken.toString() << std::endl;
-                        }
-                        list->push_back(node);
-                        nextToken = tokenizer.getToken();
-                        if (nextToken.type == JsonTokenType::ListClose) {
-                            hasCompleted = true;
                         }
                     }
                 }

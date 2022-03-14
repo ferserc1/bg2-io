@@ -128,7 +128,16 @@ namespace bg2scene {
         }
 
         bool JsonTokenizer::hasMoreTokens() {
-            return !stream->eof();
+            size_t prevPos = stream->tellg();
+            bool result = true;
+            try {
+                getToken();
+            }
+            catch(std::exception & e) {
+                result = false;
+            }
+            stream->seekg(prevPos);
+            return result;
         }
 
         void JsonTokenizer::rollBackToken() {

@@ -22,7 +22,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/bin/bg2-scene",
-            "args": ["${workspaceFolder}/resources/mini.json"],
+            "args": ["${workspaceFolder}/resources/test-scene/test-scene.vitscnj","${workspaceFolder}/resources/mini.json"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
