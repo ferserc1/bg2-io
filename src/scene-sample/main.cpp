@@ -5,6 +5,7 @@
 #include <fstream>
 #include <streambuf>
 #include <stdexcept>
+#include <sstream>
 
 // https://kishoreganesh.com/post/writing-a-json-parser-in-cplusplus/
 void openFile(const std::string & path, std::string & out) {
@@ -30,9 +31,14 @@ int main(int argc, char ** argv)
         std::string buffer; 
         openFile(argv[1], buffer);
 
-        std::cout << buffer << std::endl;
+        std::stringstream sstream(buffer);
 
-        testScene();
+        std::cout << sstream.str() << std::endl;
+
+        bg2scene::json::JsonParser parser(&sstream);
+        auto rootNode = parser.parse();
+
+        rootNode->printNode();
     }
     catch (std::exception & e) {
         std::cerr << e.what() << std::endl;

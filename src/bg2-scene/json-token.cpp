@@ -79,7 +79,7 @@ namespace bg2scene {
             else if (c == '-' || (c>='0' && c <='9')) {
                 token.type = JsonTokenType::Number;
                 token.value = "";
-                token.value += 'c';
+                token.value += c;
                 std::streampos prevCharPos = stream->tellg();
                 while ((c=='-') || (c>='0' && c<='9') || c == '.') {
                     prevCharPos = stream->tellg();
@@ -128,7 +128,7 @@ namespace bg2scene {
         }
 
         bool JsonTokenizer::hasMoreTokens() {
-            return false;
+            return !stream->eof();
         }
 
         void JsonTokenizer::rollBackToken() {

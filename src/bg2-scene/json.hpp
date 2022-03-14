@@ -131,9 +131,9 @@ namespace bg2scene {
                 return type == Type::Null;
             }
 
-            void printNode(int indentationLevel);
+            void printNode(int indentationLevel = 0);
 
-            std::string toString(int indentationLevel);
+            std::string toString(int indentationLevel = 0);
         };
     }
 

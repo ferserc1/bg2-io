@@ -5,8 +5,7 @@
 #include <component.hpp>
 #include <json.hpp>
 #include <json-token.hpp>
+#include <json-parser.hpp>
 
-
-void testScene();
 
 #endif

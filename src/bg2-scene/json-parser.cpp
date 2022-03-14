@@ -4,7 +4,7 @@
 namespace bg2scene {
     namespace json {
 
-            void JsonParser::parse() {
+            std::shared_ptr<JsonNode> & JsonParser::parse() {
                 std::string key = "";
                 while (tokenizer.hasMoreTokens()) {
                     JsonToken token;
@@ -48,13 +48,14 @@ namespace bg2scene {
                             break;
                         }
                         default:
-                            throw std::logic_error("Unexpected token");
+                            std::cout << "" << std::endl;
                         }
                     }
                     catch(std::logic_error &e) {
-                        throw e;
+                        break;
                     }
                 }
+                return root;
             }
 
             std::shared_ptr<JsonNode> JsonParser::parseObject() {
@@ -93,8 +94,17 @@ namespace bg2scene {
                             (*keyObjectMap)[key] = parseNull();
                             break;
                         default:
-                            throw std::logic_error("Unexpected token");
-                        }        
+                            std::cout << "skip token " << nextToken.toString() << std::endl;
+                        }
+
+                        nextToken = tokenizer.getToken();
+                        if (nextToken.type == JsonTokenType::CurlyClose) {
+                            hasCompleted = true;
+                            break;
+                        }
+                        else if (nextToken.type == JsonTokenType::Comma) {
+                            // Nothing to do
+                        }
                     }
                     else {
                         throw std::logic_error("No more tokens");
@@ -159,7 +169,7 @@ namespace bg2scene {
                             node = parseNull();
                             break;
                         default:
-                            throw std::logic_error("Unexpected token");
+                            std::cout << "skip token " << nextToken.toString() << std::endl;
                         }
                         list->push_back(node);
                         nextToken = tokenizer.getToken();

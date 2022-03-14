@@ -19,7 +19,7 @@ namespace bg2scene {
         public:
             JsonParser(std::istream * stream) :tokenizer(stream) {}
 
-            void parse();
+            std::shared_ptr<JsonNode> & parse();
 
             std::shared_ptr<JsonNode> parseObject();
             std::shared_ptr<JsonNode> parseString();
