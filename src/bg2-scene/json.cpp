@@ -25,50 +25,62 @@ namespace bg2scene {
         }
 
         std::string JsonNode::toString(int indentationLevel) {
-            std::string spaceString = std::string(indentationLevel, ' ');
+            std::string indentation = std::string(indentationLevel * 2, ' ');
+            std::string innerIndentation = std::string((indentationLevel + 1) * 2, ' ');
             std::string outputString = "";
 
             switch (type) {
             case Type::String:
-                outputString += spaceString + *value.stringValue;
+                outputString += *value.stringValue;
                 break;
             case Type::Number:
-                outputString += spaceString + std::to_string(value.numberValue);
+                outputString += std::to_string(value.numberValue);
                 break;
             case Type::Bool:
-                outputString += spaceString + (value.boolValue ? "true" : "false");
+                outputString += (value.boolValue ? "true" : "false");
                 break;
             case Type::Null:
-                outputString += spaceString + "null";
+                outputString += "null";
                 break;
             
             case Type::List: {
-                outputString += "[\n";
+                outputString += "[";
                 size_t index = 0;
+                bool emptyList = true;
                 for (auto node : (*value.listValue)) {
-                    outputString += node->toString(indentationLevel + 1);
-                    if (index < (*value.listValue).size() - 1) {
-                        outputString += spaceString + ", ";
+                    if (emptyList) {
+                        outputString += "\n";
                     }
+                    emptyList = false;
+                    outputString += innerIndentation + node->toString(indentationLevel + 1);
+                    if (index < (*value.listValue).size() - 1) {
+                        outputString += ",";
+                    }
+                    outputString += "\n";
                     index++;
                 }
-                outputString += spaceString + "]\n";
+                outputString += (emptyList ? "" : indentation) + "]";
                 break;
             }
             case Type::Object: {
-                outputString += "{\n";
+                outputString += "{";
+                bool emptyObject = true;
                 for (JsonObject::iterator i = (*value.objectValue).begin();
                     i != (*value.objectValue).end(); ++i) {
-                    outputString += spaceString + i->first + ": ";
+                    if (emptyObject) {
+                        outputString += "\n";
+                    }
+                    emptyObject = false;
+                    outputString += innerIndentation + i->first + ": ";
                     outputString += i->second->toString(indentationLevel + 1);
                     JsonObject::iterator next = i;
                     next++;
                     if (next != (*value.objectValue).end()) {
-                        outputString += spaceString + ", ";
+                        outputString += ",";
                     }
-                    outputString += spaceString + "\n";
+                    outputString += "\n";
                 }
-                outputString += "}\n";
+                outputString += (emptyObject ? "" : indentation) + "}";
                 break;
             }
             }
