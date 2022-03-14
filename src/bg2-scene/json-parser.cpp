@@ -66,48 +66,54 @@ namespace bg2scene {
                 while (!hasCompleted) {
                     if (tokenizer.hasMoreTokens()) {
                         JsonToken nextToken = tokenizer.getToken();
-                        std::string key = nextToken.value;
-                        std::cout << key << std::endl;
-                        tokenizer.getToken();
-                        nextToken = tokenizer.getToken();
-                        std::shared_ptr<JsonNode> node;
-                        switch (nextToken.type) {
-                        case JsonTokenType::String:
-                            tokenizer.rollBackToken();
-                            (*keyObjectMap)[key] = parseString();
-                            break;
-                        case JsonTokenType::ListOpen:
-                            (*keyObjectMap)[key] = parseList();
-                            break;
-                        case JsonTokenType::Number:
-                            tokenizer.rollBackToken();
-                            (*keyObjectMap)[key] = parseNumber();
-                            break;
-                        case JsonTokenType::CurlyOpen:
-                            (*keyObjectMap)[key] = parseObject();
-                            break;
-                        case JsonTokenType::Boolean:
-                            tokenizer.rollBackToken();
-                            (*keyObjectMap)[key] = parseBoolean();
-                            break;
-                        case JsonTokenType::NullType:
-                            (*keyObjectMap)[key] = parseNull();
-                            break;
-                        default:
-                            std::cout << "skip token " << nextToken.toString() << std::endl;
-                        }
-
-                        nextToken = tokenizer.getToken();
                         if (nextToken.type == JsonTokenType::CurlyClose) {
+                            // Empty object
                             hasCompleted = true;
-                            break;
                         }
-                        else if (nextToken.type == JsonTokenType::Comma) {
-                            // Nothing to do
+                        else {
+                            std::string key = nextToken.value;
+                            std::cout << key << std::endl;
+                            tokenizer.getToken();
+                            nextToken = tokenizer.getToken();
+                            std::shared_ptr<JsonNode> node;
+                            switch (nextToken.type) {
+                            case JsonTokenType::String:
+                                tokenizer.rollBackToken();
+                                (*keyObjectMap)[key] = parseString();
+                                break;
+                            case JsonTokenType::ListOpen:
+                                (*keyObjectMap)[key] = parseList();
+                                break;
+                            case JsonTokenType::Number:
+                                tokenizer.rollBackToken();
+                                (*keyObjectMap)[key] = parseNumber();
+                                break;
+                            case JsonTokenType::CurlyOpen:
+                                (*keyObjectMap)[key] = parseObject();
+                                break;
+                            case JsonTokenType::Boolean:
+                                tokenizer.rollBackToken();
+                                (*keyObjectMap)[key] = parseBoolean();
+                                break;
+                            case JsonTokenType::NullType:
+                                (*keyObjectMap)[key] = parseNull();
+                                break;
+                            default:
+                                std::cout << "skip token " << nextToken.toString() << std::endl;
+                            }
+
+                            nextToken = tokenizer.getToken();
+                            if (nextToken.type == JsonTokenType::CurlyClose) {
+                                hasCompleted = true;
+                                break;
+                            }
+                            else if (nextToken.type == JsonTokenType::Comma) {
+                                // Nothing to do
+                            }
                         }
                     }
                     else {
-                        throw std::logic_error("No more tokens");
+                            throw std::logic_error("No more tokens");
                     }
                 }
                 node->setValue(keyObjectMap);
