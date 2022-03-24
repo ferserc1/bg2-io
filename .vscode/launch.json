@@ -4,6 +4,21 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+
+        {
+            "name": "WASM: download scene",
+            "program": "${workspaceFolder}/src/wasm/example-donwload-scene.js",
+            "args": [
+                "http://127.0.0.1:5501/resources/test-scene/test-scene.vitscnj",
+                "${workspaceFolder}/bin/test-scene"
+            ],
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
+        },
+
         {
             "name": "WASM: node example",
             "program": "${workspaceFolder}/src/wasm/example-node.js",

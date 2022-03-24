@@ -24,6 +24,8 @@ export default [
                     { src: "build/Bg2ioModule.cjs", dest: "../../bin/wasm/bg2io" },
                     { src: "build/Bg2ioModule.wasm", dest: "../../bin/wasm/bg2io" },
                     { src: "src/js/Bg2ioWrapper.mjs", dest: "../../bin/wasm/bg2io" },
+                    { src: "src/js/SceneDownload.mjs", dest: "../../bin/wasm/bg2io" },
+                    { src: "src/js/downloadUtils.mjs", dest: "../../bin/wasm/bg2io" },
 
                     // Distribution package
                     { src: "src/config/package.json", dest: "../../bin/wasm/bg2io" }
