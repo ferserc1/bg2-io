@@ -11,3 +11,4 @@ if (!response.ok) {
 const data = await response.arrayBuffer();
 const jsonData = wrapper.loadBg2FileAsJson(data);
 console.log(jsonData);
+
