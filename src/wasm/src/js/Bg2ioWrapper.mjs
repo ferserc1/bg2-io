@@ -130,6 +130,7 @@ export default class Bg2ioWrapper {
     }
 
     getJointData(file) {
+        
         const jointStringPtr = this._instance._getJointStringRef(file, this._debug ? 1 : 0);
         if (jointStringPtr) {
             const jointStringRef = this.getStringRef(jointStringPtr);

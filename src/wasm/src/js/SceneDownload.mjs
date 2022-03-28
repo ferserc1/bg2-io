@@ -86,7 +86,6 @@ export const getBg2FileResources = async (filePath, baseUrl, result = {}) => {
     const buffer = await fs.promises.readFile(filePath);
     const jsonFile = g_bg2ioWrapper.loadBg2FileAsJson(buffer);
     jsonFile.materials.forEach(mat => {
-        console.log(mat);
         [
             'diffuse',
             'metallic',
@@ -98,14 +97,21 @@ export const getBg2FileResources = async (filePath, baseUrl, result = {}) => {
             const file = mat[attrib];
             if (typeof(file) === 'string') {
                 if (/^http/i.test(file)) {
-                    result[file] = file.substring(file.lastIndexOf('/'));
+                    result[file] = file.substring(file.lastIndexOf('/') + 1);
+                    mat[attrib] = result[file];
                 }
                 else {
                     result[path.join(baseUrl,file)] = file.substring(file.lastIndexOf('/'));
+                    mat[attrib] = result[file];
                 }
             }
         })
     });
+
+    // Write file to save changes in material paths
+    const modifiedFileBuffer = g_bg2ioWrapper.getBg2BufferFromJson(jsonFile);
+    await fs.promises.writeFile(filePath, modifiedFileBuffer);
+
     return result;
 }
 
@@ -126,9 +132,21 @@ export const downloadScene = async (sceneFileUrl, dstPath, progressCallback = nu
 
     // Download scene direct resources
     const indirectResources = {}
+    let downloadedModelFiles = {};
     for (const remoteUrl in resources) {
         const ext = remoteUrl.substring(remoteUrl.lastIndexOf('.'));
         try {
+            if (ext === ".bg2" || ext === '.vwglb') {
+                const urlData = new URL(remoteUrl);
+                const fileId = path.parse(urlData.pathname).name;
+                if (downloadedModelFiles[fileId]) {
+                    //continue;
+                }
+                else {
+                    downloadedModelFiles[fileId] = remoteUrl;
+                }
+
+            }
             const localFilePath = await downloadFile(remoteUrl,dstPath);
             console.log(localFilePath);
             if (ext === ".bg2" || ext === '.vwglb') {
@@ -148,10 +166,16 @@ export const downloadScene = async (sceneFileUrl, dstPath, progressCallback = nu
 
     // TODO: Download scene indirect resources
     for  (const remoteUrl in indirectResources) {
-        const localFilePath = await downloadFile(remoteUrl, dstPath);
-        console.log(localFilePath);
+        try {
+            const localFilePath = await downloadFile(remoteUrl, dstPath);
+            console.info(`Downloaded: ${localFilePath}`);
+        }
+        catch (err) {
+            if (err.code === 404) {
+                console.warn(`Not found: ${remoteUrl}`);
+            }
+        }
     }
 
-    console.log(sceneFile);
-    return null;
+    return sceneFile;
 }
