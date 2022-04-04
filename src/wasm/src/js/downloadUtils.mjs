@@ -28,7 +28,7 @@ export const downloadFile = async (fileUrl,dstPath) => {
                 response.pipe(file);
                 file.on('finish', () => {
                     file.close(() => {
-                        reject(dstFilePath);
+                        resolve(dstFilePath);
                     })
                 })
             }

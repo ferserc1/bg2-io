@@ -22,4 +22,4 @@ if (!result) {
     process.exit(-2);
 }
 
-console.log(`Scene downloaded at ${result.dstPath}`);
+console.log(`Scene downloaded at ${result.mainSceneFilePath}`);
