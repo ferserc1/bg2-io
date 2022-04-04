@@ -8,7 +8,17 @@ import Bg2ioWrapper from './Bg2ioWrapper.mjs';
 import Bg2ioModule from './Bg2ioModule.cjs';
 
 
-
+function urlJoin(baseUrl,file) {
+    if (baseUrl[baseUrl.length-1] === '/' && file[0] === '/') {
+        return baseUrl + file.substring(1);
+    }
+    else if (baseUrl[baseUrl.length-1] === '/' || file[0] === '/') {
+        return baseUrl + file;
+    }
+    else {
+        return baseUrl + "/" + file;
+    }
+}
 
 function resolveUrl(fileUrl, baseUrl) {
     if (/^https?\:\/\//i.test(fileUrl)) {
@@ -101,7 +111,7 @@ export const getBg2FileResources = async (filePath, baseUrl, result = {}) => {
                     mat[attrib] = result[file];
                 }
                 else {
-                    result[path.join(baseUrl,file)] = file.substring(file.lastIndexOf('/'));
+                    result[urlJoin(baseUrl,file)] = file.substring(file.lastIndexOf('/'));
                     mat[attrib] = result[file];
                 }
             }
@@ -136,6 +146,7 @@ export const downloadScene = async (sceneFileUrl, dstPath, progressCallback = nu
         sceneFile = await downloadSceneFile(sceneFileUrl,dstPath);
     }
     catch (err) {
+        console.error(err.message);
         return null;
     }
 
@@ -193,7 +204,7 @@ export const downloadScene = async (sceneFileUrl, dstPath, progressCallback = nu
     const totalIndirectResources = Object.keys(indirectResources).length;
     for  (const remoteUrl in indirectResources) {
         try {
-            const localFilePath = await downloadFile(remoteUrl, dstPath);
+            const localFilePath = await downloadFile(remoteUrl, path.resolve(dstPath));
             downloadedIndirectResources++;
             result.indirectSceneResources.push(localFilePath);
             if (typeof(progressCallback) === 'function') {

@@ -22,4 +22,5 @@ if (!result) {
     process.exit(-2);
 }
 
+console.log(JSON.stringify(result, "", "  "));
 console.log(`Scene downloaded at ${result.mainSceneFilePath}`);
