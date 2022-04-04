@@ -124,8 +124,24 @@ export const downloadScene = async (sceneFileUrl, dstPath, progressCallback = nu
     // Get the base URL without the scene file name
     const baseUrl = sceneFileUrl.substring(0, sceneFileUrl.lastIndexOf('/'));
 
+    const result = {
+        mainSceneFilePath: dstPath,
+        sceneResources: [],
+        indirectSceneResources: []
+    };
+
     // Download scene file
-    const sceneFile = await downloadSceneFile(sceneFileUrl,dstPath);
+    let sceneFile = null;
+    try {
+        sceneFile = await downloadSceneFile(sceneFileUrl,dstPath);
+    }
+    catch (err) {
+        return null;
+    }
+
+    if (typeof(progressCallback) === 'function') {
+        progressCallback('Main scene file', dstPath, 1, 1);
+    }
     
     // Get file resources
     const resources = getSceneResources(sceneFile, baseUrl);
@@ -133,6 +149,8 @@ export const downloadScene = async (sceneFileUrl, dstPath, progressCallback = nu
     // Download scene direct resources
     const indirectResources = {}
     let downloadedModelFiles = {};
+    let currentSceneResource = 0;
+    const totalSceneResources = Object.keys(resources).length;
     for (const remoteUrl in resources) {
         const ext = remoteUrl.substring(remoteUrl.lastIndexOf('.'));
         try {
@@ -148,7 +166,11 @@ export const downloadScene = async (sceneFileUrl, dstPath, progressCallback = nu
 
             }
             const localFilePath = await downloadFile(remoteUrl,dstPath);
-            console.log(localFilePath);
+            currentSceneResource++;
+            if (typeof(progressCallback) === 'function') {
+                progressCallback('Scene resource', localFilePath, currentSceneResource, totalSceneResources);
+            }
+            result.sceneResources.push(localFilePath);
             if (ext === ".bg2" || ext === '.vwglb') {
                 // add indirect resources to indirectResources object
                 await getBg2FileResources(localFilePath, baseUrl, indirectResources);
@@ -158,24 +180,36 @@ export const downloadScene = async (sceneFileUrl, dstPath, progressCallback = nu
             // Ignore not found errors in bg2 or vwglb 3d models, because the
             // downloader will try to download both, but only one of them will
             // be available
+            currentSceneResource++;
             if (err.code !== 404 || (ext !== '.bg2' && ext !== '.vwglb')) {
-                console.error(err);
+                if (typeof(progressCallback) === 'function') {
+                    progressCallback('Scene resource', remoteUrl, currentSceneResource, totalSceneResources, err);
+                }
             }
         }
     }
 
-    // TODO: Download scene indirect resources
+    let downloadedIndirectResources = 0;
+    const totalIndirectResources = Object.keys(indirectResources).length;
     for  (const remoteUrl in indirectResources) {
         try {
             const localFilePath = await downloadFile(remoteUrl, dstPath);
-            console.info(`Downloaded: ${localFilePath}`);
+            downloadedIndirectResources++;
+            result.indirectSceneResources.push(localFilePath);
+            if (typeof(progressCallback) === 'function') {
+                progressCallback('Indirect scene resource', localFilePath, downloadedIndirectResources, totalIndirectResources);
+            }
         }
         catch (err) {
             if (err.code === 404) {
                 console.warn(`Not found: ${remoteUrl}`);
+                downloadedIndirectResources++;
+                if (typeof(progressCallback) === 'function') {
+                    progressCallback('Indirect scene resource', remoteUrl, downloadedIndirectResources, totalIndirectResources, err);
+                }
             }
         }
     }
 
-    return sceneFile;
+    return result;
 }

@@ -1,6 +1,6 @@
 {
   "name": "bg2io-wasm",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "WebAssembly library for loading bg2 engine models",
   "main": "index.js",
   "type": "module",
