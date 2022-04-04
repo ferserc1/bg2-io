@@ -1,6 +1,6 @@
 {
     "name": "bg2io",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "description": "WebAssembly module to load and write bg2 engine files",
     "main": "Bg2ioWrapper.mjs",
     "scripts": {
