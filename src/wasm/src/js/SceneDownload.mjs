@@ -111,8 +111,9 @@ export const getBg2FileResources = async (filePath, baseUrl, result = {}) => {
                     mat[attrib] = result[file];
                 }
                 else {
-                    result[urlJoin(baseUrl,file)] = file.substring(file.lastIndexOf('/'));
-                    mat[attrib] = result[file];
+                    const key = urlJoin(baseUrl,file);
+                    result[key] = file.substring(file.lastIndexOf('/'));
+                    mat[attrib] = result[key];
                 }
             }
         })

@@ -9,8 +9,8 @@
             "name": "WASM: download scene",
             "program": "${workspaceFolder}/src/wasm/example-donwload-scene.js",
             "args": [
-                "http://127.0.0.1:5005/api/v1/bg2scene/2/scene.vitscnj",
-                "${workspaceFolder}/bin/test-scene-3"
+                "http://127.0.0.1:5500/astoria.vitscnj",
+                "${workspaceFolder}/bin/astoria"
             ],
             "request": "launch",
             "skipFiles": [
