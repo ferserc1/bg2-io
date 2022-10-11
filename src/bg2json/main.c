@@ -80,7 +80,7 @@ int main(int argc, const char ** argv)
     free(fileBuffer);
     
     bg2io_freeBg2File(fileData);
-    free(fileBuffer);
+    free(fileData);
     
     return 0;
 }
