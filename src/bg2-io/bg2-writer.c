@@ -80,31 +80,31 @@ int bg2io_writeFileToBuffer(Bg2File * file, Bg2ioBuffer *dest)
     Bg2ioSize requiredSize = bg2io_calculateBufferSize(file);
     if (requiredSize<0)
     {
-        return requiredSize;
+        return (int) requiredSize;
     }
 
     Bg2ioSize err = bg2io_createBuffer(dest, requiredSize);
     if (err < 0)
     {
-        return err;
+        return (int) err;
     }
 
     Bg2ioBufferIterator it = BG2IO_ITERATOR(dest);
 
     Bg2ioSize writtenBytes = 0;
     err = writeHeaderToBuffer(file, &it);
-    ASSERT_ERR(err,writtenBytes);
+    ASSERT_ERR((int) err, (int) writtenBytes);
 
     err = writePolyListsToBuffer(file, &it);
-    ASSERT_ERR(err,writtenBytes);
+    ASSERT_ERR((int) err, (int) writtenBytes);
 
     if (file->componentData != NULL)
     {
         err = bg2io_writeBlock(&it, bg2io_Components);
-        ASSERT_ERR(err,writtenBytes);
+        ASSERT_ERR((int) err, (int) writtenBytes);
 
         err = bg2io_writeString(&it, file->componentData);
-        ASSERT_ERR(err,writtenBytes);
+        ASSERT_ERR((int) err, (int) writtenBytes);
     }
 
     return BG2IO_NO_ERROR;

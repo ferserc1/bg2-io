@@ -96,7 +96,7 @@ unsigned int bg2io_readBlock(Bg2ioBufferIterator *it)
     Bg2ioSize error = bg2io_readInteger(it, &block);
     if (error < 0)
     {
-        return error;
+        return (unsigned int) error;
     }
 
     if (bg2io_isValidBlock(block))
@@ -360,7 +360,7 @@ Bg2ioSize bg2io_writeString(Bg2ioBufferIterator *it, const char * in)
 
     Bg2ioSize stringSize = getStringSize(in);
     Bg2ioSize totalSize = stringSize;
-    Bg2ioSize written = bg2io_writeInteger(it, totalSize);
+    Bg2ioSize written = bg2io_writeInteger(it, (int) totalSize);
 
     for (int i = 0; i < stringSize; ++i)
     {
@@ -381,7 +381,7 @@ Bg2ioSize bg2io_writeFloatArray(Bg2ioBufferIterator *it, const float * in, Bg2io
         return BG2IO_ERR_ITERATOR_OUT_OF_BOUNDS;
     }
 
-    Bg2ioSize written = bg2io_writeInteger(it, length);
+    Bg2ioSize written = bg2io_writeInteger(it, (int) length);
 
     for (int i = 0; i < length; ++i)
     {
@@ -402,7 +402,7 @@ Bg2ioSize bg2io_writeIntArray(Bg2ioBufferIterator *it, const int * in, Bg2ioSize
         return BG2IO_ERR_ITERATOR_OUT_OF_BOUNDS;
     }
 
-    Bg2ioSize written = bg2io_writeInteger(it, length);
+    Bg2ioSize written = bg2io_writeInteger(it, (int) length);
 
     for (int i = 0; i < length; ++i)
     {

@@ -120,7 +120,7 @@ int parseHeader(Bg2ioBufferIterator *it, Bg2File *file)
     // Read joints
     if (block == bg2io_Joint)
     {
-        int err = bg2io_readString(it, &file->jointData);
+        long long err = bg2io_readString(it, &file->jointData);
         if (err < 0)
         {
             g_parseError = BG2IO_ERR_CORRUPTED_JOINT_DATA;
@@ -161,7 +161,7 @@ int parsePlist(Bg2ioBufferIterator *it, Bg2File *file)
             bg2io_readString(it, &currentPlist->matName);
             break;
         case bg2io_VertexArray:
-            currentPlist->vertex.length = bg2io_readFloatArray(it, &currentPlist->vertex.data);
+            currentPlist->vertex.length = (int) bg2io_readFloatArray(it, &currentPlist->vertex.data);
             if (currentPlist->vertex.length < 0)
             {
                 g_parseError = BG2IO_ERR_CORRUPTED_VERTEX_DATA;
@@ -169,7 +169,7 @@ int parsePlist(Bg2ioBufferIterator *it, Bg2File *file)
             }
             break;
         case bg2io_NormalArray:
-            currentPlist->normal.length = bg2io_readFloatArray(it, &currentPlist->normal.data);
+            currentPlist->normal.length = (int) bg2io_readFloatArray(it, &currentPlist->normal.data);
             if (currentPlist->normal.length <0 )
             {
                 g_parseError = BG2IO_ERR_CORRUPTED_NORMAL_DATA;
@@ -177,7 +177,7 @@ int parsePlist(Bg2ioBufferIterator *it, Bg2File *file)
             }
             break;
         case bg2io_TexCoord0Array:
-            currentPlist->texCoord0.length = bg2io_readFloatArray(it, &currentPlist->texCoord0.data);
+            currentPlist->texCoord0.length = (int) bg2io_readFloatArray(it, &currentPlist->texCoord0.data);
             if (currentPlist->texCoord0.length < 0)
             {
                 g_parseError = BG2IO_ERR_CORRUPTED_TEXCOORD0_DATA;
@@ -185,7 +185,7 @@ int parsePlist(Bg2ioBufferIterator *it, Bg2File *file)
             }
             break;
         case bg2io_TexCoord1Array:
-            currentPlist->texCoord1.length = bg2io_readFloatArray(it, &currentPlist->texCoord1.data);
+            currentPlist->texCoord1.length = (int) bg2io_readFloatArray(it, &currentPlist->texCoord1.data);
             if (currentPlist->texCoord1.length < 0)
             {
                 g_parseError = BG2IO_ERR_CORRUPTED_TEXCOORD1_DATA;
@@ -193,7 +193,7 @@ int parsePlist(Bg2ioBufferIterator *it, Bg2File *file)
             }
             break;
         case bg2io_TexCoord2Array:
-            currentPlist->texCoord2.length = bg2io_readFloatArray(it, &currentPlist->texCoord2.data);
+            currentPlist->texCoord2.length = (int) bg2io_readFloatArray(it, &currentPlist->texCoord2.data);
             if (currentPlist->texCoord2.length < 0)
             {
                 g_parseError = BG2IO_ERR_CORRUPTED_TEXCOORD2_DATA;
@@ -201,7 +201,7 @@ int parsePlist(Bg2ioBufferIterator *it, Bg2File *file)
             }
             break;
         case bg2io_IndexArray:
-            currentPlist->index.length = bg2io_readIntArray(it, &currentPlist->index.data);
+            currentPlist->index.length = (int) bg2io_readIntArray(it, &currentPlist->index.data);
             if (currentPlist->index.length < 0)
             {
                 g_parseError = BG2IO_ERR_CORRUPTED_INDEX_DATA;
@@ -215,7 +215,7 @@ int parsePlist(Bg2ioBufferIterator *it, Bg2File *file)
                 int cmpsBlock = bg2io_readBlock(it);
                 if (cmpsBlock == bg2io_Components)
                 {
-                    int errorCode = bg2io_readString(it, &file->componentData);
+                    int errorCode = (int) bg2io_readString(it, &file->componentData);
                     if  (errorCode < 0)
                     {
                         printf("Warning: error reading component data. Error code: %d", errorCode);
