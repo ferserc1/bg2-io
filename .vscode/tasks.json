@@ -250,6 +250,39 @@
                 "kind": "build",
                 "isDefault": true
             }
-        }
+        },
+
+
+
+        {
+            "type": "shell",
+            "label": "Mac build bg2-scene",
+            "command": "/usr/bin/clang",
+            "args": [
+                "-g",
+                "${workspaceFolder}/src/bg2-io/*.c",
+                "-g",
+                "${workspaceFolder}/src/bg2-scene/*.cpp",
+                "-g",
+                "${workspaceFolder}/src/scene-sample/*.cpp",
+                "-o",
+                "${workspaceFolder}/bin/bg2-scene",
+                "-I",
+                "${workspaceFolder}/src/bg2-io",
+                "-I",
+                "${workspaceFolder}/src/bg2-scene",
+                "-Wno-multichar"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
     ]
 }

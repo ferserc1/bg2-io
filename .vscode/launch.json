@@ -224,6 +224,24 @@
             "externalConsole": false,
             "MIMode": "lldb",
             "preLaunchTask": "Mac build test-copy"
+        },
+
+        {
+            "name": "bg2-scene (Mac)",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/bg2-scene",
+            "args": ["${workspaceFolder}/resources/test-scene/test-scene.vitscnj", "${workspaceFolder}/resources/mini.json"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "lldb",
+            "preLaunchTask": "Mac build bg2-scene",
+            "includePath": [
+                "${workspaceFolder}/src/bg2-io",
+                "${workspaceFolder}/src/bg2-scene",
+            ]
         }
     ]
 }
