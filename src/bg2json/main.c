@@ -210,7 +210,7 @@ void writeIntVector(FILE *fd, Bg2ioIntArray *array)
 
 void writeJson(Bg2File * fileData, const char * path)
 {
-    int pathLen = strlen(path);
+    int pathLen = (int) strlen(path);
     char * jsonPath = (char *)malloc(pathLen + 6);  // path length + ".json\0"
     strcpy(jsonPath, path);
     strcat(jsonPath, ".json");

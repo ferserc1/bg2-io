@@ -4,13 +4,20 @@ Standalone C++ library for reading and writing `.bg2` files, the native file for
 
 ## Build and debug
 
-This project is ready for build with Visual Studio Code on Linux and macOS. Select the appropiate debug and/or build task to build it.
+This project is ready for build with Visual Studio Code on Linux. Select the appropiate debug and/or build task to build it.
 
-You will need the Microsoft extensions for C++. Also, for macOS the project is configured to use the `CodeLLDB` extension for debug, because the Microsoft extension don't work fine on Apple Silicon processors.
+You will need the Microsoft extensions for C++.
+
+For macOS, there is a Xcode project.
 
 For Windows, there is a project for Visual Studio.
 
-However, the code does not have any dependencies, nor does it require any macros to be configured. You can make it work in any other environment by simply adding the C files to the building system or IDE of your choice.
+However, the code does not have any dependencies, nor does it require any macros to be configured. You can make it work in any other environment by simply adding the C files to the building system or IDE of your choice. To use the library:
+
+- If you want to use only bg2-io, you must compile the C files inside `src/bg2-io` directory. You'll have to also add this directory to the header search paths in your IDE/Makefiles/Cmake/Whatever
+- If you want to use bg2-scene,  you also need to add the `src/bg2-scene` directory to the header search paths, and compile all the C++ files included in that folder.
+
+Note for Xcode users: you probably want to disable the "Documentation Comments" warnings in build settings.
 
 ## WebAssembly JavaScript library
 

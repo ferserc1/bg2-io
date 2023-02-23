@@ -4,7 +4,7 @@
 
 #include "types.h"
 
-int bg2io_getParserError();
+int bg2io_getParserError(void);
 
 Bg2File * bg2io_parseFileBuffer(Bg2ioBuffer *buffer);
 

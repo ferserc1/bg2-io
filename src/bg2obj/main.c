@@ -172,7 +172,7 @@ int writePolyLists(FILE * fd, Bg2File * fileData)
 
 void writeObj(Bg2File * fileData, const char * path)
 {
-    int pathLen = strlen(path);
+    int pathLen = (int) strlen(path);
     char * jsonPath = (char *)malloc(pathLen + 5);  // path length + ".obj\0"
     strcpy(jsonPath, path);
     strcat(jsonPath, ".obj");

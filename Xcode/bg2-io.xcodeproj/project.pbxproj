@@ -1,0 +1,709 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		ED5CDE5429A7C04000797D21 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE5329A7C04000797D21 /* main.cpp */; };
+		ED5CDE6229A7C05100797D21 /* json-parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE5629A7C05100797D21 /* json-parser.cpp */; };
+		ED5CDE6329A7C05100797D21 /* bg2-scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE5729A7C05100797D21 /* bg2-scene.cpp */; };
+		ED5CDE6429A7C05100797D21 /* component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE5929A7C05100797D21 /* component.cpp */; };
+		ED5CDE6529A7C05100797D21 /* node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE5A29A7C05100797D21 /* node.cpp */; };
+		ED5CDE6629A7C05100797D21 /* json-token.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE5E29A7C05100797D21 /* json-token.cpp */; };
+		ED5CDE6729A7C05100797D21 /* json.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE6129A7C05100797D21 /* json.cpp */; };
+		ED5CDE7829A7C05800797D21 /* buffer-memory.c in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE6929A7C05800797D21 /* buffer-memory.c */; };
+		ED5CDE7929A7C05800797D21 /* bg2-loader.c in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE6D29A7C05800797D21 /* bg2-loader.c */; };
+		ED5CDE7A29A7C05800797D21 /* bg2-writer.c in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE7029A7C05800797D21 /* bg2-writer.c */; };
+		ED5CDE7B29A7C05800797D21 /* buffer-io.c in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE7129A7C05800797D21 /* buffer-io.c */; };
+		ED5CDE7C29A7C05800797D21 /* utils.c in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE7229A7C05800797D21 /* utils.c */; };
+		ED5CDE7D29A7C05800797D21 /* types.c in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE7429A7C05800797D21 /* types.c */; };
+		ED5CDE7E29A7C05800797D21 /* bg2-io.c in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE7529A7C05800797D21 /* bg2-io.c */; };
+		ED5CDE8C29A7C30A00797D21 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE8B29A7C30A00797D21 /* main.c */; };
+		ED5CDE8D29A7C37C00797D21 /* buffer-memory.c in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE6929A7C05800797D21 /* buffer-memory.c */; };
+		ED5CDE8E29A7C37C00797D21 /* bg2-loader.c in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE6D29A7C05800797D21 /* bg2-loader.c */; };
+		ED5CDE8F29A7C37C00797D21 /* bg2-writer.c in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE7029A7C05800797D21 /* bg2-writer.c */; };
+		ED5CDE9029A7C37C00797D21 /* buffer-io.c in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE7129A7C05800797D21 /* buffer-io.c */; };
+		ED5CDE9129A7C37C00797D21 /* utils.c in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE7229A7C05800797D21 /* utils.c */; };
+		ED5CDE9229A7C37C00797D21 /* types.c in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE7429A7C05800797D21 /* types.c */; };
+		ED5CDE9329A7C37C00797D21 /* bg2-io.c in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE7529A7C05800797D21 /* bg2-io.c */; };
+		ED5CDEA129A7C6DC00797D21 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDEA029A7C6DC00797D21 /* main.c */; };
+		ED5CDEA229A7C73C00797D21 /* buffer-memory.c in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE6929A7C05800797D21 /* buffer-memory.c */; };
+		ED5CDEA329A7C73C00797D21 /* bg2-loader.c in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE6D29A7C05800797D21 /* bg2-loader.c */; };
+		ED5CDEA429A7C73C00797D21 /* bg2-writer.c in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE7029A7C05800797D21 /* bg2-writer.c */; };
+		ED5CDEA529A7C73C00797D21 /* buffer-io.c in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE7129A7C05800797D21 /* buffer-io.c */; };
+		ED5CDEA629A7C73C00797D21 /* utils.c in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE7229A7C05800797D21 /* utils.c */; };
+		ED5CDEA729A7C73C00797D21 /* types.c in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE7429A7C05800797D21 /* types.c */; };
+		ED5CDEA829A7C73C00797D21 /* bg2-io.c in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE7529A7C05800797D21 /* bg2-io.c */; };
+		ED5CDEB629A7C79600797D21 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDEB529A7C79600797D21 /* main.c */; };
+		ED5CDEB729A7C79E00797D21 /* buffer-memory.c in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE6929A7C05800797D21 /* buffer-memory.c */; };
+		ED5CDEB829A7C79E00797D21 /* bg2-loader.c in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE6D29A7C05800797D21 /* bg2-loader.c */; };
+		ED5CDEB929A7C79E00797D21 /* bg2-writer.c in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE7029A7C05800797D21 /* bg2-writer.c */; };
+		ED5CDEBA29A7C79E00797D21 /* buffer-io.c in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE7129A7C05800797D21 /* buffer-io.c */; };
+		ED5CDEBB29A7C79E00797D21 /* utils.c in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE7229A7C05800797D21 /* utils.c */; };
+		ED5CDEBC29A7C79E00797D21 /* types.c in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE7429A7C05800797D21 /* types.c */; };
+		ED5CDEBD29A7C79E00797D21 /* bg2-io.c in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE7529A7C05800797D21 /* bg2-io.c */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		ED5CDE4629A7C00100797D21 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		ED5CDE8129A7C2F800797D21 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		ED5CDE9629A7C6CD00797D21 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		ED5CDEAB29A7C78800797D21 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		ED5CDE4829A7C00100797D21 /* scene-sample */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "scene-sample"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED5CDE5329A7C04000797D21 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		ED5CDE5629A7C05100797D21 /* json-parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "json-parser.cpp"; sourceTree = "<group>"; };
+		ED5CDE5729A7C05100797D21 /* bg2-scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "bg2-scene.cpp"; sourceTree = "<group>"; };
+		ED5CDE5829A7C05100797D21 /* json.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = json.hpp; sourceTree = "<group>"; };
+		ED5CDE5929A7C05100797D21 /* component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = component.cpp; sourceTree = "<group>"; };
+		ED5CDE5A29A7C05100797D21 /* node.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = node.cpp; sourceTree = "<group>"; };
+		ED5CDE5B29A7C05100797D21 /* json-token.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "json-token.hpp"; sourceTree = "<group>"; };
+		ED5CDE5C29A7C05100797D21 /* component.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = component.hpp; sourceTree = "<group>"; };
+		ED5CDE5D29A7C05100797D21 /* node.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = node.hpp; sourceTree = "<group>"; };
+		ED5CDE5E29A7C05100797D21 /* json-token.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "json-token.cpp"; sourceTree = "<group>"; };
+		ED5CDE5F29A7C05100797D21 /* json-parser.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "json-parser.hpp"; sourceTree = "<group>"; };
+		ED5CDE6029A7C05100797D21 /* bg2-scene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "bg2-scene.hpp"; sourceTree = "<group>"; };
+		ED5CDE6129A7C05100797D21 /* json.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json.cpp; sourceTree = "<group>"; };
+		ED5CDE6929A7C05800797D21 /* buffer-memory.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "buffer-memory.c"; sourceTree = "<group>"; };
+		ED5CDE6A29A7C05800797D21 /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
+		ED5CDE6B29A7C05800797D21 /* buffer-io.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "buffer-io.h"; sourceTree = "<group>"; };
+		ED5CDE6C29A7C05800797D21 /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
+		ED5CDE6D29A7C05800797D21 /* bg2-loader.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "bg2-loader.c"; sourceTree = "<group>"; };
+		ED5CDE6E29A7C05800797D21 /* bg2-io.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "bg2-io.h"; sourceTree = "<group>"; };
+		ED5CDE6F29A7C05800797D21 /* errors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = errors.h; sourceTree = "<group>"; };
+		ED5CDE7029A7C05800797D21 /* bg2-writer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "bg2-writer.c"; sourceTree = "<group>"; };
+		ED5CDE7129A7C05800797D21 /* buffer-io.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "buffer-io.c"; sourceTree = "<group>"; };
+		ED5CDE7229A7C05800797D21 /* utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utils.c; sourceTree = "<group>"; };
+		ED5CDE7329A7C05800797D21 /* buffer-memory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "buffer-memory.h"; sourceTree = "<group>"; };
+		ED5CDE7429A7C05800797D21 /* types.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = types.c; sourceTree = "<group>"; };
+		ED5CDE7529A7C05800797D21 /* bg2-io.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "bg2-io.c"; sourceTree = "<group>"; };
+		ED5CDE7629A7C05800797D21 /* bg2-loader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "bg2-loader.h"; sourceTree = "<group>"; };
+		ED5CDE7729A7C05800797D21 /* bg2-writer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "bg2-writer.h"; sourceTree = "<group>"; };
+		ED5CDE8329A7C2F800797D21 /* sample */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = sample; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED5CDE8B29A7C30A00797D21 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		ED5CDE9829A7C6CD00797D21 /* bg2obj */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = bg2obj; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED5CDEA029A7C6DC00797D21 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		ED5CDEAD29A7C78800797D21 /* bg2json */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = bg2json; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED5CDEB529A7C79600797D21 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		ED5CDE4529A7C00100797D21 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ED5CDE8029A7C2F800797D21 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ED5CDE9529A7C6CD00797D21 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ED5CDEAA29A7C78800797D21 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		ED5CDE3F29A7C00100797D21 = {
+			isa = PBXGroup;
+			children = (
+				ED5CDEB429A7C79600797D21 /* bg2json */,
+				ED5CDE6829A7C05800797D21 /* bg2-io */,
+				ED5CDE5529A7C05100797D21 /* bg2-scene */,
+				ED5CDE5229A7C04000797D21 /* scene-sample */,
+				ED5CDE8A29A7C30A00797D21 /* sample */,
+				ED5CDE9F29A7C6DC00797D21 /* bg2obj */,
+				ED5CDE4929A7C00100797D21 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		ED5CDE4929A7C00100797D21 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				ED5CDE4829A7C00100797D21 /* scene-sample */,
+				ED5CDE8329A7C2F800797D21 /* sample */,
+				ED5CDE9829A7C6CD00797D21 /* bg2obj */,
+				ED5CDEAD29A7C78800797D21 /* bg2json */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		ED5CDE5229A7C04000797D21 /* scene-sample */ = {
+			isa = PBXGroup;
+			children = (
+				ED5CDE5329A7C04000797D21 /* main.cpp */,
+			);
+			name = "scene-sample";
+			path = "../src/scene-sample";
+			sourceTree = "<group>";
+		};
+		ED5CDE5529A7C05100797D21 /* bg2-scene */ = {
+			isa = PBXGroup;
+			children = (
+				ED5CDE5629A7C05100797D21 /* json-parser.cpp */,
+				ED5CDE5729A7C05100797D21 /* bg2-scene.cpp */,
+				ED5CDE5829A7C05100797D21 /* json.hpp */,
+				ED5CDE5929A7C05100797D21 /* component.cpp */,
+				ED5CDE5A29A7C05100797D21 /* node.cpp */,
+				ED5CDE5B29A7C05100797D21 /* json-token.hpp */,
+				ED5CDE5C29A7C05100797D21 /* component.hpp */,
+				ED5CDE5D29A7C05100797D21 /* node.hpp */,
+				ED5CDE5E29A7C05100797D21 /* json-token.cpp */,
+				ED5CDE5F29A7C05100797D21 /* json-parser.hpp */,
+				ED5CDE6029A7C05100797D21 /* bg2-scene.hpp */,
+				ED5CDE6129A7C05100797D21 /* json.cpp */,
+			);
+			name = "bg2-scene";
+			path = "../src/bg2-scene";
+			sourceTree = "<group>";
+		};
+		ED5CDE6829A7C05800797D21 /* bg2-io */ = {
+			isa = PBXGroup;
+			children = (
+				ED5CDE6929A7C05800797D21 /* buffer-memory.c */,
+				ED5CDE6A29A7C05800797D21 /* utils.h */,
+				ED5CDE6B29A7C05800797D21 /* buffer-io.h */,
+				ED5CDE6C29A7C05800797D21 /* types.h */,
+				ED5CDE6D29A7C05800797D21 /* bg2-loader.c */,
+				ED5CDE6E29A7C05800797D21 /* bg2-io.h */,
+				ED5CDE6F29A7C05800797D21 /* errors.h */,
+				ED5CDE7029A7C05800797D21 /* bg2-writer.c */,
+				ED5CDE7129A7C05800797D21 /* buffer-io.c */,
+				ED5CDE7229A7C05800797D21 /* utils.c */,
+				ED5CDE7329A7C05800797D21 /* buffer-memory.h */,
+				ED5CDE7429A7C05800797D21 /* types.c */,
+				ED5CDE7529A7C05800797D21 /* bg2-io.c */,
+				ED5CDE7629A7C05800797D21 /* bg2-loader.h */,
+				ED5CDE7729A7C05800797D21 /* bg2-writer.h */,
+			);
+			name = "bg2-io";
+			path = "../src/bg2-io";
+			sourceTree = "<group>";
+		};
+		ED5CDE8A29A7C30A00797D21 /* sample */ = {
+			isa = PBXGroup;
+			children = (
+				ED5CDE8B29A7C30A00797D21 /* main.c */,
+			);
+			name = sample;
+			path = ../src/sample;
+			sourceTree = "<group>";
+		};
+		ED5CDE9F29A7C6DC00797D21 /* bg2obj */ = {
+			isa = PBXGroup;
+			children = (
+				ED5CDEA029A7C6DC00797D21 /* main.c */,
+			);
+			name = bg2obj;
+			path = ../src/bg2obj;
+			sourceTree = "<group>";
+		};
+		ED5CDEB429A7C79600797D21 /* bg2json */ = {
+			isa = PBXGroup;
+			children = (
+				ED5CDEB529A7C79600797D21 /* main.c */,
+			);
+			name = bg2json;
+			path = ../src/bg2json;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		ED5CDE4729A7C00100797D21 /* scene-sample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ED5CDE4F29A7C00100797D21 /* Build configuration list for PBXNativeTarget "scene-sample" */;
+			buildPhases = (
+				ED5CDE4429A7C00100797D21 /* Sources */,
+				ED5CDE4529A7C00100797D21 /* Frameworks */,
+				ED5CDE4629A7C00100797D21 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "scene-sample";
+			productName = "scene-sample";
+			productReference = ED5CDE4829A7C00100797D21 /* scene-sample */;
+			productType = "com.apple.product-type.tool";
+		};
+		ED5CDE8229A7C2F800797D21 /* sample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ED5CDE8729A7C2F800797D21 /* Build configuration list for PBXNativeTarget "sample" */;
+			buildPhases = (
+				ED5CDE7F29A7C2F800797D21 /* Sources */,
+				ED5CDE8029A7C2F800797D21 /* Frameworks */,
+				ED5CDE8129A7C2F800797D21 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = sample;
+			productName = sample;
+			productReference = ED5CDE8329A7C2F800797D21 /* sample */;
+			productType = "com.apple.product-type.tool";
+		};
+		ED5CDE9729A7C6CD00797D21 /* bg2obj */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ED5CDE9C29A7C6CD00797D21 /* Build configuration list for PBXNativeTarget "bg2obj" */;
+			buildPhases = (
+				ED5CDE9429A7C6CD00797D21 /* Sources */,
+				ED5CDE9529A7C6CD00797D21 /* Frameworks */,
+				ED5CDE9629A7C6CD00797D21 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = bg2obj;
+			productName = bg2obj;
+			productReference = ED5CDE9829A7C6CD00797D21 /* bg2obj */;
+			productType = "com.apple.product-type.tool";
+		};
+		ED5CDEAC29A7C78800797D21 /* bg2json */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ED5CDEB129A7C78800797D21 /* Build configuration list for PBXNativeTarget "bg2json" */;
+			buildPhases = (
+				ED5CDEA929A7C78800797D21 /* Sources */,
+				ED5CDEAA29A7C78800797D21 /* Frameworks */,
+				ED5CDEAB29A7C78800797D21 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = bg2json;
+			productName = bg2json;
+			productReference = ED5CDEAD29A7C78800797D21 /* bg2json */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		ED5CDE4029A7C00100797D21 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1420;
+				TargetAttributes = {
+					ED5CDE4729A7C00100797D21 = {
+						CreatedOnToolsVersion = 14.2;
+					};
+					ED5CDE8229A7C2F800797D21 = {
+						CreatedOnToolsVersion = 14.2;
+					};
+					ED5CDE9729A7C6CD00797D21 = {
+						CreatedOnToolsVersion = 14.2;
+					};
+					ED5CDEAC29A7C78800797D21 = {
+						CreatedOnToolsVersion = 14.2;
+					};
+				};
+			};
+			buildConfigurationList = ED5CDE4329A7C00100797D21 /* Build configuration list for PBXProject "bg2-io" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = ED5CDE3F29A7C00100797D21;
+			productRefGroup = ED5CDE4929A7C00100797D21 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				ED5CDE4729A7C00100797D21 /* scene-sample */,
+				ED5CDE8229A7C2F800797D21 /* sample */,
+				ED5CDE9729A7C6CD00797D21 /* bg2obj */,
+				ED5CDEAC29A7C78800797D21 /* bg2json */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		ED5CDE4429A7C00100797D21 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ED5CDE7829A7C05800797D21 /* buffer-memory.c in Sources */,
+				ED5CDE6229A7C05100797D21 /* json-parser.cpp in Sources */,
+				ED5CDE6629A7C05100797D21 /* json-token.cpp in Sources */,
+				ED5CDE7E29A7C05800797D21 /* bg2-io.c in Sources */,
+				ED5CDE6429A7C05100797D21 /* component.cpp in Sources */,
+				ED5CDE7A29A7C05800797D21 /* bg2-writer.c in Sources */,
+				ED5CDE6329A7C05100797D21 /* bg2-scene.cpp in Sources */,
+				ED5CDE7B29A7C05800797D21 /* buffer-io.c in Sources */,
+				ED5CDE7929A7C05800797D21 /* bg2-loader.c in Sources */,
+				ED5CDE6729A7C05100797D21 /* json.cpp in Sources */,
+				ED5CDE7C29A7C05800797D21 /* utils.c in Sources */,
+				ED5CDE6529A7C05100797D21 /* node.cpp in Sources */,
+				ED5CDE5429A7C04000797D21 /* main.cpp in Sources */,
+				ED5CDE7D29A7C05800797D21 /* types.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ED5CDE7F29A7C2F800797D21 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ED5CDE8D29A7C37C00797D21 /* buffer-memory.c in Sources */,
+				ED5CDE8E29A7C37C00797D21 /* bg2-loader.c in Sources */,
+				ED5CDE8F29A7C37C00797D21 /* bg2-writer.c in Sources */,
+				ED5CDE9029A7C37C00797D21 /* buffer-io.c in Sources */,
+				ED5CDE9129A7C37C00797D21 /* utils.c in Sources */,
+				ED5CDE9229A7C37C00797D21 /* types.c in Sources */,
+				ED5CDE9329A7C37C00797D21 /* bg2-io.c in Sources */,
+				ED5CDE8C29A7C30A00797D21 /* main.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ED5CDE9429A7C6CD00797D21 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ED5CDEA229A7C73C00797D21 /* buffer-memory.c in Sources */,
+				ED5CDEA329A7C73C00797D21 /* bg2-loader.c in Sources */,
+				ED5CDEA429A7C73C00797D21 /* bg2-writer.c in Sources */,
+				ED5CDEA529A7C73C00797D21 /* buffer-io.c in Sources */,
+				ED5CDEA629A7C73C00797D21 /* utils.c in Sources */,
+				ED5CDEA729A7C73C00797D21 /* types.c in Sources */,
+				ED5CDEA829A7C73C00797D21 /* bg2-io.c in Sources */,
+				ED5CDEA129A7C6DC00797D21 /* main.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ED5CDEA929A7C78800797D21 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ED5CDEB729A7C79E00797D21 /* buffer-memory.c in Sources */,
+				ED5CDEB829A7C79E00797D21 /* bg2-loader.c in Sources */,
+				ED5CDEB929A7C79E00797D21 /* bg2-writer.c in Sources */,
+				ED5CDEBA29A7C79E00797D21 /* buffer-io.c in Sources */,
+				ED5CDEBB29A7C79E00797D21 /* utils.c in Sources */,
+				ED5CDEBC29A7C79E00797D21 /* types.c in Sources */,
+				ED5CDEBD29A7C79E00797D21 /* bg2-io.c in Sources */,
+				ED5CDEB629A7C79600797D21 /* main.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		ED5CDE4D29A7C00100797D21 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		ED5CDE4E29A7C00100797D21 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		ED5CDE5029A7C00100797D21 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5FVRUTMZSK;
+				ENABLE_HARDENED_RUNTIME = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../src/bg2-io",
+					"$(PROJECT_DIR)/../src/bg2-scene",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		ED5CDE5129A7C00100797D21 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5FVRUTMZSK;
+				ENABLE_HARDENED_RUNTIME = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../src/bg2-io",
+					"$(PROJECT_DIR)/../src/bg2-scene",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		ED5CDE8829A7C2F800797D21 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5FVRUTMZSK;
+				ENABLE_HARDENED_RUNTIME = YES;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../src/bg2-io";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		ED5CDE8929A7C2F800797D21 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5FVRUTMZSK;
+				ENABLE_HARDENED_RUNTIME = YES;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../src/bg2-io";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		ED5CDE9D29A7C6CD00797D21 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5FVRUTMZSK;
+				ENABLE_HARDENED_RUNTIME = YES;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../src/bg2-io";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		ED5CDE9E29A7C6CD00797D21 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5FVRUTMZSK;
+				ENABLE_HARDENED_RUNTIME = YES;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../src/bg2-io";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		ED5CDEB229A7C78800797D21 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5FVRUTMZSK;
+				ENABLE_HARDENED_RUNTIME = YES;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../src/bg2-io";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		ED5CDEB329A7C78800797D21 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5FVRUTMZSK;
+				ENABLE_HARDENED_RUNTIME = YES;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../src/bg2-io";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		ED5CDE4329A7C00100797D21 /* Build configuration list for PBXProject "bg2-io" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ED5CDE4D29A7C00100797D21 /* Debug */,
+				ED5CDE4E29A7C00100797D21 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ED5CDE4F29A7C00100797D21 /* Build configuration list for PBXNativeTarget "scene-sample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ED5CDE5029A7C00100797D21 /* Debug */,
+				ED5CDE5129A7C00100797D21 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ED5CDE8729A7C2F800797D21 /* Build configuration list for PBXNativeTarget "sample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ED5CDE8829A7C2F800797D21 /* Debug */,
+				ED5CDE8929A7C2F800797D21 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ED5CDE9C29A7C6CD00797D21 /* Build configuration list for PBXNativeTarget "bg2obj" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ED5CDE9D29A7C6CD00797D21 /* Debug */,
+				ED5CDE9E29A7C6CD00797D21 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ED5CDEB129A7C78800797D21 /* Build configuration list for PBXNativeTarget "bg2json" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ED5CDEB229A7C78800797D21 /* Debug */,
+				ED5CDEB329A7C78800797D21 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = ED5CDE4029A7C00100797D21 /* Project object */;
+}

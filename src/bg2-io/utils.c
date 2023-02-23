@@ -1,7 +1,7 @@
 
 #include "utils.h"
 
-int bg2io_isBigEndian()
+int bg2io_isBigEndian(void)
 {
 	union {
 		unsigned char bytes[4];
@@ -19,7 +19,7 @@ int bg2io_isBigEndian()
 	}
 }
 
-int bg2io_isLittleEndian()
+int bg2io_isLittleEndian(void)
 {
 	union {
 		unsigned char bytes[4];

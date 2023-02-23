@@ -22,6 +22,7 @@ int main(int argc, char ** argv)
 {
     if (argc < 2) {
         std::cerr << "Usage:" << std::endl << "bg2-scene scene-name.vitsnj" << std::endl;
+        return 1;
     }
 
     std::cout << argv[1] << std::endl;

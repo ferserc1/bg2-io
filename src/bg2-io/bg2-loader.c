@@ -10,7 +10,7 @@ int parseHeader(Bg2ioBufferIterator *it, Bg2File *file);
 
 int parsePlist(Bg2ioBufferIterator *it, Bg2File *file);
 
-int bg2io_getParserError()
+int bg2io_getParserError(void)
 {
     return g_parseError;
 }

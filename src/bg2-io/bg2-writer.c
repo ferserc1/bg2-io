@@ -93,18 +93,18 @@ int bg2io_writeFileToBuffer(Bg2File * file, Bg2ioBuffer *dest)
 
     Bg2ioSize writtenBytes = 0;
     err = writeHeaderToBuffer(file, &it);
-    ASSERT_ERR((int) err, (int) writtenBytes);
+    ASSERT_ERR((int) err, writtenBytes);
 
     err = writePolyListsToBuffer(file, &it);
-    ASSERT_ERR((int) err, (int) writtenBytes);
+    ASSERT_ERR((int) err, writtenBytes);
 
     if (file->componentData != NULL)
     {
         err = bg2io_writeBlock(&it, bg2io_Components);
-        ASSERT_ERR((int) err, (int) writtenBytes);
+        ASSERT_ERR((int) err, writtenBytes);
 
         err = bg2io_writeString(&it, file->componentData);
-        ASSERT_ERR((int) err, (int) writtenBytes);
+        ASSERT_ERR((int) err, writtenBytes);
     }
 
     return BG2IO_NO_ERROR;

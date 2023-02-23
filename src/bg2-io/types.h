@@ -171,7 +171,7 @@ typedef struct Bg2ioPolyListT {
  * 
  * @return Bg2ioPolyList* a pointer to the poly list
  */
-Bg2ioPolyList * bg2io_createPolyList();
+Bg2ioPolyList * bg2io_createPolyList(void);
 
 /**
  * @brief Release a poly list struct
@@ -260,7 +260,7 @@ typedef struct Bg2FileT {
  * 
  * @return Bg2File* 
  */
-Bg2File * bg2io_createBg2File();
+Bg2File * bg2io_createBg2File(void);
 
 /**
  * @brief Release a bg2 file struct and all its contents

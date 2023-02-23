@@ -67,7 +67,7 @@ int bg2io_freeIntArray(Bg2ioIntArray * array)
     return BG2IO_NO_ERROR;
 }
 
-Bg2ioPolyList * bg2io_createPolyList()
+Bg2ioPolyList * bg2io_createPolyList(void)
 {
     Bg2ioPolyList * result = (Bg2ioPolyList*) malloc(sizeof(Bg2ioPolyList));
     BG2IO_POLY_LIST_PTR_INIT(result);
@@ -151,7 +151,7 @@ int bg2io_freePolyListArray(Bg2ioPolyListArray * arr)
     return BG2IO_NO_ERROR;
 }
 
-Bg2File * bg2io_createBg2File()
+Bg2File * bg2io_createBg2File(void)
 {
     Bg2File * result = (Bg2File*) malloc(sizeof(Bg2File));
     BG2IO_BG2_FILE_PTR_INIT(result);
