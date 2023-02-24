@@ -27,79 +27,136 @@ namespace bg2scene {
                 Null
             };
 
-            union Value {
-                JsonObject * objectValue;
-                JsonList * listValue;
-                std::string * stringValue;
-                float numberValue;
-                bool boolValue;
-            } value;
+            JsonObject _objectValue = {};
+            JsonList _listValue = {};
+            std::string _stringValue = "";
+            float _numberValue = 0.0f;
+            bool _boolValue = false;
 
             Type type;
 
         public:
             JsonNode();
             JsonNode(Type t);
+            JsonNode(const JsonObject&);
+            JsonNode(JsonObject&&);
+            JsonNode(const JsonList&);
+            JsonNode(JsonList&&);
+            JsonNode(const char*);
+            JsonNode(std::string&&);
+            JsonNode(const std::string &);
+            JsonNode(char);
+            JsonNode(int32_t);
+            JsonNode(float);
+            JsonNode(double);
+            JsonNode(bool);
             virtual ~JsonNode();
             
-            auto objectValue() {
+            JsonObject& objectValue() {
                 if (type == Type::Object) {
-                    return * value.objectValue;
+                    return _objectValue;
                 }
                 throw std::logic_error("Improper return type: object");
             }
 
-            auto listValue() {
+            const JsonObject& objectValue() const {
+                if (type == Type::Object) {
+                    return _objectValue;
+                }
+                throw std::logic_error("Improper return type: object");
+            }
+
+            JsonList& listValue() {
                 if (type == Type::List) {
-                    return * value.listValue;
+                    return _listValue;
                 }
                 throw std::logic_error("Improper return type: object");
             }
 
-            auto stringValue() {
+            const JsonList& listValue() const {
+                if (type == Type::List) {
+                    return _listValue;
+                }
+                throw std::logic_error("Improper return type: object");
+            }
+
+            const std::string& stringValue() {
                 if (type == Type::String) {
-                    return * value.stringValue;
+                    return _stringValue;
                 }
                 throw std::logic_error("Improper return type: string");
             }
 
-            auto numberValue() {
+            float numberValue() {
                 if (type == Type::Number) {
-                    return value.numberValue;
+                    return _numberValue;
                 }
                 throw std::logic_error("Improper return type: number");
             }
 
-            auto boolValue() {
+            bool boolValue() {
                 if (type == Type::Bool) {
-                    return value.boolValue;
+                    return _boolValue;
                 }
                 throw std::logic_error("Improper return type: boolean");
             }
 
-
-            void setValue(JsonObject * object) {
-                this->value.objectValue = object;
+            void setValue(const JsonObject& object) {
+                _objectValue = object;
+                type = Type::Object;
+            }
+            
+            void setValue(JsonObject&& object) {
+                _objectValue = std::move(object);
                 type = Type::Object;
             }
 
-            void setValue(JsonList * list) {
-                this->value.listValue = list;
+            void setValue(const JsonList& list) {
+                _listValue = list;
+                type = Type::List;
+            }
+            
+            void setValue(JsonList&& list) {
+                _listValue = std::move(list);
                 type = Type::List;
             }
 
-            void setValue(std::string * str) {
-                this->value.stringValue = str;
+            void setValue(const char* str) {
+                _stringValue = std::string(str);
                 type = Type::String;
             }
-
+            
+            void setValue(const std::string& str) {
+                _stringValue = std::move(str);
+                type = Type::String;
+            }
+            
+            void setValue(std::string&& str) {
+                _stringValue = std::move(str);
+                type = Type::String;
+            }
+            
+            void setValue(char str) {
+                _stringValue = std::to_string(str);
+                type = Type::String;
+            }
+            
+            void setValue(int32_t n) {
+                _numberValue = static_cast<float>(n);
+                type = Type::Number;
+            }
             void setValue(float n) {
-                this->value.numberValue = n;
+                _numberValue = n;
+                type = Type::Number;
+            }
+
+            void setValue(double n) {
+                _numberValue = static_cast<float>(n);
                 type = Type::Number;
             }
 
             void setValue(bool b) {
-                this->value.boolValue = b;
+                _boolValue = b;
                 type = Type::Bool;
             }
             

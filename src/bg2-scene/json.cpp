@@ -15,9 +15,56 @@ namespace bg2scene {
         {
 
         }
+    
+        JsonNode::JsonNode(const JsonObject& p) {
+            setValue(p);
+        }
+        
+        JsonNode::JsonNode(JsonObject&& p) {
+            setValue(p);
+        }
+        
+        JsonNode::JsonNode(const JsonList& p) {
+            setValue(p);
+        }
+        
+        JsonNode::JsonNode(JsonList&& p) {
+            setValue(p);
+        }
+        
+        JsonNode::JsonNode(const char* p) {
+            setValue(p);
+        }
+    
+        JsonNode::JsonNode(std::string&& p) {
+            setValue(p);
+        }
+    
+        JsonNode::JsonNode(const std::string & p) {
+            setValue(p);
+        }
+    
+        JsonNode::JsonNode(char p) {
+            setValue(p);
+        }
+        
+        JsonNode::JsonNode(int32_t p) {
+            setValue(p);
+        }
+    
+        JsonNode::JsonNode(float p) {
+            setValue(p);
+        }
+    
+        JsonNode::JsonNode(double p) {
+            setValue(p);
+        }
+        
+        JsonNode::JsonNode(bool p) {
+            setValue(p);
+        }
         
         JsonNode::~JsonNode() {
-            
         }
 
         void JsonNode::printNode(int indentationLevel) {
@@ -31,13 +78,13 @@ namespace bg2scene {
 
             switch (type) {
             case Type::String:
-                outputString += "\"" + *value.stringValue + "\"";
+                outputString += "\"" + _stringValue + "\"";
                 break;
             case Type::Number:
-                outputString += std::to_string(value.numberValue);
+                outputString += std::to_string(_numberValue);
                 break;
             case Type::Bool:
-                outputString += (value.boolValue ? "true" : "false");
+                outputString += (_boolValue ? "true" : "false");
                 break;
             case Type::Null:
                 outputString += "null";
@@ -47,13 +94,13 @@ namespace bg2scene {
                 outputString += "[";
                 size_t index = 0;
                 bool emptyList = true;
-                for (auto node : (*value.listValue)) {
+                for (auto node : (_listValue)) {
                     if (emptyList) {
                         outputString += "\n";
                     }
                     emptyList = false;
                     outputString += innerIndentation + node->toString(indentationLevel + 1);
-                    if (index < (*value.listValue).size() - 1) {
+                    if (index < (_listValue).size() - 1) {
                         outputString += ",";
                     }
                     outputString += "\n";
@@ -65,8 +112,8 @@ namespace bg2scene {
             case Type::Object: {
                 outputString += "{";
                 bool emptyObject = true;
-                for (JsonObject::iterator i = (*value.objectValue).begin();
-                    i != (*value.objectValue).end(); ++i) {
+                for (JsonObject::iterator i = (_objectValue).begin();
+                    i != (_objectValue).end(); ++i) {
                     if (emptyObject) {
                         outputString += "\n";
                     }
@@ -75,7 +122,7 @@ namespace bg2scene {
                     outputString += i->second->toString(indentationLevel + 1);
                     JsonObject::iterator next = i;
                     next++;
-                    if (next != (*value.objectValue).end()) {
+                    if (next != (_objectValue).end()) {
                         outputString += ",";
                     }
                     outputString += "\n";

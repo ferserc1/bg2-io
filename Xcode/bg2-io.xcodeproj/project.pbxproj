@@ -7,6 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ED39D0EA29A89CAC0016AA85 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED39D0E929A89CAC0016AA85 /* main.cpp */; };
+		ED39D0EB29A89CC30016AA85 /* buffer-memory.c in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE6929A7C05800797D21 /* buffer-memory.c */; };
+		ED39D0EC29A89CC30016AA85 /* bg2-loader.c in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE6D29A7C05800797D21 /* bg2-loader.c */; };
+		ED39D0ED29A89CC30016AA85 /* bg2-writer.c in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE7029A7C05800797D21 /* bg2-writer.c */; };
+		ED39D0EE29A89CC30016AA85 /* buffer-io.c in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE7129A7C05800797D21 /* buffer-io.c */; };
+		ED39D0EF29A89CC30016AA85 /* utils.c in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE7229A7C05800797D21 /* utils.c */; };
+		ED39D0F029A89CC30016AA85 /* types.c in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE7429A7C05800797D21 /* types.c */; };
+		ED39D0F129A89CC30016AA85 /* bg2-io.c in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE7529A7C05800797D21 /* bg2-io.c */; };
+		ED39D0F229A89CCE0016AA85 /* json-parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE5629A7C05100797D21 /* json-parser.cpp */; };
+		ED39D0F329A89CCE0016AA85 /* bg2-scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE5729A7C05100797D21 /* bg2-scene.cpp */; };
+		ED39D0F429A89CCE0016AA85 /* component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE5929A7C05100797D21 /* component.cpp */; };
+		ED39D0F529A89CCE0016AA85 /* node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE5A29A7C05100797D21 /* node.cpp */; };
+		ED39D0F629A89CCE0016AA85 /* json-token.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE5E29A7C05100797D21 /* json-token.cpp */; };
+		ED39D0F729A89CCE0016AA85 /* json.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE6129A7C05100797D21 /* json.cpp */; };
 		ED5CDE5429A7C04000797D21 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE5329A7C04000797D21 /* main.cpp */; };
 		ED5CDE6229A7C05100797D21 /* json-parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE5629A7C05100797D21 /* json-parser.cpp */; };
 		ED5CDE6329A7C05100797D21 /* bg2-scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE5729A7C05100797D21 /* bg2-scene.cpp */; };
@@ -48,6 +62,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		ED39D0DF29A89C9B0016AA85 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		ED5CDE4629A7C00100797D21 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -87,6 +110,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		ED39D0E129A89C9B0016AA85 /* json-tools */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "json-tools"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED39D0E929A89CAC0016AA85 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		ED5CDE4829A7C00100797D21 /* scene-sample */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "scene-sample"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED5CDE5329A7C04000797D21 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		ED5CDE5629A7C05100797D21 /* json-parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "json-parser.cpp"; sourceTree = "<group>"; };
@@ -125,6 +150,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		ED39D0DE29A89C9B0016AA85 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		ED5CDE4529A7C00100797D21 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -156,15 +188,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		ED39D0E829A89CAC0016AA85 /* json-tools */ = {
+			isa = PBXGroup;
+			children = (
+				ED39D0E929A89CAC0016AA85 /* main.cpp */,
+			);
+			name = "json-tools";
+			path = "../src/json-tools";
+			sourceTree = "<group>";
+		};
 		ED5CDE3F29A7C00100797D21 = {
 			isa = PBXGroup;
 			children = (
-				ED5CDEB429A7C79600797D21 /* bg2json */,
 				ED5CDE6829A7C05800797D21 /* bg2-io */,
 				ED5CDE5529A7C05100797D21 /* bg2-scene */,
 				ED5CDE5229A7C04000797D21 /* scene-sample */,
 				ED5CDE8A29A7C30A00797D21 /* sample */,
 				ED5CDE9F29A7C6DC00797D21 /* bg2obj */,
+				ED5CDEB429A7C79600797D21 /* bg2json */,
+				ED39D0E829A89CAC0016AA85 /* json-tools */,
 				ED5CDE4929A7C00100797D21 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -176,6 +218,7 @@
 				ED5CDE8329A7C2F800797D21 /* sample */,
 				ED5CDE9829A7C6CD00797D21 /* bg2obj */,
 				ED5CDEAD29A7C78800797D21 /* bg2json */,
+				ED39D0E129A89C9B0016AA85 /* json-tools */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -262,6 +305,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		ED39D0E029A89C9B0016AA85 /* json-tools */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ED39D0E529A89C9C0016AA85 /* Build configuration list for PBXNativeTarget "json-tools" */;
+			buildPhases = (
+				ED39D0DD29A89C9B0016AA85 /* Sources */,
+				ED39D0DE29A89C9B0016AA85 /* Frameworks */,
+				ED39D0DF29A89C9B0016AA85 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "json-tools";
+			productName = "json-tools";
+			productReference = ED39D0E129A89C9B0016AA85 /* json-tools */;
+			productType = "com.apple.product-type.tool";
+		};
 		ED5CDE4729A7C00100797D21 /* scene-sample */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = ED5CDE4F29A7C00100797D21 /* Build configuration list for PBXNativeTarget "scene-sample" */;
@@ -339,6 +399,9 @@
 				BuildIndependentTargetsInParallel = 1;
 				LastUpgradeCheck = 1420;
 				TargetAttributes = {
+					ED39D0E029A89C9B0016AA85 = {
+						CreatedOnToolsVersion = 14.2;
+					};
 					ED5CDE4729A7C00100797D21 = {
 						CreatedOnToolsVersion = 14.2;
 					};
@@ -370,11 +433,33 @@
 				ED5CDE8229A7C2F800797D21 /* sample */,
 				ED5CDE9729A7C6CD00797D21 /* bg2obj */,
 				ED5CDEAC29A7C78800797D21 /* bg2json */,
+				ED39D0E029A89C9B0016AA85 /* json-tools */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
+		ED39D0DD29A89C9B0016AA85 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ED39D0F229A89CCE0016AA85 /* json-parser.cpp in Sources */,
+				ED39D0F329A89CCE0016AA85 /* bg2-scene.cpp in Sources */,
+				ED39D0F429A89CCE0016AA85 /* component.cpp in Sources */,
+				ED39D0F529A89CCE0016AA85 /* node.cpp in Sources */,
+				ED39D0F629A89CCE0016AA85 /* json-token.cpp in Sources */,
+				ED39D0F729A89CCE0016AA85 /* json.cpp in Sources */,
+				ED39D0EB29A89CC30016AA85 /* buffer-memory.c in Sources */,
+				ED39D0EC29A89CC30016AA85 /* bg2-loader.c in Sources */,
+				ED39D0ED29A89CC30016AA85 /* bg2-writer.c in Sources */,
+				ED39D0EE29A89CC30016AA85 /* buffer-io.c in Sources */,
+				ED39D0EF29A89CC30016AA85 /* utils.c in Sources */,
+				ED39D0F029A89CC30016AA85 /* types.c in Sources */,
+				ED39D0F129A89CC30016AA85 /* bg2-io.c in Sources */,
+				ED39D0EA29A89CAC0016AA85 /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		ED5CDE4429A7C00100797D21 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -444,6 +529,36 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		ED39D0E629A89C9C0016AA85 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5FVRUTMZSK;
+				ENABLE_HARDENED_RUNTIME = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../src/bg2-scene",
+					"$(PROJECT_DIR)/../src/bg2-io",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		ED39D0E729A89C9C0016AA85 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5FVRUTMZSK;
+				ENABLE_HARDENED_RUNTIME = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../src/bg2-scene",
+					"$(PROJECT_DIR)/../src/bg2-io",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		ED5CDE4D29A7C00100797D21 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -658,6 +773,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		ED39D0E529A89C9C0016AA85 /* Build configuration list for PBXNativeTarget "json-tools" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ED39D0E629A89C9C0016AA85 /* Debug */,
+				ED39D0E729A89C9C0016AA85 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		ED5CDE4329A7C00100797D21 /* Build configuration list for PBXProject "bg2-io" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

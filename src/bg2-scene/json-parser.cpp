@@ -59,7 +59,7 @@ namespace bg2scene {
 
             std::shared_ptr<JsonNode> JsonParser::parseObject() {
                 std::shared_ptr<JsonNode> node = std::make_shared<JsonNode>();
-                JsonObject * keyObjectMap = new JsonObject();
+                JsonObject keyObjectMap;
                 bool hasCompleted = false;
                 while (!hasCompleted) {
                     if (tokenizer.hasMoreTokens()) {
@@ -76,24 +76,24 @@ namespace bg2scene {
                             switch (nextToken.type) {
                             case JsonTokenType::String:
                                 tokenizer.rollBackToken();
-                                (*keyObjectMap)[key] = parseString();
+                                keyObjectMap[key] = parseString();
                                 break;
                             case JsonTokenType::ListOpen:
-                                (*keyObjectMap)[key] = parseList();
+                                keyObjectMap[key] = parseList();
                                 break;
                             case JsonTokenType::Number:
                                 tokenizer.rollBackToken();
-                                (*keyObjectMap)[key] = parseNumber();
+                                keyObjectMap[key] = parseNumber();
                                 break;
                             case JsonTokenType::CurlyOpen:
-                                (*keyObjectMap)[key] = parseObject();
+                                keyObjectMap[key] = parseObject();
                                 break;
                             case JsonTokenType::Boolean:
                                 tokenizer.rollBackToken();
-                                (*keyObjectMap)[key] = parseBoolean();
+                                keyObjectMap[key] = parseBoolean();
                                 break;
                             case JsonTokenType::NullType:
-                                (*keyObjectMap)[key] = parseNull();
+                                keyObjectMap[key] = parseNull();
                                 break;
                             default:
                                 break;
@@ -120,7 +120,7 @@ namespace bg2scene {
             std::shared_ptr<JsonNode> JsonParser::parseString() {
                 std::shared_ptr<JsonNode> node = std::make_shared<JsonNode>();
                 JsonToken token = tokenizer.getToken();
-                std::string *sValue = new std::string(token.value);
+                std::string sValue(token.value);
                 node->setValue(sValue);
                 return node;
             }
@@ -136,7 +136,7 @@ namespace bg2scene {
             
             std::shared_ptr<JsonNode> JsonParser::parseList() {
                 std::shared_ptr<JsonNode> node = std::make_shared<JsonNode>();
-                JsonList * list = new JsonList();
+                JsonList list;
                 bool hasCompleted = false;
                 std::shared_ptr<JsonNode> childNode;
                 while (!hasCompleted) {
@@ -169,7 +169,7 @@ namespace bg2scene {
                             break;
                         case JsonTokenType::Comma:
                             if (childNode != nullptr) {
-                                list->push_back(childNode);
+                                list.push_back(childNode);
                             }
                             else {
                                 throw std::logic_error("Unexpected null node found in list");
@@ -177,7 +177,7 @@ namespace bg2scene {
                             break;
                         case JsonTokenType::ListClose:
                             if (childNode != nullptr) {
-                                list->push_back(childNode);
+                                list.push_back(childNode);
                             }
                             hasCompleted = true;
                             break;
