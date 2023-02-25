@@ -5,6 +5,7 @@
 #include <map>
 #include <vector>
 #include <exception>
+#include <stdexcept>
 #include <memory>
 
 namespace bg2scene {
