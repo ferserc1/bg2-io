@@ -11,28 +11,27 @@ void createJsonFile(const std::string& filePath)
 {
     using namespace bg2scene::json;
     
-    auto rootNode = std::make_shared<JsonNode>();
-    rootNode->setValue(JsonObject{
-        {"node1", std::make_shared<JsonNode>(std::string("Test"))},
-        {"node2", std::make_shared<JsonNode>(17.59)},
-        {"node3", std::make_shared<JsonNode>(true)},
-        {"node4", std::make_shared<JsonNode>(42)},
-        {"node5", std::make_shared<JsonNode>(JsonObject{
+    auto rootNode = JSON(JsonObject{
+        {"node1", JSON("Test")},
+        {"node2", JSON(17.59)},
+        {"node3", JSON(true)},
+        {"node4", JSON(42)},
+        {"node5", JSON(JsonObject{
             {
-                "child1", std::make_shared<JsonNode>(JsonList{
-                    std::make_shared<JsonNode>(1),
-                    std::make_shared<JsonNode>(2),
-                    std::make_shared<JsonNode>(3),
-                    std::make_shared<JsonNode>(4),
-                    std::make_shared<JsonNode>(5)
+                "child1", JSON(JsonList{
+                    JSON(1),
+                    JSON(2),
+                    JSON(3),
+                    JSON(4),
+                    JSON(5)
                 })
             },
             {
                 "child2", std::make_shared<JsonNode>(JsonList{
-                    std::make_shared<JsonNode>("Apple"),
-                    std::make_shared<JsonNode>("Banana"),
-                    std::make_shared<JsonNode>("Pear"),
-                    std::make_shared<JsonNode>("Strawberry")
+                    JSON("Apple"),
+                    JSON("Banana"),
+                    JSON("Pear"),
+                    JSON("Strawberry")
                 })
             }
         })}

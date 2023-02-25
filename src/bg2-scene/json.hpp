@@ -193,6 +193,20 @@ namespace bg2scene {
 
             std::string toString(int indentationLevel = 0);
         };
+
+        extern std::shared_ptr<JsonNode> JSON(const JsonObject& p);
+        extern std::shared_ptr<JsonNode> JSON(JsonObject&& p);
+        extern std::shared_ptr<JsonNode> JSON(const JsonList& p);
+        extern std::shared_ptr<JsonNode> JSON(JsonList&& p);
+        extern std::shared_ptr<JsonNode> JSON(const char* p);
+        extern std::shared_ptr<JsonNode> JSON(std::string&& p);
+        extern std::shared_ptr<JsonNode> JSON(const std::string& p);
+        extern std::shared_ptr<JsonNode> JSON(char p);
+        extern std::shared_ptr<JsonNode> JSON(int32_t p);
+        extern std::shared_ptr<JsonNode> JSON(float p);
+        extern std::shared_ptr<JsonNode> JSON(double p);
+        extern std::shared_ptr<JsonNode> JSON(bool p);
+
     }
 
 }

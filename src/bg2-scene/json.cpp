@@ -133,5 +133,65 @@ namespace bg2scene {
             }
             return outputString;
         }
+
+        std::shared_ptr<JsonNode> JSON(const JsonObject& p)
+        {
+            return std::make_shared<JsonNode>(p);
+        }
+
+        std::shared_ptr<JsonNode> JSON(JsonObject&& p)
+        {
+            return std::make_shared<JsonNode>(p);
+        }
+
+        std::shared_ptr<JsonNode> JSON(const JsonList& p)
+        {
+            return std::make_shared<JsonNode>(p);
+        }
+
+        std::shared_ptr<JsonNode> JSON(JsonList&& p)
+        {
+            return std::make_shared<JsonNode>(p);
+        }
+
+        std::shared_ptr<JsonNode> JSON(const char* p)
+        {
+            return std::make_shared<JsonNode>(p);
+        }
+
+        std::shared_ptr<JsonNode> JSON(std::string&& p)
+        {
+            return std::make_shared<JsonNode>(p);
+        }
+
+        std::shared_ptr<JsonNode> JSON(const std::string& p)
+        {
+            return std::make_shared<JsonNode>(p);
+        }
+
+        std::shared_ptr<JsonNode> JSON(char p)
+        {
+            return std::make_shared<JsonNode>(p);
+        }
+
+        std::shared_ptr<JsonNode> JSON(int32_t p)
+        {
+            return std::make_shared<JsonNode>(p);
+        }
+
+        std::shared_ptr<JsonNode> JSON(float p)
+        {
+            return std::make_shared<JsonNode>(p);
+        }
+
+        std::shared_ptr<JsonNode> JSON(double p)
+        {
+            return std::make_shared<JsonNode>(p);
+        }
+
+        std::shared_ptr<JsonNode> JSON(bool p)
+        {
+            return std::make_shared<JsonNode>(p);
+        }
     }
 }
