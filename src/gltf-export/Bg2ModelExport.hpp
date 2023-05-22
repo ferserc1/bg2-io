@@ -23,11 +23,14 @@ public:
 		const std::vector<float>& positions,
 		const std::vector<float>& normals,
 		const std::vector<float>& texCoord0,
-		const std::vector<uint32_t>& indices
+		const std::vector<uint32_t>& indices,
+		int materialIndex
 	);
 
 private:
 	tinygltf::Model* _model;
+	int _meshIndex = -1;
+	tinygltf::Mesh _mesh;
 
 
 	void writeBuffer(float value, std::vector<uint8_t>& buffer);
