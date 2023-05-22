@@ -133,7 +133,7 @@ namespace bg2scene {
             try {
                 getToken();
             }
-            catch(std::exception & e) {
+            catch(std::exception &) {
                 result = false;
             }
             stream->seekg(prevPos);
