@@ -77,10 +77,10 @@
     <IncludePath>$(SolutionDir)..\src\bg2-io;$(SolutionDir)..\src\bg2-scene;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)..\src\bg2-io;$(SolutionDir)..\src\bg2-scene;$(SolutionDir)..\src\gltf-export\deps;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\src\bg2-io;$(SolutionDir)..\src\bg2-scene;$(SolutionDir)..\src\gltf-export\deps;$(SolutionDir)..\src\gltf-export;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(SolutionDir)..\src\bg2-io;$(SolutionDir)..\src\bg2-scene;$(SolutionDir)..\src\gltf-export\deps;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\src\bg2-io;$(SolutionDir)..\src\bg2-scene;$(SolutionDir)..\src\gltf-export\deps;$(SolutionDir)..\src\gltf-export;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -148,12 +148,7 @@
     <ClCompile Include="..\..\src\bg2-io\buffer-memory.c" />
     <ClCompile Include="..\..\src\bg2-io\types.c" />
     <ClCompile Include="..\..\src\bg2-io\utils.c" />
-    <ClCompile Include="..\..\src\bg2-scene\bg2-scene.cpp" />
-    <ClCompile Include="..\..\src\bg2-scene\component.cpp" />
-    <ClCompile Include="..\..\src\bg2-scene\json-parser.cpp" />
-    <ClCompile Include="..\..\src\bg2-scene\json-token.cpp" />
-    <ClCompile Include="..\..\src\bg2-scene\json.cpp" />
-    <ClCompile Include="..\..\src\bg2-scene\node.cpp" />
+    <ClCompile Include="..\..\src\gltf-export\Bg2ModelExport.cpp" />
     <ClCompile Include="..\..\src\gltf-export\main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -171,6 +166,7 @@
     <ClInclude Include="..\..\src\bg2-scene\json-token.hpp" />
     <ClInclude Include="..\..\src\bg2-scene\json.hpp" />
     <ClInclude Include="..\..\src\bg2-scene\node.hpp" />
+    <ClInclude Include="..\..\src\gltf-export\Bg2ModelExport.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
