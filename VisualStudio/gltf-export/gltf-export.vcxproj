@@ -77,10 +77,10 @@
     <IncludePath>$(SolutionDir)..\src\bg2-io;$(SolutionDir)..\src\bg2-scene;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)..\src\bg2-io;$(SolutionDir)..\src\bg2-scene;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\src\bg2-io;$(SolutionDir)..\src\bg2-scene;$(SolutionDir)..\src\gltf-export\deps;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(SolutionDir)..\src\bg2-io;$(SolutionDir)..\src\bg2-scene;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\src\bg2-io;$(SolutionDir)..\src\bg2-scene;$(SolutionDir)..\src\gltf-export\deps;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -116,6 +116,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -130,6 +131,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
