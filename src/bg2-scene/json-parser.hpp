@@ -3,6 +3,7 @@
 #define _BG2_SCENE_JSON_PARSER_HPP_
 
 #include <iostream>
+#include <sstream>
 #include <memory>
 #include "json.hpp"
 #include "json-token.hpp"
@@ -18,6 +19,8 @@ namespace bg2scene {
 
         public:
             JsonParser(std::istream * stream) :tokenizer(stream) {}
+            JsonParser(const std::string& buffer) :_sstream(buffer), tokenizer(&_sstream) {}
+            JsonParser(const char* buffer) :_sstream(buffer), tokenizer(&_sstream) {}
 
             std::shared_ptr<JsonNode> & parse();
 
@@ -27,6 +30,8 @@ namespace bg2scene {
             std::shared_ptr<JsonNode> parseList();
             std::shared_ptr<JsonNode> parseBoolean();
             std::shared_ptr<JsonNode> parseNull();
+            
+            std::stringstream _sstream;
         };
 
     }

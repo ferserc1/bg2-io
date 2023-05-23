@@ -101,6 +101,186 @@ namespace bg2scene {
                 }
                 throw std::logic_error("Improper return type: boolean");
             }
+            
+            std::array<float,2> vec2Value() {
+                if (isVec2()) {
+                    return std::array<float, 2>{
+                        listValue()[0]->numberValue(0.f),
+                        listValue()[1]->numberValue(0.f)
+                    };
+                }
+                throw std::logic_error("Improper return type: vec2");
+            }
+            
+            std::array<float,3> vec3Value() {
+                if (isVec3()) {
+                    return std::array<float, 3>{
+                        listValue()[0]->numberValue(0.f),
+                        listValue()[1]->numberValue(0.f),
+                        listValue()[2]->numberValue(0.f)
+                    };
+                }
+                throw std::logic_error("Improper return type: vec2");
+            }
+            
+            std::array<float,4> vec4Value() {
+                if (isVec4()) {
+                    return std::array<float, 4>{
+                        listValue()[0]->numberValue(0.f),
+                        listValue()[1]->numberValue(0.f),
+                        listValue()[2]->numberValue(0.f),
+                        listValue()[3]->numberValue(0.f)
+                    };
+                }
+                throw std::logic_error("Improper return type: vec2");
+            }
+            
+            const std::string& stringValue(const std::string& defaultValue) {
+                if (type == Type::String) {
+                    return _stringValue;
+                }
+                else {
+                    return defaultValue;
+                }
+            }
+
+            uint8_t numberValue(uint8_t defaultValue) {
+                if (type == Type::Number) {
+                    return static_cast<uint8_t>(_numberValue);
+                }
+                else {
+                    return defaultValue;
+                }
+            }
+            
+            int8_t numberValue(int8_t defaultValue) {
+                if (type == Type::Number) {
+                    return static_cast<int8_t>(_numberValue);
+                }
+                else {
+                    return defaultValue;
+                }
+            }
+            
+            uint16_t numberValue(uint16_t defaultValue) {
+                if (type == Type::Number) {
+                    return static_cast<uint16_t>(_numberValue);
+                }
+                else {
+                    return defaultValue;
+                }
+            }
+            
+            int16_t numberValue(int16_t defaultValue) {
+                if (type == Type::Number) {
+                    return static_cast<int16_t>(_numberValue);
+                }
+                else {
+                    return defaultValue;
+                }
+            }
+            
+            uint32_t numberValue(uint32_t defaultValue) {
+                if (type == Type::Number) {
+                    return static_cast<uint32_t>(_numberValue);
+                }
+                else {
+                    return defaultValue;
+                }
+            }
+            
+            int32_t numberValue(int32_t defaultValue) {
+                if (type == Type::Number) {
+                    return static_cast<int32_t>(_numberValue);
+                }
+                else {
+                    return defaultValue;
+                }
+            }
+            
+            uint64_t numberValue(uint64_t defaultValue) {
+                if (type == Type::Number) {
+                    return static_cast<uint64_t>(_numberValue);
+                }
+                else {
+                    return defaultValue;
+                }
+            }
+            
+            int64_t numberValue(int64_t defaultValue) {
+                if (type == Type::Number) {
+                    return static_cast<int64_t>(_numberValue);
+                }
+                else {
+                    return defaultValue;
+                }
+            }
+            
+            float numberValue(float defaultValue) {
+                if (type == Type::Number) {
+                    return _numberValue;
+                }
+                else {
+                    return defaultValue;
+                }
+            }
+            
+            double numberValue(double defaultValue) {
+                if (type == Type::Number) {
+                    return static_cast<double>(_numberValue);
+                }
+                else {
+                    return defaultValue;
+                }
+            }
+
+            bool boolValue(bool defaultValue) {
+                if (type == Type::Bool) {
+                    return _boolValue;
+                }
+                else {
+                    return defaultValue;
+                }
+            }
+            
+            std::array<float,2> vec2Value(const std::array<float,2>& defaultValue) {
+                if (isVec2()) {
+                    return std::array<float, 2>{
+                        listValue()[0]->numberValue(0.f),
+                        listValue()[1]->numberValue(0.f)
+                    };
+                }
+                else {
+                    return defaultValue;
+                }
+            }
+            
+            std::array<float,3> vec3Value(const std::array<float, 3>& defaultValue) {
+                if (isVec3()) {
+                    return std::array<float, 3>{
+                        listValue()[0]->numberValue(0.f),
+                        listValue()[1]->numberValue(0.f),
+                        listValue()[2]->numberValue(0.f)
+                    };
+                }
+                else {
+                    return defaultValue;
+                }
+            }
+            
+            std::array<float,4> vec4Value(const std::array<float, 4>& defaultValue) {
+                if (isVec4()) {
+                    return std::array<float, 4>{
+                        listValue()[0]->numberValue(0.f),
+                        listValue()[1]->numberValue(0.f),
+                        listValue()[2]->numberValue(0.f),
+                        listValue()[3]->numberValue(0.f)
+                    };
+                }
+                else {
+                    return defaultValue;
+                }
+            }
 
             void setValue(const JsonObject& object) {
                 _objectValue = object;
@@ -183,6 +363,27 @@ namespace bg2scene {
 
             bool isBool() {
                 return type == Type::Bool;
+            }
+            
+            bool isVec2() {
+                return type == Type::List && listValue().size() == 2 &&
+                    listValue()[0]->isNumber() &&
+                    listValue()[1]->isNumber();
+            }
+            
+            bool isVec3() {
+                return type == Type::List && listValue().size() == 3 &&
+                    listValue()[0]->isNumber() &&
+                    listValue()[1]->isNumber() &&
+                    listValue()[2]->isNumber();
+            }
+            
+            bool isVec4() {
+                return type == Type::List && listValue().size() == 4 &&
+                    listValue()[0]->isNumber() &&
+                    listValue()[1]->isNumber() &&
+                    listValue()[2]->isNumber() &&
+                    listValue()[3]->isNumber();
             }
 
             bool isNull() {

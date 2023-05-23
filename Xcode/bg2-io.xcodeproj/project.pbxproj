@@ -17,6 +17,10 @@
 		ED3583AF2A1E20A7008F8EF1 /* Bg2FileReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED3583A72A1E20A7008F8EF1 /* Bg2FileReader.cpp */; };
 		ED3583B02A1E20A7008F8EF1 /* Bg2ModelExport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED3583AD2A1E20A7008F8EF1 /* Bg2ModelExport.cpp */; };
 		ED3583B12A1E20A7008F8EF1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED3583AE2A1E20A7008F8EF1 /* main.cpp */; };
+		ED3583B22A1E2764008F8EF1 /* json-parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE5629A7C05100797D21 /* json-parser.cpp */; };
+		ED3583B32A1E2769008F8EF1 /* json-token.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE5E29A7C05100797D21 /* json-token.cpp */; };
+		ED3583B42A1E276C008F8EF1 /* json.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE6129A7C05100797D21 /* json.cpp */; };
+		ED3583B72A1E2DD6008F8EF1 /* bg2-material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED3583B52A1E2DD6008F8EF1 /* bg2-material.cpp */; };
 		ED39D0EA29A89CAC0016AA85 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED39D0E929A89CAC0016AA85 /* main.cpp */; };
 		ED39D0EB29A89CC30016AA85 /* buffer-memory.c in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE6929A7C05800797D21 /* buffer-memory.c */; };
 		ED39D0EC29A89CC30016AA85 /* bg2-loader.c in Sources */ = {isa = PBXBuildFile; fileRef = ED5CDE6D29A7C05800797D21 /* bg2-loader.c */; };
@@ -133,12 +137,14 @@
 		ED3583A52A1E20A7008F8EF1 /* Bg2ModelExport.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Bg2ModelExport.hpp; sourceTree = "<group>"; };
 		ED3583A62A1E20A7008F8EF1 /* Bg2FileReader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Bg2FileReader.hpp; sourceTree = "<group>"; };
 		ED3583A72A1E20A7008F8EF1 /* Bg2FileReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Bg2FileReader.cpp; sourceTree = "<group>"; };
-		ED3583A92A1E20A7008F8EF1 /* json.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = json.hpp; sourceTree = "<group>"; };
+		ED3583A92A1E20A7008F8EF1 /* nlohamann_json.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = nlohamann_json.hpp; sourceTree = "<group>"; };
 		ED3583AA2A1E20A7008F8EF1 /* stb_image_write.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_image_write.h; sourceTree = "<group>"; };
 		ED3583AB2A1E20A7008F8EF1 /* stb_image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_image.h; sourceTree = "<group>"; };
 		ED3583AC2A1E20A7008F8EF1 /* tiny_gltf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tiny_gltf.h; sourceTree = "<group>"; };
 		ED3583AD2A1E20A7008F8EF1 /* Bg2ModelExport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Bg2ModelExport.cpp; sourceTree = "<group>"; };
 		ED3583AE2A1E20A7008F8EF1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		ED3583B52A1E2DD6008F8EF1 /* bg2-material.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "bg2-material.cpp"; sourceTree = "<group>"; };
+		ED3583B62A1E2DD6008F8EF1 /* bg2-material.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "bg2-material.hpp"; sourceTree = "<group>"; };
 		ED39D0E129A89C9B0016AA85 /* json-tools */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "json-tools"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED39D0E929A89CAC0016AA85 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		ED5CDE4829A7C00100797D21 /* scene-sample */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "scene-sample"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -241,7 +247,7 @@
 		ED3583A82A1E20A7008F8EF1 /* deps */ = {
 			isa = PBXGroup;
 			children = (
-				ED3583A92A1E20A7008F8EF1 /* json.hpp */,
+				ED3583A92A1E20A7008F8EF1 /* nlohamann_json.hpp */,
 				ED3583AA2A1E20A7008F8EF1 /* stb_image_write.h */,
 				ED3583AB2A1E20A7008F8EF1 /* stb_image.h */,
 				ED3583AC2A1E20A7008F8EF1 /* tiny_gltf.h */,
@@ -298,6 +304,8 @@
 		ED5CDE5529A7C05100797D21 /* bg2-scene */ = {
 			isa = PBXGroup;
 			children = (
+				ED3583B52A1E2DD6008F8EF1 /* bg2-material.cpp */,
+				ED3583B62A1E2DD6008F8EF1 /* bg2-material.hpp */,
 				ED5CDE5629A7C05100797D21 /* json-parser.cpp */,
 				ED5CDE5729A7C05100797D21 /* bg2-scene.cpp */,
 				ED5CDE5829A7C05100797D21 /* json.hpp */,
@@ -528,12 +536,16 @@
 				ED3583962A1E2087008F8EF1 /* buffer-memory.c in Sources */,
 				ED3583972A1E2087008F8EF1 /* bg2-loader.c in Sources */,
 				ED3583982A1E2087008F8EF1 /* bg2-writer.c in Sources */,
+				ED3583B72A1E2DD6008F8EF1 /* bg2-material.cpp in Sources */,
 				ED3583992A1E2087008F8EF1 /* buffer-io.c in Sources */,
 				ED35839A2A1E2087008F8EF1 /* utils.c in Sources */,
 				ED35839B2A1E2087008F8EF1 /* types.c in Sources */,
 				ED35839C2A1E2087008F8EF1 /* bg2-io.c in Sources */,
 				ED3583B12A1E20A7008F8EF1 /* main.cpp in Sources */,
 				ED3583B02A1E20A7008F8EF1 /* Bg2ModelExport.cpp in Sources */,
+				ED3583B22A1E2764008F8EF1 /* json-parser.cpp in Sources */,
+				ED3583B32A1E2769008F8EF1 /* json-token.cpp in Sources */,
+				ED3583B42A1E276C008F8EF1 /* json.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -638,6 +650,7 @@
 					"$(PROJECT_DIR)/../src/bg2-io",
 					"$(PROJECT_DIR)/../src/gltf-export/deps",
 					"$(PROJECT_DIR)/../src/gltf-export",
+					"$(PROJECT_DIR)/../src/bg2-scene",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -654,6 +667,7 @@
 					"$(PROJECT_DIR)/../src/bg2-io",
 					"$(PROJECT_DIR)/../src/gltf-export/deps",
 					"$(PROJECT_DIR)/../src/gltf-export",
+					"$(PROJECT_DIR)/../src/bg2-scene",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

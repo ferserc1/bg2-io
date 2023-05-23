@@ -1,6 +1,8 @@
 
 #include "json-token.hpp"
 
+#include <sstream>
+
 namespace bg2scene {
     namespace json {
 

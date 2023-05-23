@@ -1,6 +1,12 @@
 
 #include <Bg2ModelExport.hpp>
 
+#include <json.hpp>
+#include <json-parser.hpp>
+#include <bg2-material.hpp>
+
+#include <iostream>
+
 Bg2ModelExport::Bg2ModelExport(tinygltf::Model& model)
 	:_model{&model}
     ,_meshIndex(-1)
@@ -206,10 +212,28 @@ int Bg2ModelExport::addBg2Model(Bg2FileReader& bg2Reader)
     // The models are always added to the first scene
     tinygltf::Scene& scene = _model->scenes[0];
 
-    // TODO: extract material data
-
-    // PolyList
     auto file = bg2Reader.bg2File();
+    
+    // TODO: extract material data
+    std::cout << file->materialData << std::endl;
+    bg2scene::json::JsonParser parser(file->materialData);
+    auto rootNode = parser.parse();
+    std::map<std::string, bg2scene::Bg2Material> materials;
+    if (rootNode->isList())
+    {
+        auto materialList = rootNode->listValue();
+        for (auto item : materialList)
+        {
+            if (item->isObject())
+            {
+                bg2scene::Bg2Material mat(item->objectValue());
+                materials[mat.name] = mat;                
+            }
+        }
+    }
+
+    
+    // PolyList
     for (int i = 0; i < file->plists->length; ++i)
     {
         Bg2ioPolyList* plist = file->plists->data[i];
