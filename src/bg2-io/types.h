@@ -118,6 +118,10 @@ typedef struct Bg2ioIntArrayT {
  */
 #define BG2IO_ARRAY_INIT { 0L, NULL }
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * @brief Reserves space to accommodate an array of 32-bit floating point elements.
  * 
@@ -286,5 +290,9 @@ Bg2File * bg2io_createBg2File(void);
  * structure is NULL.
  */
 int bg2io_freeBg2File(Bg2File * file);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

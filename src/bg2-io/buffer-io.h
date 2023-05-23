@@ -3,6 +3,10 @@
 
 #include "types.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 enum Bg2ioBlockType {
     bg2io_Header = 'hedr',
     bg2io_PolyList = 'plst',
@@ -241,5 +245,9 @@ Bg2ioSize bg2io_writeFloatArray(Bg2ioBufferIterator *it, const float * in, Bg2io
  * 
  */
 Bg2ioSize bg2io_writeIntArray(Bg2ioBufferIterator *it, const int * in, Bg2ioSize length);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

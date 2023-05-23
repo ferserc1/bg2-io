@@ -148,6 +148,7 @@
     <ClCompile Include="..\..\src\bg2-io\buffer-memory.c" />
     <ClCompile Include="..\..\src\bg2-io\types.c" />
     <ClCompile Include="..\..\src\bg2-io\utils.c" />
+    <ClCompile Include="..\..\src\gltf-export\Bg2FileReader.cpp" />
     <ClCompile Include="..\..\src\gltf-export\Bg2ModelExport.cpp" />
     <ClCompile Include="..\..\src\gltf-export\main.cpp" />
   </ItemGroup>
@@ -166,6 +167,7 @@
     <ClInclude Include="..\..\src\bg2-scene\json-token.hpp" />
     <ClInclude Include="..\..\src\bg2-scene\json.hpp" />
     <ClInclude Include="..\..\src\bg2-scene\node.hpp" />
+    <ClInclude Include="..\..\src\gltf-export\Bg2FileReader.hpp" />
     <ClInclude Include="..\..\src\gltf-export\Bg2ModelExport.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

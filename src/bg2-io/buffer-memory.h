@@ -4,6 +4,10 @@
 #include "types.h"
 #include "errors.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * @brief Returns the actual size closest to the required size for a buffer
  * 
@@ -49,5 +53,9 @@ Bg2ioSize bg2io_reserveBuffer(Bg2ioBuffer *buffer, Bg2ioSize requiredSize);
  * @param buffer 
  */
 void bg2io_freeBuffer(Bg2ioBuffer *buffer);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
