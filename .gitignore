@@ -25,6 +25,8 @@ resources/*.json
 # Mono auto generated files
 mono_crash.*
 
+.DS_Store
+
 # Build results
 [Dd]ebug/
 [Bb]in/*
@@ -416,3 +418,6 @@ src/wasm/build/Bg2ioModule.cjs
 src/wasm/build/Bg2ioModule.wasm
 
 resources/*copy.*
+
+resources/*.gltf
+resources/*.glb
