@@ -13,6 +13,8 @@ public:
     void open(const std::string& file);
     void close();
 
+    Bg2File* bg2File() { return _bg2File; }
+
 private:
     Bg2File* _bg2File = nullptr;
 };

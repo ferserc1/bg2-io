@@ -188,13 +188,69 @@ int Bg2ModelExport::addMesh(
 
     // Add primitive to mesh
     _mesh.primitives.push_back(primitive);
-    if (_meshIndex == -1)
+    _meshIndex = static_cast<int>(_model->meshes.size());
+    _model->meshes.push_back(_mesh);
+    
+    return _meshIndex;
+}
+
+int Bg2ModelExport::addBg2Model(Bg2FileReader& bg2Reader)
+{
+    int meshIndex = -1;
+
+    // Create scene if not exist
+    if (_model->scenes.size() == 0) 
     {
-        _meshIndex = static_cast<int>(_model->meshes.size());
-        _model->meshes.push_back(_mesh);
+        _model->scenes.push_back(tinygltf::Scene());
+    }
+    // The models are always added to the first scene
+    tinygltf::Scene& scene = _model->scenes[0];
+
+    // TODO: extract material data
+
+    // PolyList
+    auto file = bg2Reader.bg2File();
+    for (int i = 0; i < file->plists->length; ++i)
+    {
+        Bg2ioPolyList* plist = file->plists->data[i];
+        bool complete = 
+            plist->vertex.data != nullptr &&
+            plist->normal.data != nullptr &&
+            plist->texCoord0.data != nullptr &&
+            plist->index.data != nullptr;
+         
+        if (complete)
+        {
+            std::vector<float> positions{ plist->vertex.data, plist->vertex.data + plist->vertex.length };
+            std::vector<float> normals{ plist->normal.data, plist->normal.data + plist->normal.length };
+            std::vector<float> texCoord0{ plist->texCoord0.data, plist->texCoord0.data + plist->texCoord0.length };
+            std::vector<uint32_t> index{ plist->index.data, plist->index.data + plist->index.length };
+            // TODO: rest of the texCoordN, if available
+
+            // TODO: Material
+            tinygltf::Material mat;
+            mat.pbrMetallicRoughness.baseColorFactor = { 1.f, 1.f, 1.f, 1.f };
+            auto matIndex = static_cast<int>(_model->materials.size());
+            _model->materials.push_back(mat);
+
+            meshIndex = addMesh(positions, normals, texCoord0, index, matIndex);
+
+            // Create a new node for the mesh
+            tinygltf::Node node;
+            node.mesh = meshIndex;
+            scene.nodes.push_back(static_cast<int>(scene.nodes.size()));
+            _model->nodes.push_back(node);
+        }
+        else
+        {
+            // TODO: Warning: plist not complete
+        }
+        
+        
     }
 
-    return _meshIndex;
+    // Return last mesh index, or -1 if no mesh has been added
+    return meshIndex;
 }
 
 

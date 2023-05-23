@@ -1,6 +1,8 @@
 #ifndef gltf_export_bg2modelexport_hpp
 #define gltf_export_bg2modelexport_hpp
 
+#include <Bg2FileReader.hpp>
+
 #include <tiny_gltf.h>
 #include <vector>
 #include <array>
@@ -26,6 +28,16 @@ public:
 		const std::vector<uint32_t>& indices,
 		int materialIndex
 	);
+
+	/**
+	 *
+	 * Adds all polyLists of a bg2 model to the gltf model
+	 * 
+	 * @param bg2Reader the source bg2 file reader
+	 * @return the index of the last mesh added to the model
+	 * 
+	 */
+	int addBg2Model(Bg2FileReader& bg2Reader);
 
 private:
 	tinygltf::Model* _model;
