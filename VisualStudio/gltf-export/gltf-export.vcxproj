@@ -148,6 +148,10 @@
     <ClCompile Include="..\..\src\bg2-io\buffer-memory.c" />
     <ClCompile Include="..\..\src\bg2-io\types.c" />
     <ClCompile Include="..\..\src\bg2-io\utils.c" />
+    <ClCompile Include="..\..\src\bg2-scene\bg2-material.cpp" />
+    <ClCompile Include="..\..\src\bg2-scene\json-parser.cpp" />
+    <ClCompile Include="..\..\src\bg2-scene\json-token.cpp" />
+    <ClCompile Include="..\..\src\bg2-scene\json.cpp" />
     <ClCompile Include="..\..\src\gltf-export\Bg2FileReader.cpp" />
     <ClCompile Include="..\..\src\gltf-export\Bg2ModelExport.cpp" />
     <ClCompile Include="..\..\src\gltf-export\main.cpp" />
@@ -161,6 +165,7 @@
     <ClInclude Include="..\..\src\bg2-io\errors.h" />
     <ClInclude Include="..\..\src\bg2-io\types.h" />
     <ClInclude Include="..\..\src\bg2-io\utils.h" />
+    <ClInclude Include="..\..\src\bg2-scene\bg2-material.hpp" />
     <ClInclude Include="..\..\src\bg2-scene\bg2-scene.hpp" />
     <ClInclude Include="..\..\src\bg2-scene\component.hpp" />
     <ClInclude Include="..\..\src\bg2-scene\json-parser.hpp" />
