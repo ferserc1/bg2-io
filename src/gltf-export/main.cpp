@@ -2,6 +2,7 @@
 
 #include <Bg2ModelExport.hpp>
 #include <Bg2FileReader.hpp>
+#include <Bg2SceneExport.hpp>
 #include <filesystem>
 
 #define TINYGLTF_IMPLEMENTATION
@@ -35,7 +36,6 @@ int main(int argc, char** argv)
 
 void exportFile(const std::string& inFile, const std::string& outFile)
 {
-    Bg2FileReader bg2File;
     tinygltf::Model m;
     tinygltf::Scene scene;
     m.scenes.push_back(scene);
@@ -48,13 +48,15 @@ void exportFile(const std::string& inFile, const std::string& outFile)
     std::filesystem::path inFilePath = inFile;
     if (inFilePath.extension() == ".bg2" || inFilePath.extension() == ".vwglb")
     {
+        Bg2FileReader bg2File;
         bg2File.open(inFile);
         Bg2ModelExport modelExport(m);
         modelExport.addBg2Model(bg2File);
     }
-    else if (inFilePath.extension() == ".vitscnj")
+    else if (inFilePath.extension() == ".vitscnj" || inFilePath.extension() == ".json")
     {
-        // TODO: load scene
+        Bg2SceneExport sceneExport(m);
+        sceneExport.addSceneFile(inFile);
     }
 
     tinygltf::TinyGLTF gltf;

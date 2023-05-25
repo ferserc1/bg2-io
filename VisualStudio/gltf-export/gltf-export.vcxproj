@@ -156,6 +156,7 @@
     <ClCompile Include="..\..\src\bg2-scene\json.cpp" />
     <ClCompile Include="..\..\src\gltf-export\Bg2FileReader.cpp" />
     <ClCompile Include="..\..\src\gltf-export\Bg2ModelExport.cpp" />
+    <ClCompile Include="..\..\src\gltf-export\Bg2SceneExport.cpp" />
     <ClCompile Include="..\..\src\gltf-export\main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -176,6 +177,7 @@
     <ClInclude Include="..\..\src\bg2-scene\node.hpp" />
     <ClInclude Include="..\..\src\gltf-export\Bg2FileReader.hpp" />
     <ClInclude Include="..\..\src\gltf-export\Bg2ModelExport.hpp" />
+    <ClInclude Include="..\..\src\gltf-export\Bg2SceneExport.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -57,6 +57,9 @@
     <ClCompile Include="..\..\src\bg2-scene\bg2-material.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\gltf-export\Bg2SceneExport.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\bg2-scene\bg2-scene.hpp">
@@ -108,6 +111,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\bg2-scene\bg2-material.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\gltf-export\Bg2SceneExport.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
