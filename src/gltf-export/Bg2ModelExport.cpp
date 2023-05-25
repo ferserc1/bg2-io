@@ -257,27 +257,24 @@ int Bg2ModelExport::addBg2Model(Bg2FileReader& bg2Reader)
                 if (bg2Mat.diffuseTexture != "")
                 {
                     mat.pbrMetallicRoughness.baseColorTexture.index = getTexture(bg2Mat.diffuseTexture);
-
-                    tinygltf::Value::Object textureTransform;
-                    tinygltf::Value::Array offset;
-                    textureTransform["scale"] = tinygltf::Value(tinygltf::Value::Array{
-                        tinygltf::Value(bg2Mat.diffuseScale[0]),
-                        tinygltf::Value(bg2Mat.diffuseScale[1])
-                    });
-                    textureTransform["offset"] = tinygltf::Value(tinygltf::Value::Array{
-                        tinygltf::Value(bg2Mat.diffuseOffset[0]),
-                        tinygltf::Value(bg2Mat.diffuseOffset[1])
-                    });
-                    mat.pbrMetallicRoughness.baseColorTexture.extensions["KHR_texture_transform"] = tinygltf::Value(textureTransform);
+                    auto textureTransform = getTextureTransform(
+                        bg2Mat.diffuseOffset[0], bg2Mat.diffuseOffset[1],
+                        bg2Mat.diffuseScale[0], bg2Mat.diffuseScale[1]);
+                    mat.pbrMetallicRoughness.baseColorTexture.extensions["KHR_texture_transform"] = textureTransform;
                 }
                 mat.pbrMetallicRoughness.metallicFactor = bg2Mat.metallic;
                 mat.pbrMetallicRoughness.roughnessFactor = bg2Mat.roughness;
+
                 if (bg2Mat.normalTexture != "")
                 {
                     mat.normalTexture.index = getTexture(bg2Mat.normalTexture);
+                    auto textureTransform = getTextureTransform(
+                        bg2Mat.normalOffset[0], bg2Mat.normalOffset[1],
+                        bg2Mat.normalScale[0], bg2Mat.normalScale[1]);
+                    mat.normalTexture.extensions["KHR_texture_transform"] = textureTransform;
                 }
 
-                // TODO: texture offsets and normals are defined using extensions
+                // TODO: Rest of material properties
             }
             else
             {
@@ -437,4 +434,19 @@ int Bg2ModelExport::getSampler()
     sampler.wrapT = TINYGLTF_TEXTURE_WRAP_REPEAT;
     _model->samplers.push_back(sampler);
     return 0;
+}
+
+tinygltf::Value Bg2ModelExport::getTextureTransform(float offsetX, float offsetY, float scaleX, float scaleY)
+{
+    tinygltf::Value::Object textureTransform;
+    tinygltf::Value::Array offset;
+    textureTransform["scale"] = tinygltf::Value(tinygltf::Value::Array{
+        tinygltf::Value(scaleX),
+        tinygltf::Value(scaleY)
+    });
+    textureTransform["offset"] = tinygltf::Value(tinygltf::Value::Array{
+        tinygltf::Value(offsetX),
+        tinygltf::Value(offsetY)
+    });
+    return tinygltf::Value(textureTransform);
 }

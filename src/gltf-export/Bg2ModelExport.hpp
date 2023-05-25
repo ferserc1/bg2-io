@@ -56,6 +56,8 @@ private:
 	int getTexture(const std::string&);
 	int getImageIndex(const std::string&);
 	int getSampler();
+
+	tinygltf::Value getTextureTransform(float offsetX, float offsetY, float scaleX, float scaleY);
 };
 
 #endif

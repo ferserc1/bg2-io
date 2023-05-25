@@ -170,6 +170,18 @@
     {
       "pbrMetallicRoughness": {
         "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0.0,
+                0.0
+              ],
+              "scale": [
+                1.0,
+                1.0
+              ]
+            }
+          },
           "index": 0
         },
         "metallicFactor": 0.0
@@ -178,6 +190,18 @@
     {
       "pbrMetallicRoughness": {
         "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0.0,
+                0.0
+              ],
+              "scale": [
+                1.0,
+                1.0
+              ]
+            }
+          },
           "index": 0
         },
         "metallicFactor": 0.8399999737739563,
