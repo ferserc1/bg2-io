@@ -258,9 +258,17 @@ int Bg2ModelExport::addBg2Model(Bg2FileReader& bg2Reader)
                 {
                     mat.pbrMetallicRoughness.baseColorTexture.index = getTexture(bg2Mat.diffuseTexture);
 
-                    // mat.pbrMetallicRoughness.extensions["KHR_texture_transform"] = ;
-                    // TODO: This does not work, use .extensions instead
-                    mat.pbrMetallicRoughness.baseColorTexture.extensions_json_string = "{\"KHR_texture_transform\": {\"offset\": [0,1],\"scale\" : [2.0,2.0]}}";
+                    tinygltf::Value::Object textureTransform;
+                    tinygltf::Value::Array offset;
+                    textureTransform["scale"] = tinygltf::Value(tinygltf::Value::Array{
+                        tinygltf::Value(bg2Mat.diffuseScale[0]),
+                        tinygltf::Value(bg2Mat.diffuseScale[1])
+                    });
+                    textureTransform["offset"] = tinygltf::Value(tinygltf::Value::Array{
+                        tinygltf::Value(bg2Mat.diffuseOffset[0]),
+                        tinygltf::Value(bg2Mat.diffuseOffset[1])
+                    });
+                    mat.pbrMetallicRoughness.baseColorTexture.extensions["KHR_texture_transform"] = tinygltf::Value(textureTransform);
                 }
                 mat.pbrMetallicRoughness.metallicFactor = bg2Mat.metallic;
                 mat.pbrMetallicRoughness.roughnessFactor = bg2Mat.roughness;

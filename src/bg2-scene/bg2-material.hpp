@@ -50,6 +50,12 @@ public:
     std::array<float, 2> lightEmissionScale = { 1.f, 1.f };
     std::array<float, 2> heightScale = { 1.f, 1.f };
     std::array<float, 2> normalScale = { 1.f, 1.f };
+    std::array<float, 2> diffuseOffset = { 0.f, 0.f };
+    std::array<float, 2> metallicOffset = { 0.f, 0.f };
+    std::array<float, 2> roughnessOffset = { 0.f, 0.f };
+    std::array<float, 2> lightEmissionOffset = { 0.f, 0.f };
+    std::array<float, 2> heightOffset = { 0.f, 0.f };
+    std::array<float, 2> normalOffset = { 0.f, 0.f };
     
 };
 
