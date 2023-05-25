@@ -421,3 +421,4 @@ resources/*copy.*
 
 resources/*.gltf
 resources/*.glb
+VisualStudio/gltf-export/*.gltf
