@@ -213,9 +213,7 @@ int Bg2ModelExport::addBg2Model(Bg2FileReader& bg2Reader)
     tinygltf::Scene& scene = _model->scenes[0];
 
     auto file = bg2Reader.bg2File();
-    
-    // TODO: extract material data
-    std::cout << file->materialData << std::endl;
+ 
     bg2scene::json::JsonParser parser(file->materialData);
     auto rootNode = parser.parse();
     std::map<std::string, bg2scene::Bg2Material> materials;
@@ -251,11 +249,35 @@ int Bg2ModelExport::addBg2Model(Bg2FileReader& bg2Reader)
             std::vector<uint32_t> index{ plist->index.data, plist->index.data + plist->index.length };
             // TODO: rest of the texCoordN, if available
 
-            // TODO: Material
             tinygltf::Material mat;
-            mat.pbrMetallicRoughness.baseColorFactor = { 1.f, 1.f, 1.f, 1.f };
+            if (materials.find(plist->matName) != materials.end())
+            {
+                auto bg2Mat = materials[plist->matName];
+                
+                if (bg2Mat.diffuseTexture != "")
+                {
+                    mat.pbrMetallicRoughness.baseColorTexture.index = getTexture(bg2Mat.diffuseTexture);
+
+                    // mat.pbrMetallicRoughness.extensions["KHR_texture_transform"] = ;
+                    // TODO: This does not work, use .extensions instead
+                    mat.pbrMetallicRoughness.baseColorTexture.extensions_json_string = "{\"KHR_texture_transform\": {\"offset\": [0,1],\"scale\" : [2.0,2.0]}}";
+                }
+                mat.pbrMetallicRoughness.metallicFactor = bg2Mat.metallic;
+                mat.pbrMetallicRoughness.roughnessFactor = bg2Mat.roughness;
+                if (bg2Mat.normalTexture != "")
+                {
+                    mat.normalTexture.index = getTexture(bg2Mat.normalTexture);
+                }
+
+                // TODO: texture offsets and normals are defined using extensions
+            }
+            else
+            {
+                mat.pbrMetallicRoughness.baseColorFactor = { 1.f, 1.f, 1.f, 1.f };
+            }
             auto matIndex = static_cast<int>(_model->materials.size());
             _model->materials.push_back(mat);
+            
 
             meshIndex = addMesh(positions, normals, texCoord0, index, matIndex);
 
@@ -361,4 +383,50 @@ void Bg2ModelExport::updateRange(float x, float y, std::array<float, 2>& max, st
     {
         min[1] = y;
     }
+}
+
+int Bg2ModelExport::getTexture(const std::string& imagePath)
+{
+    if (_textures.find(imagePath) != _textures.end())
+    {
+        return _textures[imagePath];
+    }
+    else
+    {
+        tinygltf::Texture texture;
+        texture.sampler = getSampler();
+        texture.source = getImageIndex(imagePath);
+        auto texIndex = static_cast<int>(_model->textures.size());
+        _model->textures.push_back(texture);
+        _textures[imagePath] = texIndex;
+        return texIndex;
+    }
+}
+
+int Bg2ModelExport::getImageIndex(const std::string& imagePath)
+{
+    if (_images.find(imagePath) != _images.end())
+    {
+        return _images[imagePath];
+    }
+    else
+    {
+        tinygltf::Image img;
+        img.uri = imagePath;
+        auto imgIndex = static_cast<int>(_model->images.size());
+        _model->images.push_back(img);
+        _images[imagePath] = imgIndex;
+        return imgIndex;
+    }
+}
+
+int Bg2ModelExport::getSampler()
+{
+    tinygltf::Sampler sampler;
+    sampler.magFilter = TINYGLTF_TEXTURE_FILTER_LINEAR;
+    sampler.minFilter = TINYGLTF_TEXTURE_FILTER_LINEAR_MIPMAP_LINEAR;
+    sampler.wrapS = TINYGLTF_TEXTURE_WRAP_REPEAT;
+    sampler.wrapT = TINYGLTF_TEXTURE_WRAP_REPEAT;
+    _model->samplers.push_back(sampler);
+    return 0;
 }

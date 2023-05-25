@@ -43,6 +43,8 @@ private:
 	tinygltf::Model* _model;
 	int _meshIndex = -1;
 	tinygltf::Mesh _mesh;
+	std::map<std::string, int> _images;
+	std::map<std::string, int> _textures;
 
 
 	void writeBuffer(float value, std::vector<uint8_t>& buffer);
@@ -51,6 +53,9 @@ private:
 	void updateRange(float x, float y, float z, std::array<float, 3>& max, std::array<float, 3>& min);
 	void updateRange(float x, float y, std::array<float, 2>& max, std::array<float, 2>& min);
 
+	int getTexture(const std::string&);
+	int getImageIndex(const std::string&);
+	int getSampler();
 };
 
 #endif
