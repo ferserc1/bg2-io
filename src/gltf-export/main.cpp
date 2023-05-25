@@ -2,6 +2,7 @@
 
 #include <Bg2ModelExport.hpp>
 #include <Bg2FileReader.hpp>
+#include <filesystem>
 
 #define TINYGLTF_IMPLEMENTATION
 #define STB_IMAGE_IMPLEMENTATION
@@ -32,12 +33,9 @@ int main(int argc, char** argv)
     return 0;
 }
 
-void exportFile(const std::string& inFilePath, const std::string& outFilePath)
+void exportFile(const std::string& inFile, const std::string& outFile)
 {
     Bg2FileReader bg2File;
-
-    bg2File.open(inFilePath);
-
     tinygltf::Model m;
     tinygltf::Scene scene;
     m.scenes.push_back(scene);
@@ -47,13 +45,18 @@ void exportFile(const std::string& inFilePath, const std::string& outFilePath)
     asset.generator = "tinygltf";
     m.asset = asset;
 
-    Bg2ModelExport modelExport(m);
-    modelExport.addBg2Model(bg2File);
+    std::filesystem::path inFilePath = inFile;
+    if (inFilePath.extension() == ".bg2" || inFilePath.extension() == ".vwglb")
+    {
+        bg2File.open(inFile);
+        Bg2ModelExport modelExport(m);
+        modelExport.addBg2Model(bg2File);
+    }
+    else if (inFilePath.extension() == ".vitscnj")
+    {
+        // TODO: load scene
+    }
 
     tinygltf::TinyGLTF gltf;
-    gltf.WriteGltfSceneToFile(&m, outFilePath,
-        true,
-        true,
-        true,
-        false);
+    gltf.WriteGltfSceneToFile(&m, outFile, true, true, true, false);
 }
