@@ -6,10 +6,11 @@
 #include <tiny_gltf.h>
 #include <vector>
 #include <array>
+#include <string>
 
 class Bg2ModelExport {
 public:
-	Bg2ModelExport(tinygltf::Model&);
+	Bg2ModelExport(tinygltf::Model&, const std::string& imageInputPath, const std::string& imageOutputPath);
 
 	/**
 	 *
@@ -40,6 +41,8 @@ public:
 	int addBg2Model(Bg2FileReader& bg2Reader);
 
 private:
+	std::string _imageInputPath;
+	std::string _imageOutputPath;
 	tinygltf::Model* _model;
 	int _meshIndex = -1;
 	tinygltf::Mesh _mesh;

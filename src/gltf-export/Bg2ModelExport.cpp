@@ -6,9 +6,13 @@
 #include <bg2-material.hpp>
 
 #include <iostream>
+#include <filesystem>
+#include <fstream>
 
-Bg2ModelExport::Bg2ModelExport(tinygltf::Model& model)
-	:_model{&model}
+Bg2ModelExport::Bg2ModelExport(tinygltf::Model& model, const std::string& imageInputPath, const std::string& imageOutputPath)
+    :_imageInputPath{imageInputPath}
+    ,_imageOutputPath{imageOutputPath}
+    ,_model{&model}
     ,_meshIndex(-1)
 {
 }
@@ -421,6 +425,40 @@ int Bg2ModelExport::getImageIndex(const std::string& imagePath)
         auto imgIndex = static_cast<int>(_model->images.size());
         _model->images.push_back(img);
         _images[imagePath] = imgIndex;
+
+        // Copy image to output path, if the file does not exists
+        namespace fs = std::filesystem;
+        auto dstImagePath = fs::path(_imageOutputPath) / fs::path(imagePath);
+        std::ifstream file(dstImagePath.string());
+        if (!file.good())
+        {
+            auto srcImagePath = fs::path(_imageInputPath) / fs::path(imagePath);
+            // TODO: copy image
+            std::ifstream inFile(srcImagePath.string(), std::ios::binary);
+            std::ofstream outFile(dstImagePath.string(), std::ios::binary);
+            if (!inFile.good())
+            {
+                std::cout << "Warning: no such image at path '" << srcImagePath << "'" << std::endl;
+            }
+
+            if (!outFile.good())
+            {
+                std::cout << "Warning: could not open file for write '" << dstImagePath << "'" << std::endl;
+            }
+
+            outFile << inFile.rdbuf();
+            outFile.close();
+
+            if (inFile.good())
+            {
+                inFile.close();
+            }
+            if (outFile.good())
+            {
+                outFile.close();
+            }
+        }
+
         return imgIndex;
     }
 }

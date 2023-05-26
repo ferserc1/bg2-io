@@ -46,11 +46,14 @@ void exportFile(const std::string& inFile, const std::string& outFile)
     m.asset = asset;
 
     std::filesystem::path inFilePath = inFile;
+    std::filesystem::path outFilePath = outFile;
+    auto imageInputDir = inFilePath.parent_path().string();
+    auto imageOutputDir = outFilePath.parent_path().string();
     if (inFilePath.extension() == ".bg2" || inFilePath.extension() == ".vwglb")
     {
         Bg2FileReader bg2File;
         bg2File.open(inFile);
-        Bg2ModelExport modelExport(m);
+        Bg2ModelExport modelExport(m, imageInputDir, imageOutputDir);
         modelExport.addBg2Model(bg2File);
     }
     else if (inFilePath.extension() == ".vitscnj" || inFilePath.extension() == ".json")
