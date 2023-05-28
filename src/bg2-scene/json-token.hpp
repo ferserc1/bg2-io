@@ -29,7 +29,7 @@ namespace bg2scene {
 
         class JsonTokenizer {
             std::istream * stream;
-            size_t prevPos;
+            std::fpos<std::mbstate_t> prevPos;
 
         public:
             JsonTokenizer(std::istream * s);

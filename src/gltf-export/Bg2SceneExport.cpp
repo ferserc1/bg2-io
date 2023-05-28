@@ -2,6 +2,7 @@
 #include <Bg2SceneExport.hpp>
 
 #include <fstream>
+#include <sstream>
 
 #include <json.hpp>
 #include <json-parser.hpp>
@@ -18,9 +19,21 @@ void Bg2SceneExport::addSceneFile(const std::string& scenePath)
     file.open(scenePath);
     if (file.is_open())
     {
-        bg2scene::json::JsonParser parser(&file);
+        std::stringstream streamBuffer;
+        streamBuffer << file.rdbuf();
+        file.close();
+        bg2scene::json::JsonParser parser(&streamBuffer);
         auto rootNode = parser.parse();
-
+        if (rootNode && rootNode->objectValue("scene").isList()) {
+            auto scene = rootNode->objectValue("scene").listValue();
+            for (auto node : scene)
+            {
+                if (node->isObject())
+                {
+                    parseNode(node->objectValue());
+                }
+            }
+        }
 
     }
     else
@@ -29,3 +42,22 @@ void Bg2SceneExport::addSceneFile(const std::string& scenePath)
     }
 }
 
+void Bg2SceneExport::parseNode(bg2scene::json::JsonObject& node)
+{
+    auto nodeName = node["name"]->stringValue("");
+    std::cout << nodeName << std::endl;
+    if (node["components"]->isObject())
+    {
+    
+    }
+    if (node["children"]->isList())
+    {
+        for (auto child : node["children"]->listValue())
+        {
+            if (child->isObject())
+            {
+                parseNode(child->objectValue());
+            }
+        }
+    }
+}

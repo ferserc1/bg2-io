@@ -39,10 +39,14 @@ namespace bg2scene {
                             if (!root) {
                                 root = parsedNumber;
                             }
+                            break;
                         }
                         case JsonTokenType::Boolean: {
                             tokenizer.rollBackToken();
                             std::shared_ptr<JsonNode> parsedBoolean = parseBoolean();
+                            if (!root) {
+                                root = parsedBoolean;
+                            }
                             break;
                         }
                         default:
@@ -129,8 +133,19 @@ namespace bg2scene {
                 std::shared_ptr<JsonNode> node = std::make_shared<JsonNode>();
                 JsonToken nextToken = tokenizer.getToken();
                 std::string value = nextToken.value;
-                float fValue = std::stof(value);
-                node->setValue(fValue);
+                try {
+                    float fValue = stof(value);
+                    node->setValue(fValue);
+                }
+                catch (std::out_of_range) {
+                    double dValue = stod(value);
+                    if (static_cast<float>(dValue) == std::numeric_limits<float>::infinity()) {
+                        node->setValue(std::numeric_limits<float>::max());
+                    }
+                    else if (static_cast<float>(dValue) == -std::numeric_limits<float>::infinity()) {
+                        node->setValue(std::numeric_limits<float>::min());
+                    }
+                }
                 return node;
             }
             

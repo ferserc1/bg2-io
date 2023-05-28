@@ -6,6 +6,8 @@
 namespace bg2scene {
     namespace json {
 
+        JsonNode JsonNode::s_nullValue;
+
         JsonNode::JsonNode() :type(Type::Null)
         {
             

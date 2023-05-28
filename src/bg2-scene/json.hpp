@@ -34,6 +34,7 @@ namespace bg2scene {
             std::string _stringValue = "";
             float _numberValue = 0.0f;
             bool _boolValue = false;
+            static JsonNode s_nullValue;
 
             Type type;
 
@@ -53,7 +54,27 @@ namespace bg2scene {
             JsonNode(double);
             JsonNode(bool);
             virtual ~JsonNode();
+
+            JsonNode& getNullValue()
+            {
+                return s_nullValue;
+            }
             
+            JsonNode& objectValue(const std::string& key)
+            {
+                if (isObject() && _objectValue.find(key) != _objectValue.end()) {
+                    return *_objectValue[key].get();
+                }
+                else {
+                    return getNullValue();
+                }
+            }
+
+            JsonNode& objectValue(const char* key)
+            {
+                return objectValue(std::string(key));
+            }
+
             JsonObject& objectValue() {
                 if (type == Type::Object) {
                     return _objectValue;

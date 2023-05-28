@@ -78,12 +78,12 @@ namespace bg2scene {
             else if (c == '}') {
                 token.type = JsonTokenType::CurlyClose;
             }
-            else if (c == '-' || (c>='0' && c <='9')) {
+            else if (c == '-' || (c>='0' && c <='9') || c == '.' || c == 'e' || c == '+') {
                 token.type = JsonTokenType::Number;
                 token.value = "";
                 token.value += c;
                 std::streampos prevCharPos = stream->tellg();
-                while ((c=='-') || (c>='0' && c<='9') || c == '.') {
+                while (c == '-' || (c >= '0' && c <= '9') || c == '.' || c == 'e' || c == '+') {
                     prevCharPos = stream->tellg();
                     stream->get(c);
 
@@ -91,7 +91,7 @@ namespace bg2scene {
                         break;
                     }
                     else {
-                        if (c=='-' || (c>='0' && c<='9') || c=='.') {
+                        if (c == '-' || (c >= '0' && c <= '9') || c == '.' || c == 'e' || c == '+') {
                             token.value += c;
                         }
                         else {

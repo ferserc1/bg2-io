@@ -1,6 +1,8 @@
 #ifndef gltf_export_bg2sceneexport_hpp
 #define gltf_export_bg2sceneexport_hpp
 
+#include <json.hpp>
+
 #include <tiny_gltf.h>
 
 class Bg2SceneExport {
@@ -11,6 +13,8 @@ public:
 
 private:
     tinygltf::Model* _model;
+
+    void parseNode(bg2scene::json::JsonObject&);
 };
 
 #endif
