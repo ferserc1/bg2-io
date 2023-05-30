@@ -40,6 +40,16 @@ public:
 	 */
 	int addBg2Model(Bg2FileReader& bg2Reader);
 
+	/**
+	 * Returns the index of the last node that was added to the model by addBg2Model or addMesh.
+	 * @return the index of the last added node
+	 * 
+	 */
+	inline int getLastNodeIndex() const
+	{
+		return _lastNodeIndex;
+	}
+
 private:
 	std::string _imageInputPath;
 	std::string _imageOutputPath;
@@ -48,6 +58,7 @@ private:
 	tinygltf::Mesh _mesh;
 	std::map<std::string, int> _images;
 	std::map<std::string, int> _textures;
+	int _lastNodeIndex = -1;
 
 
 	void writeBuffer(float value, std::vector<uint8_t>& buffer);

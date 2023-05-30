@@ -99,11 +99,25 @@ void Bg2SceneExport::parseNode(bg2scene::json::JsonObject& node, const glm::mat4
 
             if (fs::exists(drawablePath)) {
                 std::cout << drawablePath.string() << std::endl;
-                // TODO: add mesh to model and also add the transform data to the node
                 Bg2FileReader bg2File;
                 bg2File.open(drawablePath.string());
                 Bg2ModelExport modelExport(*_model, drawablePath.parent_path().string(), outPath);
                 modelExport.addBg2Model(bg2File);
+                auto nodeIndex = modelExport.getLastNodeIndex();
+                if (nodeIndex > 0)
+                {
+                    auto &node = _model->nodes[nodeIndex];
+                    node.matrix = {
+                        nodeTransform[0][0], nodeTransform[0][1], nodeTransform[0][2], nodeTransform[0][3],
+                        nodeTransform[1][0], nodeTransform[1][1], nodeTransform[1][2], nodeTransform[1][3],
+                        nodeTransform[2][0], nodeTransform[2][1], nodeTransform[2][2], nodeTransform[2][3],
+                        nodeTransform[3][0], nodeTransform[3][1], nodeTransform[3][2], nodeTransform[3][3]
+                    };
+                }
+                else
+                {
+                    std::cerr << "WARNING: unexpected node index returned by Bg2ModelExport.addBg2Model(): " << nodeIndex << std::endl;
+                }
             }
         }
     }

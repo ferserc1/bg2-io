@@ -293,6 +293,7 @@ int Bg2ModelExport::addBg2Model(Bg2FileReader& bg2Reader)
             // Create a new node for the mesh
             tinygltf::Node node;
             node.mesh = meshIndex;
+            _lastNodeIndex = static_cast<int>(scene.nodes.size());
             scene.nodes.push_back(static_cast<int>(scene.nodes.size()));
             _model->nodes.push_back(node);
         }
