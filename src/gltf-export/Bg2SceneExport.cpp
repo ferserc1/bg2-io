@@ -1,8 +1,11 @@
 
 #include <Bg2SceneExport.hpp>
+#include <Bg2ModelExport.hpp>
+#include <Bg2FileReader.hpp>
 
 #include <fstream>
 #include <sstream>
+#include <filesystem>
 
 #include <json.hpp>
 #include <json-parser.hpp>
@@ -13,12 +16,15 @@ Bg2SceneExport::Bg2SceneExport(tinygltf::Model& model)
 
 }
 
-void Bg2SceneExport::addSceneFile(const std::string& scenePath)
+void Bg2SceneExport::addSceneFile(const std::string& scenePath, const std::string& outPath)
 {
     std::ifstream file;
     file.open(scenePath);
     if (file.is_open())
     {
+        namespace fs = std::filesystem;
+        fs::path fullScenePath(scenePath);
+        std::string basePath = fullScenePath.parent_path().string();
         std::stringstream streamBuffer;
         streamBuffer << file.rdbuf();
         file.close();
@@ -31,7 +37,7 @@ void Bg2SceneExport::addSceneFile(const std::string& scenePath)
             {
                 if (node->isObject())
                 {
-                    parseNode(node->objectValue(), worldTransform);
+                    parseNode(node->objectValue(), worldTransform, basePath, outPath);
                 }
             }
         }
@@ -43,11 +49,12 @@ void Bg2SceneExport::addSceneFile(const std::string& scenePath)
     }
 }
 
-void Bg2SceneExport::parseNode(bg2scene::json::JsonObject& node, const glm::mat4 & transform)
+void Bg2SceneExport::parseNode(bg2scene::json::JsonObject& node, const glm::mat4 & transform, const std::string& basePath, const std::string& outPath)
 {
     auto nodeName = node["name"]->stringValue("");
     std::cout << nodeName << std::endl;
     glm::mat4 nodeTransform = transform;
+    std::string drawableName = "";
     if (node["components"]->isList())
     {
         for (const auto& comp : node["components"]->listValue())
@@ -73,10 +80,32 @@ void Bg2SceneExport::parseNode(bg2scene::json::JsonObject& node, const glm::mat4
                     };
                     nodeTransform = nodeTransform * trx;
                 }
+
+                if (type == "Drawable")
+                {
+                    drawableName = comp->objectValue("name").stringValue("");
+                }
             }
         }
         
-        // TODO: If there is some drawable node, add a node to the scene with the accumulated transform value and the mesh
+        if (drawableName != "")
+        {
+            namespace fs = std::filesystem;
+            fs::path drawablePath = fs::path(basePath) / drawableName;
+            drawablePath.replace_extension("bg2");
+            if (!fs::exists(drawablePath)) {
+                drawablePath.replace_extension("vwglb");
+            }
+
+            if (fs::exists(drawablePath)) {
+                std::cout << drawablePath.string() << std::endl;
+                // TODO: add mesh to model and also add the transform data to the node
+                Bg2FileReader bg2File;
+                bg2File.open(drawablePath.string());
+                Bg2ModelExport modelExport(*_model, drawablePath.parent_path().string(), outPath);
+                modelExport.addBg2Model(bg2File);
+            }
+        }
     }
     if (node["children"]->isList())
     {
@@ -84,7 +113,7 @@ void Bg2SceneExport::parseNode(bg2scene::json::JsonObject& node, const glm::mat4
         {
             if (child->isObject())
             {
-                parseNode(child->objectValue(), transform);
+                parseNode(child->objectValue(), transform, basePath, outPath);
             }
         }
     }

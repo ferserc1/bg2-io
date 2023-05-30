@@ -11,12 +11,12 @@ class Bg2SceneExport {
 public:
     Bg2SceneExport(tinygltf::Model&);
 
-    void addSceneFile(const std::string&);
+    void addSceneFile(const std::string&, const std::string& outPath);
 
 private:
     tinygltf::Model* _model;
 
-    void parseNode(bg2scene::json::JsonObject&, const glm::mat4 &);
+    void parseNode(bg2scene::json::JsonObject&, const glm::mat4 &, const std::string& basePath, const std::string& outPath);
 };
 
 #endif

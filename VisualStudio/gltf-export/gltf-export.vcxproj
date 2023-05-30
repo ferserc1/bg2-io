@@ -77,10 +77,10 @@
     <IncludePath>$(SolutionDir)..\src\bg2-io;$(SolutionDir)..\src\bg2-scene;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)..\src\bg2-io;$(SolutionDir)..\src\bg2-scene;$(SolutionDir)..\src\gltf-export\deps;$(SolutionDir)..\src\gltf-export;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\src\bg2-io;$(SolutionDir)..\src\bg2-scene;$(SolutionDir)..\src\gltf-export\deps;$(SolutionDir)..\src\gltf-export;$(SolutionDir)..\src\deps;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(SolutionDir)..\src\bg2-io;$(SolutionDir)..\src\bg2-scene;$(SolutionDir)..\src\gltf-export\deps;$(SolutionDir)..\src\gltf-export;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\src\bg2-io;$(SolutionDir)..\src\bg2-scene;$(SolutionDir)..\src\gltf-export\deps;$(SolutionDir)..\src\gltf-export;$(SolutionDir)..\src\deps;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

@@ -59,7 +59,7 @@ void exportFile(const std::string& inFile, const std::string& outFile)
     else if (inFilePath.extension() == ".vitscnj" || inFilePath.extension() == ".json")
     {
         Bg2SceneExport sceneExport(m);
-        sceneExport.addSceneFile(inFile);
+        sceneExport.addSceneFile(inFile, imageOutputDir);
     }
 
     tinygltf::TinyGLTF gltf;
