@@ -52,11 +52,11 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "$(PROJECT_DIR)/../resources/cubes.bg2"
+            argument = "$(PROJECT_DIR)/../resources/test-scene/test-scene.vitscnj"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "$(PROJECT_DIR)/../resources/cubes.gltf"
+            argument = "$(PROJECT_DIR)/../resources/test-scene.gltf"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

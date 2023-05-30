@@ -5,6 +5,8 @@
 
 #include <tiny_gltf.h>
 
+#include <glm/mat4x4.hpp>
+
 class Bg2SceneExport {
 public:
     Bg2SceneExport(tinygltf::Model&);
@@ -14,7 +16,7 @@ public:
 private:
     tinygltf::Model* _model;
 
-    void parseNode(bg2scene::json::JsonObject&);
+    void parseNode(bg2scene::json::JsonObject&, const glm::mat4 &);
 };
 
 #endif

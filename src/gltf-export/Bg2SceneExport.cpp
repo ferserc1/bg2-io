@@ -25,12 +25,13 @@ void Bg2SceneExport::addSceneFile(const std::string& scenePath)
         bg2scene::json::JsonParser parser(&streamBuffer);
         auto rootNode = parser.parse();
         if (rootNode && rootNode->objectValue("scene").isList()) {
+            glm::mat4 worldTransform(1.0f);
             auto scene = rootNode->objectValue("scene").listValue();
             for (auto node : scene)
             {
                 if (node->isObject())
                 {
-                    parseNode(node->objectValue());
+                    parseNode(node->objectValue(), worldTransform);
                 }
             }
         }
@@ -42,21 +43,48 @@ void Bg2SceneExport::addSceneFile(const std::string& scenePath)
     }
 }
 
-void Bg2SceneExport::parseNode(bg2scene::json::JsonObject& node)
+void Bg2SceneExport::parseNode(bg2scene::json::JsonObject& node, const glm::mat4 & transform)
 {
     auto nodeName = node["name"]->stringValue("");
     std::cout << nodeName << std::endl;
-    if (node["components"]->isObject())
+    glm::mat4 nodeTransform = transform;
+    if (node["components"]->isList())
     {
-    
+        for (const auto& comp : node["components"]->listValue())
+        {
+            if (comp->isObject())
+            {
+                const auto& type = comp->objectValue("type").stringValue("");
+                std::cout << "component type: " << type << std::endl;
+                
+                if (type == "Transform")
+                {
+                    auto m = comp->objectValue("transformMatrix").mat4Value({
+                        1.f, 0.f, 0.f, 0.f,
+                        0.f, 1.f, 0.f, 0.f,
+                        0.f, 0.f, 1.f, 0.f,
+                        0.f, 0.f, 0.f, 1.f
+                    });
+                    glm::mat4 trx{
+                        m[0], m[1], m[2], m[3],
+                        m[4], m[5], m[6], m[7],
+                        m[8], m[9], m[10], m[11],
+                        m[12], m[13], m[14], m[15]
+                    };
+                    nodeTransform = nodeTransform * trx;
+                }
+            }
+        }
+        
+        // TODO: If there is some drawable node, add a node to the scene with the accumulated transform value and the mesh
     }
     if (node["children"]->isList())
     {
-        for (auto child : node["children"]->listValue())
+        for (const auto& child : node["children"]->listValue())
         {
             if (child->isObject())
             {
-                parseNode(child->objectValue());
+                parseNode(child->objectValue(), transform);
             }
         }
     }

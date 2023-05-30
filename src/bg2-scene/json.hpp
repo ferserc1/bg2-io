@@ -157,6 +157,33 @@ namespace bg2scene {
                 throw std::logic_error("Improper return type: vec2");
             }
             
+            std::array<float,16> mat4Value() {
+                if (isMat4()) {
+                    return std::array<float, 16>{
+                        listValue()[0]->numberValue(0.f),
+                        listValue()[1]->numberValue(0.f),
+                        listValue()[2]->numberValue(0.f),
+                        listValue()[3]->numberValue(0.f),
+                        
+                        listValue()[4]->numberValue(0.f),
+                        listValue()[5]->numberValue(0.f),
+                        listValue()[6]->numberValue(0.f),
+                        listValue()[7]->numberValue(0.f),
+                        
+                        listValue()[8]->numberValue(0.f),
+                        listValue()[9]->numberValue(0.f),
+                        listValue()[10]->numberValue(0.f),
+                        listValue()[11]->numberValue(0.f),
+                        
+                        listValue()[12]->numberValue(0.f),
+                        listValue()[13]->numberValue(0.f),
+                        listValue()[14]->numberValue(0.f),
+                        listValue()[15]->numberValue(0.f)
+                    };
+                }
+                throw std::logic_error("Improper return type: mat4");
+            }
+            
             const std::string& stringValue(const std::string& defaultValue) {
                 if (type == Type::String) {
                     return _stringValue;
@@ -303,6 +330,35 @@ namespace bg2scene {
                     return defaultValue;
                 }
             }
+            
+            std::array<float,16> mat4Value(const std::array<float, 16>& defaultValue) {
+                if (isMat4()) {
+                    return std::array<float, 16>{
+                        listValue()[0]->numberValue(0.f),
+                        listValue()[1]->numberValue(0.f),
+                        listValue()[2]->numberValue(0.f),
+                        listValue()[3]->numberValue(0.f),
+                        
+                        listValue()[4]->numberValue(0.f),
+                        listValue()[5]->numberValue(0.f),
+                        listValue()[6]->numberValue(0.f),
+                        listValue()[7]->numberValue(0.f),
+                        
+                        listValue()[8]->numberValue(0.f),
+                        listValue()[9]->numberValue(0.f),
+                        listValue()[10]->numberValue(0.f),
+                        listValue()[11]->numberValue(0.f),
+                        
+                        listValue()[12]->numberValue(0.f),
+                        listValue()[13]->numberValue(0.f),
+                        listValue()[14]->numberValue(0.f),
+                        listValue()[15]->numberValue(0.f)
+                    };
+                }
+                else {
+                    return defaultValue;
+                }
+            }
 
             void setValue(const JsonObject& object) {
                 _objectValue = object;
@@ -406,6 +462,29 @@ namespace bg2scene {
                     listValue()[1]->isNumber() &&
                     listValue()[2]->isNumber() &&
                     listValue()[3]->isNumber();
+            }
+            
+            bool isMat4() {
+                return type == Type::List && listValue().size() == 16 &&
+                    listValue()[0]->isNumber() &&
+                    listValue()[1]->isNumber() &&
+                    listValue()[2]->isNumber() &&
+                    listValue()[3]->isNumber() &&
+
+                    listValue()[4]->isNumber() &&
+                    listValue()[5]->isNumber() &&
+                    listValue()[6]->isNumber() &&
+                    listValue()[7]->isNumber() &&
+                    
+                    listValue()[8]->isNumber() &&
+                    listValue()[9]->isNumber() &&
+                    listValue()[10]->isNumber() &&
+                    listValue()[11]->isNumber() &&
+                    
+                    listValue()[12]->isNumber() &&
+                    listValue()[13]->isNumber() &&
+                    listValue()[14]->isNumber() &&
+                    listValue()[15]->isNumber();
             }
 
             bool isNull() {
