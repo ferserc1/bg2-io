@@ -45,6 +45,8 @@ void exportFile(const std::string& inFile, const std::string& outFile)
     asset.generator = "tinygltf";
     m.asset = asset;
 
+    m.extensionsUsed.push_back("KHR_texture_transform");
+
     std::filesystem::path inFilePath = inFile;
     std::filesystem::path outFilePath = outFile;
     auto imageInputDir = inFilePath.parent_path().string();
