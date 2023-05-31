@@ -55,7 +55,6 @@ private:
 	std::string _imageOutputPath;
 	tinygltf::Model* _model;
 	int _meshIndex = -1;
-	tinygltf::Mesh _mesh;
 	std::map<std::string, int> _images;
 	std::map<std::string, int> _textures;
 	int _lastNodeIndex = -1;

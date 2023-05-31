@@ -197,9 +197,19 @@ int Bg2ModelExport::addMesh(
     _model->accessors.push_back(tex0Accessor);
 
     // Add primitive to mesh
-    _mesh.primitives.push_back(primitive);
-    _meshIndex = static_cast<int>(_model->meshes.size());
-    _model->meshes.push_back(_mesh);
+    bool addMesh = _meshIndex == -1;
+    if (addMesh)
+    {
+        tinygltf::Mesh mesh;
+        _meshIndex = static_cast<int>(_model->meshes.size());
+        mesh.primitives.push_back(primitive);
+        _model->meshes.push_back(mesh);
+    }
+    else
+    {
+        auto& mesh = _model->meshes[_meshIndex];
+        mesh.primitives.push_back(primitive);
+    }
     
     return _meshIndex;
 }
@@ -287,15 +297,17 @@ int Bg2ModelExport::addBg2Model(Bg2FileReader& bg2Reader)
             auto matIndex = static_cast<int>(_model->materials.size());
             _model->materials.push_back(mat);
             
-
             meshIndex = addMesh(positions, normals, texCoord0, index, matIndex);
 
             // Create a new node for the mesh
-            tinygltf::Node node;
-            node.mesh = meshIndex;
-            _lastNodeIndex = static_cast<int>(scene.nodes.size());
-            scene.nodes.push_back(static_cast<int>(scene.nodes.size()));
-            _model->nodes.push_back(node);
+            if (_lastNodeIndex == -1)
+            {
+                tinygltf::Node node;
+                node.mesh = meshIndex;
+                _lastNodeIndex = static_cast<int>(scene.nodes.size());
+                scene.nodes.push_back(static_cast<int>(scene.nodes.size()));
+                _model->nodes.push_back(node);
+            }
         }
         else
         {

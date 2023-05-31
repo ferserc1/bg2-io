@@ -104,7 +104,7 @@ void Bg2SceneExport::parseNode(bg2scene::json::JsonObject& node, const glm::mat4
                 Bg2ModelExport modelExport(*_model, drawablePath.parent_path().string(), outPath);
                 modelExport.addBg2Model(bg2File);
                 auto nodeIndex = modelExport.getLastNodeIndex();
-                if (nodeIndex > 0)
+                if (nodeIndex >= 0)
                 {
                     auto &node = _model->nodes[nodeIndex];
                     node.matrix = {
