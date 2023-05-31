@@ -81,6 +81,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(SolutionDir)..\src\bg2-io;$(SolutionDir)..\src\bg2-scene;$(SolutionDir)..\src\gltf-export\deps;$(SolutionDir)..\src\gltf-export;$(SolutionDir)..\src\deps;$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)..\bin\win64</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
