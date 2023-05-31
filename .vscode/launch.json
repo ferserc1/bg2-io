@@ -165,9 +165,10 @@
             "name": "gltf-export (Linux)",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/bin/gltf-export",
+            "program": "${workspaceFolder}/bin/linux64/gltf-export",
             "args": [
-                "${workspaceFolder}/resources/cubes.bg2"
+                "${workspaceFolder}/resources/test-scene/test-scene.vitscnj",
+                "${workspaceFolder}/resources/test-scene.gltf"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

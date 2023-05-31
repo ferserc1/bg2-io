@@ -455,33 +455,37 @@ int Bg2ModelExport::getImageIndex(const std::string& imagePath)
         // Copy image to output path, if the file does not exists
         namespace fs = std::filesystem;
         auto dstImagePath = fs::path(_imageOutputPath) / fs::path(imagePath);
-        std::ifstream file(dstImagePath.string());
-        if (!file.good())
+
+        if (!fs::exists(dstImagePath))
         {
-            auto srcImagePath = fs::path(_imageInputPath) / fs::path(imagePath);
-            // TODO: copy image only if the file does not exists at destination path
-            std::ifstream inFile(srcImagePath.string(), std::ios::binary);
-            std::ofstream outFile(dstImagePath.string(), std::ios::binary);
-            if (!inFile.good())
+            std::ifstream file(dstImagePath.string());
+            if (!file.good())
             {
-                std::cerr << "Warning: no such image at path '" << srcImagePath << "'" << std::endl;
-            }
+                auto srcImagePath = fs::path(_imageInputPath) / fs::path(imagePath);
+                // TODO: copy image only if the file does not exists at destination path
+                std::ifstream inFile(srcImagePath.string(), std::ios::binary);
+                std::ofstream outFile(dstImagePath.string(), std::ios::binary);
+                if (!inFile.good())
+                {
+                    std::cerr << "Warning: no such image at path '" << srcImagePath << "'" << std::endl;
+                }
 
-            if (!outFile.good())
-            {
-                std::cerr << "Warning: could not open file for write '" << dstImagePath << "'" << std::endl;
-            }
+                if (!outFile.good())
+                {
+                    std::cerr << "Warning: could not open file for write '" << dstImagePath << "'" << std::endl;
+                }
 
-            outFile << inFile.rdbuf();
-            outFile.close();
-
-            if (inFile.good())
-            {
-                inFile.close();
-            }
-            if (outFile.good())
-            {
+                outFile << inFile.rdbuf();
                 outFile.close();
+
+                if (inFile.good())
+                {
+                    inFile.close();
+                }
+                if (outFile.good())
+                {
+                    outFile.close();
+                }
             }
         }
 

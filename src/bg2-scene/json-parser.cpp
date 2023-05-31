@@ -1,6 +1,8 @@
 
 #include "json-parser.hpp"
 
+#include <limits>
+
 namespace bg2scene {
     namespace json {
 
