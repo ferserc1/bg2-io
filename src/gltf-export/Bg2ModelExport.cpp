@@ -264,6 +264,7 @@ int Bg2ModelExport::addBg2Model(Bg2FileReader& bg2Reader)
             // TODO: rest of the texCoordN, if available
 
             tinygltf::Material mat;
+            bool addModel = true;
             if (materials.find(plist->matName) != materials.end())
             {
                 auto bg2Mat = materials[plist->matName];
@@ -293,24 +294,32 @@ int Bg2ModelExport::addBg2Model(Bg2FileReader& bg2Reader)
                 }
 
                 // TODO: Rest of material properties
+
+                // Only add model if it is visible in material settings
+                addModel = bg2Mat.visible;
             }
             else
             {
                 mat.pbrMetallicRoughness.baseColorFactor = { 1.f, 1.f, 1.f, 1.f };
             }
-            auto matIndex = static_cast<int>(_model->materials.size());
-            _model->materials.push_back(mat);
-            
-            meshIndex = addMesh(positions, normals, texCoord0, index, matIndex);
 
-            // Create a new node for the mesh
-            if (_lastNodeIndex == -1)
+            // Only add model if it is visible in material settings
+            if (addModel)
             {
-                tinygltf::Node node;
-                node.mesh = meshIndex;
-                _lastNodeIndex = static_cast<int>(scene.nodes.size());
-                scene.nodes.push_back(static_cast<int>(scene.nodes.size()));
-                _model->nodes.push_back(node);
+                auto matIndex = static_cast<int>(_model->materials.size());
+                _model->materials.push_back(mat);
+            
+                meshIndex = addMesh(positions, normals, texCoord0, index, matIndex);
+
+                // Create a new node for the mesh
+                if (_lastNodeIndex == -1)
+                {
+                    tinygltf::Node node;
+                    node.mesh = meshIndex;
+                    _lastNodeIndex = static_cast<int>(scene.nodes.size());
+                    scene.nodes.push_back(static_cast<int>(scene.nodes.size()));
+                    _model->nodes.push_back(node);
+                }
             }
         }
         else
@@ -450,7 +459,7 @@ int Bg2ModelExport::getImageIndex(const std::string& imagePath)
         if (!file.good())
         {
             auto srcImagePath = fs::path(_imageInputPath) / fs::path(imagePath);
-            // TODO: copy image
+            // TODO: copy image only if the file does not exists at destination path
             std::ifstream inFile(srcImagePath.string(), std::ios::binary);
             std::ofstream outFile(dstImagePath.string(), std::ios::binary);
             if (!inFile.good())
