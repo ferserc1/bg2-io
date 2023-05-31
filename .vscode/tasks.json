@@ -326,5 +326,30 @@
                 "isDefault": true
             }
         },
+
+        {
+            "type": "shell",
+            "label": "Mac build gltf-export",
+            "command": "xcodebuild",
+            "args": [
+                "-project",
+                "Xcode/bg2-io.xcodeproj",
+                "-scheme",
+                "gltf-export",
+                "ONLY_ACTIVE_ARCH=NO",
+                "-configuration",
+                "Release"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
     ]
 }

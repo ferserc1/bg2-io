@@ -1291,6 +1291,7 @@
 				ED3583952A1E2087008F8EF1 /* Sources */,
 				ED35839E2A1E2087008F8EF1 /* Frameworks */,
 				ED35839F2A1E2087008F8EF1 /* CopyFiles */,
+				ED43D8D32A287CD8002A57F5 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1435,6 +1436,26 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		ED43D8D32A287CD8002A57F5 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nmkdir -p ${PROJECT_DIR}/../bin/macOS-universal\ncp ${CONFIGURATION_BUILD_DIR}/gltf-export ${PROJECT_DIR}/../bin/macOS-universal/gltf-export\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		ED3583952A1E2087008F8EF1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -1562,7 +1583,10 @@
 					"$(PROJECT_DIR)/../src/bg2-scene",
 					"$(PROJECT_DIR)/../src/deps/**",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SYMROOT = build;
 			};
 			name = Debug;
 		};
@@ -1580,7 +1604,9 @@
 					"$(PROJECT_DIR)/../src/bg2-scene",
 					"$(PROJECT_DIR)/../src/deps/**",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SYMROOT = build;
 			};
 			name = Release;
 		};

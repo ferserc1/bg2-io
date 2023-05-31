@@ -5,6 +5,7 @@
     "version": "0.2.0",
     "configurations": [
 
+
         {
             "name": "WASM: download scene",
             "program": "${workspaceFolder}/src/wasm/example-donwload-scene.js",
@@ -197,11 +198,7 @@
             "args": [
                 "${workspaceFolder}/resources/cubes.bg2"
             ],
-            "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
-            "environment": [],
-            "externalConsole": false,
-            "MIMode": "lldb",
             "preLaunchTask": "Mac build sample"
         },
 
@@ -213,11 +210,7 @@
             "args": [
                 "${workspaceFolder}/resources/cubes.bg2"
             ],
-            "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
-            "environment": [],
-            "externalConsole": false,
-            "MIMode": "lldb",
             "preLaunchTask": "Mac build bg2json"
         },
 
@@ -229,11 +222,7 @@
             "args": [
                 "${workspaceFolder}/resources/cubes.bg2"
             ],
-            "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
-            "environment": [],
-            "externalConsole": false,
-            "MIMode": "lldb",
             "preLaunchTask": "Mac build bg2obj"
         },
 
@@ -246,12 +235,21 @@
                 "${workspaceFolder}/resources/cubes.bg2",
                 "${workspaceFolder}/resources/cubes_copy.bg2"
             ],
-            "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
-            "environment": [],
-            "externalConsole": false,
-            "MIMode": "lldb",
             "preLaunchTask": "Mac build test-copy"
+        },
+
+        {
+            "name": "gltf-export (Mac)",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/macOS-universal/gltf-export",
+            "args": [
+                "${workspaceFolder}/resources/test-scene/test-scene.vitscnj",
+                "${workspaceFolder}/resources/test-cube.gltf"
+            ],
+            "cwd": "${workspaceFolder}",
+            "preLaunchTask": "Mac build gltf-export"
         }
     ]
 }

@@ -10,6 +10,8 @@ xcuserdata/
 *.xcscmblueprint
 *.xccheckout
 
+Xcode/build
+
 # User-specific files
 *.rsuser
 *.suo
