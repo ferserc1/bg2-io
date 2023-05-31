@@ -52,7 +52,6 @@ void Bg2SceneExport::addSceneFile(const std::string& scenePath, const std::strin
 void Bg2SceneExport::parseNode(bg2scene::json::JsonObject& node, const glm::mat4 & transform, const std::string& basePath, const std::string& outPath)
 {
     auto nodeName = node["name"]->stringValue("");
-    std::cout << nodeName << std::endl;
     glm::mat4 nodeTransform = transform;
     std::string drawableName = "";
     if (node["components"]->isList())
@@ -62,7 +61,6 @@ void Bg2SceneExport::parseNode(bg2scene::json::JsonObject& node, const glm::mat4
             if (comp->isObject())
             {
                 const auto& type = comp->objectValue("type").stringValue("");
-                std::cout << "component type: " << type << std::endl;
                 
                 if (type == "Transform")
                 {
@@ -98,7 +96,6 @@ void Bg2SceneExport::parseNode(bg2scene::json::JsonObject& node, const glm::mat4
             }
 
             if (fs::exists(drawablePath)) {
-                std::cout << drawablePath.string() << std::endl;
                 Bg2FileReader bg2File;
                 bg2File.open(drawablePath.string());
                 Bg2ModelExport modelExport(*_model, drawablePath.parent_path().string(), outPath);

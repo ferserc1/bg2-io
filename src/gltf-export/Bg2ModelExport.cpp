@@ -276,6 +276,10 @@ int Bg2ModelExport::addBg2Model(Bg2FileReader& bg2Reader)
                         bg2Mat.diffuseScale[0], bg2Mat.diffuseScale[1]);
                     mat.pbrMetallicRoughness.baseColorTexture.extensions["KHR_texture_transform"] = textureTransform;
                 }
+                else
+                {
+                    mat.pbrMetallicRoughness.baseColorFactor = { bg2Mat.diffuseColor[0], bg2Mat.diffuseColor[1], bg2Mat.diffuseColor[2], bg2Mat.diffuseColor[3] };
+                }
                 mat.pbrMetallicRoughness.metallicFactor = bg2Mat.metallic;
                 mat.pbrMetallicRoughness.roughnessFactor = bg2Mat.roughness;
 
@@ -451,12 +455,12 @@ int Bg2ModelExport::getImageIndex(const std::string& imagePath)
             std::ofstream outFile(dstImagePath.string(), std::ios::binary);
             if (!inFile.good())
             {
-                std::cout << "Warning: no such image at path '" << srcImagePath << "'" << std::endl;
+                std::cerr << "Warning: no such image at path '" << srcImagePath << "'" << std::endl;
             }
 
             if (!outFile.good())
             {
-                std::cout << "Warning: could not open file for write '" << dstImagePath << "'" << std::endl;
+                std::cerr << "Warning: could not open file for write '" << dstImagePath << "'" << std::endl;
             }
 
             outFile << inFile.rdbuf();
