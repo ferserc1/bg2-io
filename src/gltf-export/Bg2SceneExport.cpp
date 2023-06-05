@@ -124,7 +124,7 @@ void Bg2SceneExport::parseNode(bg2scene::json::JsonObject& node, const glm::mat4
         {
             if (child->isObject())
             {
-                parseNode(child->objectValue(), transform, basePath, outPath);
+                parseNode(child->objectValue(), nodeTransform, basePath, outPath);
             }
         }
     }
