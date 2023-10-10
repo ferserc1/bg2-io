@@ -15,6 +15,10 @@ namespace HelloWorld
             try {
                 Bg2File bg2File = fileReader.open(filePath);    
                 Console.WriteLine("Version: " + bg2File.GetVersion());
+                Console.WriteLine("Material data:");
+                Console.WriteLine(bg2File.materialDataString);
+                Console.WriteLine("Joint data");
+                Console.WriteLine(bg2File.jointDataString);
             }
             catch (Exception e) {
                 Console.WriteLine(e.Message + "\n Cannot read from file");

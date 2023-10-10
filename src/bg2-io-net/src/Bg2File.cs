@@ -5,6 +5,12 @@ namespace bg2io {
         public byte minorVersion;
         public byte revision;
 
+        public Int32 numberOfPlist;
+
+        public string materialDataString;
+
+        public string jointDataString;
+
         public string GetVersion()
         {
             return string.Format("{0}.{1}.{2}", majorVersion, minorVersion, revision);
