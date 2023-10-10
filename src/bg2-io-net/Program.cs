@@ -20,6 +20,12 @@ namespace HelloWorld
                 Console.WriteLine("Joint data");
                 Console.WriteLine(bg2File.jointDataString);
             }
+            catch (IOException err) {
+                Console.WriteLine("File input error: " + err.Message);
+            }
+            catch (bg2io.FormatException err) {
+                Console.WriteLine("File format error: " + err.Message);
+            }
             catch (Exception e) {
                 Console.WriteLine(e.Message + "\n Cannot read from file");
                 return;

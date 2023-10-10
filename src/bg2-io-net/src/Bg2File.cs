@@ -7,9 +7,9 @@ namespace bg2io {
 
         public Int32 numberOfPlist;
 
-        public string materialDataString;
+        public string materialDataString = "";
 
-        public string jointDataString;
+        public string jointDataString = "";
 
         public string GetVersion()
         {

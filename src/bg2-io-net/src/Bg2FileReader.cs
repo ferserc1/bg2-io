@@ -3,20 +3,15 @@ namespace bg2io {
     class Bg2FileReader {
         
         public Bg2File open(string filePath) {
-            try {
-                BinaryReader reader = new BinaryReader(new FileStream(filePath, FileMode.Open));
-                Bg2File bg2File = new Bg2File();
+            BinaryReader reader = new BinaryReader(new FileStream(filePath, FileMode.Open));
+            Bg2File bg2File = new Bg2File();
 
-                ReadHeader(bg2File, reader);
-                ReadPlist(bg2File, reader);
-                
-                reader.Close();
-                return bg2File;
-            }
-            catch (IOException err) {
-                Console.WriteLine(err.Message);
-                return null;
-            }
+            ReadHeader(bg2File, reader);
+            ReadPlist(bg2File, reader);
+            
+            reader.Close();
+            
+            return bg2File;
         }
 
         private void ReadHeader(Bg2File bg2File, BinaryReader reader)
