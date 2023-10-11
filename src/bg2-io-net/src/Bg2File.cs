@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace bg2io {
     public class Bg2File {
         public byte endianess;
@@ -10,6 +12,11 @@ namespace bg2io {
         public string materialDataString = "";
 
         public string jointDataString = "";
+
+        public string componentsDataString = "";
+
+        public List<PolyList> polyLists = new List<PolyList>();
+    
 
         public string GetVersion()
         {

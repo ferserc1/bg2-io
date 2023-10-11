@@ -61,7 +61,63 @@ namespace bg2io {
 
         private void ReadPlist(Bg2File bg2File, BinaryReader reader)
         {
-            // TODO: Parse plists
+            CheckBlock(reader, "plst");
+
+            for (int i = 0; i < bg2File.numberOfPlist; ++i) {
+                bg2File.polyLists.Add(new PolyList());
+            }
+
+
+            bool done = false;
+            int currentPlistIndex = 0;
+            PolyList currentPlist = bg2File.polyLists[currentPlistIndex];
+            while (!done)
+            {
+                string block = ReadBlock(reader);
+                if (block == "pnam") {          // PolyListName
+                    currentPlist.name = ReadString(reader);
+                }
+                else if (block == "mnam") {     // MaterialName
+                    currentPlist.materialName = ReadString(reader);
+                }
+                else if (block == "varr") {     // VertexArray
+                    currentPlist.vertex = ReadFloatArray(reader);
+                }
+                else if (block == "narr") {     // NormalArray
+                    currentPlist.normal = ReadFloatArray(reader);
+                }
+                else if (block == "t0ar") {    // TexCoord0Array
+                    currentPlist.t0Coord = ReadFloatArray(reader);
+                }
+                else if (block == "t1ar") {    // TexCoord1Array
+                    currentPlist.t1Coord = ReadFloatArray(reader);
+                }
+                else if (block == "t2ar") {    // TexCoord2Array
+                    currentPlist.t2Coord = ReadFloatArray(reader);
+                }
+                else if (block == "indx") {     // IndexArray
+                    currentPlist.index = ReadIntArray(reader);
+                }
+                else if (block == "plst" || block == "endf") {  // End file or next plist
+                    if (block == "endf") {  // End file
+                        var cmpsBlock = ReadBlock(reader);  // Check for component data
+                        if (cmpsBlock == "cmps") {
+                            // Components
+                            var components = ReadString(reader);
+                            bg2File.componentsDataString = components;
+                        }
+
+                        done = true;
+                    }
+                    else {
+                        ++currentPlistIndex;
+                        currentPlist = bg2File.polyLists[currentPlistIndex];
+                    }
+                }
+                else {
+                    throw new FormatException("Corrupted poly list data");
+                }
+            }
         }
 
         private string ReadBlock(BinaryReader reader)
@@ -94,6 +150,35 @@ namespace bg2io {
             var strLen = ReadInt32(reader);
             var buffer = reader.ReadBytes(strLen);
             return System.Text.Encoding.ASCII.GetString(buffer);
+        }
+
+        private float[]? ReadFloatArray(BinaryReader reader)
+        {
+            List<float> result = new List<float>();
+            Int32 size = ReadInt32(reader);
+            for (Int32 i = 0; i < size; ++i) {
+                result.Add(ReadFloat(reader));
+            }
+
+            return size > 0 ? result.ToArray() : null;
+        }
+
+        private float ReadFloat(BinaryReader reader)
+        {
+            var data = reader.ReadBytes(4);
+            Array.Reverse(data);
+            return BitConverter.ToSingle(data);
+        }
+
+        private int[]? ReadIntArray(BinaryReader reader)
+        {
+            List<int> result = new List<int>();
+            Int32 size = ReadInt32(reader);
+            for (Int32 i = 0; i < size; ++i) {
+                result.Add(ReadInt32(reader));
+            }
+
+            return size > 0 ? result.ToArray() : null;
         }
     }
 }
