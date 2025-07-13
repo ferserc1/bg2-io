@@ -26,16 +26,12 @@ typedef long long Bg2ioSize;
 
 /**
  * @brief Represents a data buffer
- * 
- * @param mem the memory pointer to the buffer
- * @param length is the size of the buffer that is filled with valid data.
- * @param actualLength is the actual size of the buffer in memory, which may be larger than length.
- * be larger than length
+ *
  */
 typedef struct Bg2ioBufferT {
-    Bg2ioBytePtr mem;
-    Bg2ioSize length;
-    Bg2ioSize actualLength;
+    Bg2ioBytePtr mem;           /* < the memory pointer to the buffer */
+    Bg2ioSize length;           /* < is the size of the buffer that is filled with valid data. */
+    Bg2ioSize actualLength;     /* < is the actual size of the buffer in memory, which may be larger than length. */
 } Bg2ioBuffer;
 
 enum Bg2ioBufferType {
@@ -65,13 +61,10 @@ enum Bg2ioBufferType {
 /**
  * @brief Iterator of a buffer. Used to move through a buffer.
  * 
- * @param buffer pointer to a Buffer structure in memory.
- * @param current current position of the iterator.
- * 
  */
 typedef struct Bg2ioBufferIteratorT {
-    Bg2ioBuffer * buffer;
-    Bg2ioSize current;
+    Bg2ioBuffer * buffer;       /* < pointer to a Buffer structure in memory. */
+    Bg2ioSize current;          /* < current position of the iterator.*/
 } Bg2ioBufferIterator;
 
 /**
@@ -133,7 +126,7 @@ int bg2io_allocateFloatArray(Bg2ioFloatArray * array, int length);
 /**
  * @brief Release the memory of a float 32-bit array.
  * 
- * @param array 
+ * @param array  pointer to the array to be released
  */
 int bg2io_freeFloatArray(Bg2ioFloatArray * array);
 
@@ -148,7 +141,7 @@ int bg2io_allocateIntArray(Bg2ioIntArray * array, int length);
 /**
  * @brief Release the memory of an integer 32-bit array.
  * 
- * @param array 
+ * @param array  pointer to the array to be released
  */
 int bg2io_freeIntArray(Bg2ioIntArray * array);
 

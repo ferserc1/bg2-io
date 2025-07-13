@@ -11,8 +11,8 @@ extern "C" {
 /**
  * @brief Returns the actual size closest to the required size for a buffer
  * 
- * @param requiredSize 
- * @return Bg2ioSize 
+ * @param requiredSize minimum required buffer size
+ * @return Bg2ioSize
  */
 Bg2ioSize bg2io_getActualBufferSize(Bg2ioSize requiredSize);
 
@@ -50,7 +50,7 @@ Bg2ioSize bg2io_reserveBuffer(Bg2ioBuffer *buffer, Bg2ioSize requiredSize);
  * buffer attribute will be null. This call does not clear the buffer parameter,
  * but clears and initializes its contents.
  * 
- * @param buffer 
+ * @param buffer buffer we want to release
  */
 void bg2io_freeBuffer(Bg2ioBuffer *buffer);
 

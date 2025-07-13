@@ -52,7 +52,7 @@ Bg2ioSize bg2io_readByte(Bg2ioBufferIterator *it, unsigned char *out);
 /**
  * @brief Read a block from the buffer iterator
  * 
- * @param it 
+ * @param it iterator of the buffer
  * @return unsigned int The reade block, thats it, one of the Bg2ioBlockType enum, or:
  * - BG2IO_ERR_INVALID_BLOCK if the buffer does not contain a valid block at the iterator
  *   position. In this case, the position of the iterator will be reset to the same position 
@@ -67,7 +67,6 @@ unsigned int bg2io_readBlock(Bg2ioBufferIterator *it);
  * 
  * @param it input buffer iterator
  * @param out output byte
- * @param swapBytes
  * @return Bg2ioSize Returns the remaining buffer size of:
  *  - BG2IO_ERR_INVALID_PTR if the buffer is invalid
  *  - BG2IO_ERR_ITERATOR_OUT_OF_BOUNDS if the buffer iterator current position
@@ -83,7 +82,6 @@ Bg2ioSize bg2io_readInteger(Bg2ioBufferIterator *it, int *out);
  * 
  * @param it input buffer iterator
  * @param out output byte
- * @param swapBytes
  * @return Bg2ioSize Returns the remaining buffer size or:
  *  - BG2IO_ERR_INVALID_PTR if the buffer is invalid
  *  - BG2IO_ERR_ITERATOR_OUT_OF_BOUNDS if the buffer iterator current position
