@@ -12,6 +12,7 @@
 #define ARR_SIZE(v,T)  v.length * sizeof(T) + sizeof(int)
 
 #define ASSERT_ERR(e,writtenBytes)   if (e < 0) return e; else writtenBytes += e
+#define ASSERT_ERR_NO_INC(e)         if (e < 0) return e
 
 
 Bg2ioSize calculatePolyListSize(Bg2File *file);
@@ -91,20 +92,19 @@ int bg2io_writeFileToBuffer(Bg2File * file, Bg2ioBuffer *dest)
 
     Bg2ioBufferIterator it = BG2IO_ITERATOR(dest);
 
-    Bg2ioSize writtenBytes = 0;
     err = writeHeaderToBuffer(file, &it);
-    ASSERT_ERR((int) err, writtenBytes);
+    ASSERT_ERR_NO_INC((int) err);
 
     err = writePolyListsToBuffer(file, &it);
-    ASSERT_ERR((int) err, writtenBytes);
+    ASSERT_ERR_NO_INC((int) err);
 
     if (file->componentData != NULL)
     {
         err = bg2io_writeBlock(&it, bg2io_Components);
-        ASSERT_ERR((int) err, writtenBytes);
+        ASSERT_ERR_NO_INC((int) err);
 
         err = bg2io_writeString(&it, file->componentData);
-        ASSERT_ERR((int) err, writtenBytes);
+        ASSERT_ERR_NO_INC((int) err);
     }
 
     return BG2IO_NO_ERROR;

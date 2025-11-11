@@ -12,15 +12,14 @@ namespace bg2scene {
     namespace json {
 
         class JsonParser {
-            std::istream * stream;
             std::shared_ptr<JsonNode> root;
             std::unique_ptr<JsonNode> current;
             JsonTokenizer tokenizer;
 
         public:
             JsonParser(std::istream * stream) :tokenizer(stream) {}
-            JsonParser(const std::string& buffer) :_sstream(buffer), tokenizer(&_sstream) {}
-            JsonParser(const char* buffer) :_sstream(buffer), tokenizer(&_sstream) {}
+            JsonParser(const std::string& buffer) :tokenizer(&_sstream), _sstream(buffer) {}
+            JsonParser(const char* buffer) :tokenizer(&_sstream), _sstream(buffer) {}
 
             std::shared_ptr<JsonNode> & parse();
 
