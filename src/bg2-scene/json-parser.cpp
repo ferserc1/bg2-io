@@ -139,7 +139,7 @@ namespace bg2scene {
                     float fValue = stof(value);
                     node->setValue(fValue);
                 }
-                catch (std::out_of_range) {
+                catch (std::out_of_range const &) {
                     double dValue = stod(value);
                     if (static_cast<float>(dValue) == std::numeric_limits<float>::infinity()) {
                         node->setValue(std::numeric_limits<float>::max());

@@ -7,24 +7,26 @@
 extern "C" {
 #endif
 
+#define BG2IO_MAKE_ID(a, b, c, d) ( ((int)(a) << 24) | ((int)(b) << 16) | ((int)(c) << 8) | (int)(d) )
+
 enum Bg2ioBlockType {
-    bg2io_Header = 'hedr',
-    bg2io_PolyList = 'plst',
-    bg2io_VertexArray = 'varr',
-    bg2io_NormalArray = 'narr',
-    bg2io_TexCoord0Array = 't0ar',
-    bg2io_TexCoord1Array = 't1ar',
-    bg2io_TexCoord2Array = 't2ar',
-    bg2io_TexCoord3Array = 't3ar',
-    bg2io_TexCoord4Array = 't4ar',
-    bg2io_IndexArray = 'indx',
-    bg2io_Materials = 'mtrl',
-    bg2io_PlistName = 'pnam',
-    bg2io_MatName = 'mnam',
-    bg2io_ShadowProjector = 'proj',
-    bg2io_Joint = 'join',
-    bg2io_End = 'endf',
-    bg2io_Components = 'cmps'
+    bg2io_Header = BG2IO_MAKE_ID('h', 'e', 'd', 'r'),
+    bg2io_PolyList = BG2IO_MAKE_ID('p', 'l', 's', 't'),
+    bg2io_VertexArray = BG2IO_MAKE_ID('v', 'a', 'r', 'r'),
+    bg2io_NormalArray = BG2IO_MAKE_ID('n', 'a', 'r', 'r'),
+    bg2io_TexCoord0Array = BG2IO_MAKE_ID('t', '0', 'a', 'r'),
+    bg2io_TexCoord1Array = BG2IO_MAKE_ID('t', '1', 'a', 'r'),
+    bg2io_TexCoord2Array = BG2IO_MAKE_ID('t', '2', 'a', 'r'),
+    bg2io_TexCoord3Array = BG2IO_MAKE_ID('t', '3', 'a', 'r'),
+    bg2io_TexCoord4Array = BG2IO_MAKE_ID('t', '4', 'a', 'r'),
+    bg2io_IndexArray = BG2IO_MAKE_ID('i', 'n', 'd', 'x'),
+    bg2io_Materials = BG2IO_MAKE_ID('m', 't', 'r', 'l'),
+    bg2io_PlistName = BG2IO_MAKE_ID('p', 'n', 'a', 'm'),
+    bg2io_MatName = BG2IO_MAKE_ID('m', 'n', 'a', 'm'),
+    bg2io_ShadowProjector = BG2IO_MAKE_ID('p', 'r', 'o', 'j'),
+    bg2io_Joint = BG2IO_MAKE_ID('j', 'o', 'i', 'n'),
+    bg2io_End = BG2IO_MAKE_ID('e', 'n', 'd', 'f'),
+    bg2io_Components = BG2IO_MAKE_ID('c', 'm', 'p', 's')
 };
 
 /**
